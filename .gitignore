@@ -1,0 +1,13 @@
+# Windows & Editor artifacts
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.tmp
+*.temp
+
+# Python / Cache
+__pycache__/
+*.pyc
+
+# Local backup (optional)
+# Simulasi NPA_backup.xlsx
