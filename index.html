@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kalkulator & Simulasi Pajak Air Tanah (PAT) Progresif</title>
+  <title>Simulasi Nilai Perolehan Air & Pajak Air Tanah - Pergub Sulbar No. 3/2025</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,13 +17,6 @@
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
           },
           colors: {
-            navy: {
-              50: '#f0f4f9',
-              100: '#e1e9f2',
-              600: '#1e40af',
-              800: '#1e293b',
-              900: '#0f172a',
-            },
             brand: {
               primary: '#1F497D',
               secondary: '#2E75B6',
@@ -48,17 +41,17 @@
   <header class="bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-950 text-white shadow-lg sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-3.5">
           <div class="w-11 h-11 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-300 text-xl shadow-inner">
             <i class="fa-solid fa-water"></i>
           </div>
           <div>
-            <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-              SIMULASI TARIF NPA PROGRESIF
-              <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-semibold">A1 - D5</span>
+            <h1 class="text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-white flex flex-wrap items-center gap-2">
+              SIMULASI PERHITUNGAN NILAI PEROLEHAN AIR & PAJAK AIR TANAH
+              <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-semibold">Pergub Sulbar No. 3/2025</span>
             </h1>
             <p class="text-xs sm:text-sm text-slate-300">
-              Sistem Penghitungan Pajak Air Tanah (PAT) Berdasarkan Nilai Perolehan Air & Tarif Blok Progresif
+              Standar Harga Air Baku: <strong>Rp 3.079 / m³</strong> &bull; Bobot Air Tanah: <strong>BAT = 60% S + 40% P</strong> &bull; Tarif Blok Progresif (A1 - D5)
             </p>
           </div>
         </div>
@@ -79,14 +72,17 @@
 
     <!-- NAVIGATION TABS -->
     <div class="flex border-b border-slate-200 gap-2 overflow-x-auto">
-      <button onclick="switchTab('tab-simulasi')" id="btn-tab-simulasi" class="tab-btn px-5 py-3 font-semibold text-sm border-b-2 border-blue-600 text-blue-600 flex items-center gap-2 transition">
-        <i class="fa-solid fa-calculator"></i> Kalkulator & Tabel A1 - D5
+      <button onclick="switchTab('tab-simulasi')" id="btn-tab-simulasi" class="tab-btn px-5 py-3 font-semibold text-sm border-b-2 border-blue-600 text-blue-600 flex items-center gap-2 transition whitespace-nowrap">
+        <i class="fa-solid fa-calculator"></i> Kalkulator & Tabel Utama A1 - D5
       </button>
-      <button onclick="switchTab('tab-matriks')" id="btn-tab-matriks" class="tab-btn px-5 py-3 font-semibold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 transition">
-        <i class="fa-solid fa-table-cells"></i> Matriks Bobot Golongan (20 Golongan)
+      <button onclick="switchTab('tab-lampiran')" id="btn-tab-lampiran" class="tab-btn px-5 py-3 font-semibold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 transition whitespace-nowrap">
+        <i class="fa-solid fa-file-lines"></i> Lampiran III Resmi (Tabel NPA Pergub Sulbar)
       </button>
-      <button onclick="switchTab('tab-panduan')" id="btn-tab-panduan" class="tab-btn px-5 py-3 font-semibold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 transition">
-        <i class="fa-solid fa-circle-info"></i> Panduan Blok Progresif
+      <button onclick="switchTab('tab-matriks')" id="btn-tab-matriks" class="tab-btn px-5 py-3 font-semibold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 transition whitespace-nowrap">
+        <i class="fa-solid fa-table-cells"></i> Matriks Bobot BAT (20 Golongan)
+      </button>
+      <button onclick="switchTab('tab-panduan')" id="btn-tab-panduan" class="tab-btn px-5 py-3 font-semibold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 transition whitespace-nowrap">
+        <i class="fa-solid fa-scale-balanced"></i> Dasar Hukum Pergub Sulbar No. 3/2025
       </button>
     </div>
 
@@ -98,7 +94,7 @@
         <div class="bg-gradient-to-r from-blue-900 to-indigo-900 px-6 py-4 text-white flex items-center justify-between">
           <div class="flex items-center gap-2.5">
             <i class="fa-solid fa-sliders text-blue-300"></i>
-            <h2 class="font-bold text-base sm:text-lg">Kalkulator Interaktif Cepat (Uji Coba 1 Wajib Pajak)</h2>
+            <h2 class="font-bold text-base sm:text-lg">Kalkulator Interaktif Cepat (Simulasi 1 Wajib Pajak)</h2>
           </div>
           <span class="text-xs bg-blue-500/30 text-blue-200 px-2.5 py-1 rounded-md font-medium">Real-Time Reactive</span>
         </div>
@@ -124,17 +120,17 @@
                   Kelompok Pengguna
                 </label>
                 <select id="calc-kelompok" onchange="runCalculator()" class="w-full text-xs sm:text-sm font-medium bg-white border border-slate-300 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
-                  <option value="1" selected>1 - Industri AMDK / Es</option>
-                  <option value="2">2 - Risiko Tinggi</option>
+                  <option value="1" selected>1 - Produk Berupa Air (AMDK/Es)</option>
+                  <option value="2">2 - Risiko Tinggi (Carwash/Manufaktur)</option>
                   <option value="3">3 - Risiko Menengah</option>
                   <option value="4">4 - Risiko Rendah</option>
-                  <option value="5">5 - BUMD SPAM / PDAM</option>
+                  <option value="5">5 - BUMD SPAM / PDAM / Sosial</option>
                 </select>
               </div>
 
               <div>
                 <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">
-                  Golongan Dihasilkan
+                  Golongan Air Tanah
                 </label>
                 <div id="calc-golongan-badge" class="w-full text-center text-sm font-extrabold bg-blue-100 text-blue-900 border border-blue-300 rounded-lg py-2 shadow-inner">
                   B1
@@ -174,15 +170,14 @@
 
           <!-- Breakdown & Output Results (Col 6-12) -->
           <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
-            <!-- Tier Volume Breakdown Mini Table -->
             <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm bg-white">
               <table class="w-full text-xs text-left">
                 <thead class="bg-slate-100 text-slate-700 font-bold uppercase border-b border-slate-200">
                   <tr>
                     <th class="px-3 py-2 text-center">Blok Volume</th>
                     <th class="px-3 py-2 text-right">Volume (m³)</th>
-                    <th class="px-3 py-2 text-right">Bobot SDA</th>
-                    <th class="px-3 py-2 text-right">HDA (Rp)</th>
+                    <th class="px-3 py-2 text-right">BAT (Bobot)</th>
+                    <th class="px-3 py-2 text-right">Tarif NPA (Rp/m³)</th>
                     <th class="px-3 py-2 text-right">NPA Blok (Rp)</th>
                   </tr>
                 </thead>
@@ -194,7 +189,7 @@
                     <td class="px-3 py-2 text-center text-blue-900">TOTAL</td>
                     <td id="calc-total-vol" class="px-3 py-2 text-right text-blue-900">95</td>
                     <td class="px-3 py-2 text-center text-slate-400">-</td>
-                    <td class="px-3 py-2 text-center text-slate-400">3.079</td>
+                    <td class="px-3 py-2 text-center text-slate-400">HAB = 3.079</td>
                     <td id="calc-total-npa" class="px-3 py-2 text-right text-blue-900">Rp 2.881.944</td>
                   </tr>
                 </tfoot>
@@ -225,16 +220,16 @@
           <div>
             <h3 class="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-2">
               <i class="fa-solid fa-list-check text-blue-600"></i>
-              Tabel Simulasi 20 Golongan Wajib Pajak (A1 s/d D5)
+              Daftar Wajib Pajak Sesuai Golongan A1 s/d D5 (Pasal 5 & Lampiran III Pergub Sulbar 3/2025)
             </h3>
             <p class="text-xs text-slate-500 mt-0.5">
-              Tarif Pajak (% Tarif) dan Volume Pengambilan (m³) dapat diubah langsung pada kotak kuning di tabel bawah.
+              Nilai <strong>% Tarif (Manual)</strong> dan <strong>Volume (m³)</strong> dapat Anda ubah langsung pada kotak berwarna kuning di tabel bawah.
             </p>
           </div>
           <div class="flex items-center gap-2">
             <div class="relative">
               <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
-              <input type="text" id="table-search" oninput="filterTable()" placeholder="Cari Golongan / Wajib Pajak..." class="text-xs bg-slate-50 border border-slate-300 rounded-lg pl-8 pr-3 py-2 w-48 sm:w-60 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <input type="text" id="table-search" oninput="filterTable()" placeholder="Cari Golongan / Wajib Pajak..." class="text-xs bg-slate-50 border border-slate-300 rounded-lg pl-8 pr-3 py-2 w-48 sm:w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
             <button onclick="resetTableDefaults()" title="Kembalikan nilai volume & tarif ke default" class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-300 transition">
               <i class="fa-solid fa-arrow-rotate-left"></i> Reset
@@ -248,11 +243,11 @@
               <tr>
                 <th class="px-3 py-3 text-center border-r border-slate-800">No</th>
                 <th class="px-3 py-3 text-center border-r border-slate-800 bg-blue-950">Golongan</th>
-                <th class="px-4 py-3 border-r border-slate-800 min-w-[240px]">Nama Wajib Pajak</th>
+                <th class="px-4 py-3 border-r border-slate-800 min-w-[260px]">Nama Wajib Pajak</th>
                 <th class="px-4 py-3 border-r border-slate-800 min-w-[280px]">Kriteria Sumber Daya Alam</th>
                 <th class="px-3 py-3 text-center border-r border-slate-800">Kel.</th>
                 <th class="px-3 py-3 text-center border-r border-slate-800 bg-amber-950/60 min-w-[90px]">% Tarif (Manual)</th>
-                <th class="px-3 py-3 text-right border-r border-slate-800 bg-amber-950/60 min-w-[110px]">Volume (m³)</th>
+                <th class="px-3 py-3 text-right border-r border-slate-800 bg-amber-950/60 min-w-[110px]">Volume (m³) (Manual)</th>
                 <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">Volume (0-50)</th>
                 <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">Volume (51-500)</th>
                 <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">Volume (501-1000)</th>
@@ -263,8 +258,8 @@
                 <th class="px-3 py-3 text-right border-r border-slate-800 bg-amber-900">NPA (501-1000)</th>
                 <th class="px-3 py-3 text-right border-r border-slate-800 bg-amber-900">NPA (1001-2500)</th>
                 <th class="px-3 py-3 text-right border-r border-slate-800 bg-amber-900">NPA (>2500)</th>
-                <th class="px-4 py-3 text-right border-r border-slate-800 bg-emerald-950">Total NPA (Rp)</th>
-                <th class="px-4 py-3 text-right bg-emerald-900">PAJAK TERUTANG (Rp)</th>
+                <th class="px-4 py-3 text-right border-r border-slate-800 bg-emerald-950">Total NPA Progresif (Rp)</th>
+                <th class="px-4 py-3 text-right bg-emerald-900">PAJAK TERUTANG PROGRESIF (Rp)</th>
               </tr>
             </thead>
             <tbody id="master-table-body" class="divide-y divide-slate-200 font-medium">
@@ -280,15 +275,62 @@
       </div>
     </div>
 
-    <!-- TAB 2: MATRIKS BOBOT REFERENSI -->
+    <!-- TAB 2: LAMPIRAN III PERGUB SULBAR (TABEL RESMI NPA) -->
+    <div id="tab-lampiran" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-6">
+        <div>
+          <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+            <i class="fa-solid fa-file-invoice-dollar text-blue-600"></i>
+            Lampiran III Peraturan Gubernur Sulawesi Barat Nomor 3 Tahun 2025
+          </h3>
+          <p class="text-xs text-slate-500 mt-1">
+            Tabel Resmi Penghitungan Bobot Air Tanah (BAT), Harga Air Baku (HAB = Rp 3.079/m³), dan Nilai Perolehan Air Tanah (NPA = HAB × BAT).
+          </p>
+        </div>
+
+        <!-- Filter Kriteria Dropdown for Lampiran III -->
+        <div class="flex items-center gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <label class="text-xs font-bold text-slate-700 uppercase">Pilih Bagian Kriteria SDA:</label>
+          <select id="select-lampiran-filter" onchange="renderLampiranTab()" class="text-xs font-semibold bg-white border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+            <option value="ALL">Tampilkan Semua Kriteria (I, II, III, IV)</option>
+            <option value="I">I. Kualitas Baik, Ada Alternatif (SDA 60% = 9,6)</option>
+            <option value="II">II. Kualitas Baik, Tidak Ada Alternatif (SDA 60% = 5,4)</option>
+            <option value="III">III. Kualitas Tidak Baik, Ada Alternatif (SDA 60% = 2,4)</option>
+            <option value="IV">IV. Kualitas Tidak Baik, Tidak Ada Alternatif (SDA 60% = 0,6)</option>
+          </select>
+        </div>
+
+        <div class="table-container overflow-x-auto border border-slate-200 rounded-xl">
+          <table class="w-full text-left text-xs whitespace-nowrap">
+            <thead class="bg-slate-900 text-white font-bold uppercase tracking-wider">
+              <tr>
+                <th class="px-3 py-3 text-center border-r border-slate-800">No</th>
+                <th class="px-4 py-3 border-r border-slate-800">Kelompok Peruntukan</th>
+                <th class="px-4 py-3 text-center border-r border-slate-800">Komponen Pengambilan (m³)</th>
+                <th class="px-4 py-3 text-center border-r border-slate-800 bg-blue-950">Komponen SDA (60% S)</th>
+                <th class="px-4 py-3 text-center border-r border-slate-800 bg-indigo-950">Komponen Peruntukan (40% P)</th>
+                <th class="px-4 py-3 text-right border-r border-slate-800 bg-slate-800">BAT (60%S + 40%P)</th>
+                <th class="px-4 py-3 text-right border-r border-slate-800">HAB (Rp/m³)</th>
+                <th class="px-4 py-3 text-right bg-emerald-950 text-emerald-300">Tarif NPA Resmi (Rp/m³)</th>
+              </tr>
+            </thead>
+            <tbody id="lampiran-table-body" class="divide-y divide-slate-100 font-medium">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: MATRIKS BOBOT BAT REFERENSI -->
     <div id="tab-matriks" class="tab-content hidden space-y-6">
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
         <h3 class="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
           <i class="fa-solid fa-table-cells text-blue-600"></i>
-          Matriks Bobot Komponen Sumber Daya Alam (20 Golongan A1 s/d D5)
+          Matriks Bobot Air Tanah (BAT) 20 Golongan A1 s/d D5
         </h3>
         <p class="text-xs text-slate-500 mb-6">
-          Standar Harga Dasar Air (HDA) = <strong>Rp 3.079 / m³</strong>. Nilai Perolehan Air (NPA) dihitung dengan mengalikan Bobot pada tabel ini dengan HDA.
+          Koefisien Bobot Air Tanah (BAT) per kubikasi volume pengambilan berdasarkan Lampiran I & Lampiran III Pergub Sulbar No. 3 Tahun 2025.
         </p>
 
         <div class="table-container overflow-x-auto border border-slate-200 rounded-xl">
@@ -316,72 +358,81 @@
       </div>
     </div>
 
-    <!-- TAB 3: PANDUAN BLOK PROGRESIF -->
+    <!-- TAB 4: DASAR HUKUM PERGUB SULBAR -->
     <div id="tab-panduan" class="tab-content hidden space-y-6">
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-6">
         <div>
           <h3 class="font-bold text-slate-900 text-lg mb-1 flex items-center gap-2">
-            <i class="fa-solid fa-graduation-cap text-blue-600"></i>
-            Mengapa Sistem Tarif Blok Progresif Diterapkan?
+            <i class="fa-solid fa-scale-balanced text-blue-600"></i>
+            Dasar Hukum & Ketentuan Penting Pergub Sulawesi Barat No. 3 Tahun 2025
           </h3>
           <p class="text-xs text-slate-500">
-            Penjelasan prinsip keadilan dan kelestarian lingkungan dalam pemungutan Pajak Air Tanah.
+            Ditetapkan di Mamuju pada tanggal 10 Januari 2025 oleh Pj. Gubernur Bahtiar Baharuddin.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="p-5 rounded-xl bg-blue-50/60 border border-blue-200">
-            <div class="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold mb-3">1</div>
-            <h4 class="font-bold text-slate-800 text-sm mb-2">Konservasi Air Tanah</h4>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Semakin banyak volume air tanah yang diambil, semakin tinggi bobot pengalinya untuk membatasi eksploitasi berlebihan dan menjaga kestabilan air tanah serta mencegah penurunan muka tanah <em>(land subsidence)</em>.
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <span class="text-xs font-bold text-blue-700 uppercase">Pasal 1 angka 6</span>
+            <h4 class="font-bold text-slate-800 text-sm">Nilai Perolehan Air Tanah (NPA)</h4>
+            <p class="text-slate-600 leading-relaxed">
+              Air Tanah yang akan diambil dan dikenai pajak Air Tanah, besarnya sama dengan Harga Air Baku (HAB) dikali dengan Bobot Air Tanah (BAT).
             </p>
           </div>
 
-          <div class="p-5 rounded-xl bg-emerald-50/60 border border-emerald-200">
-            <div class="w-9 h-9 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold mb-3">2</div>
-            <h4 class="font-bold text-slate-800 text-sm mb-2">Prinsip Keadilan Wajib Pajak</h4>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Volume pemakaian awal (0-50 m³) tetap dihitung dengan tarif termurah di Blok 1. Wajib pajak tidak langsung dikenakan tarif tertinggi untuk seluruh kubikasi airnya.
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <span class="text-xs font-bold text-blue-700 uppercase">Pasal 6 ayat 1</span>
+            <h4 class="font-bold text-slate-800 text-sm">Mandat Perhitungan Progresif</h4>
+            <p class="text-slate-600 leading-relaxed">
+              Komponen peruntukan dan pengelolaan memiliki nilai berdasarkan kelompok Volume Pengambilan dan peruntukan yang <strong>DIHITUNG SECARA PROGRESIF</strong> sebagaimana tercantum dalam Lampiran I.
             </p>
           </div>
 
-          <div class="p-5 rounded-xl bg-amber-50/60 border border-amber-200">
-            <div class="w-9 h-9 rounded-lg bg-amber-600 text-white flex items-center justify-center font-bold mb-3">3</div>
-            <h4 class="font-bold text-slate-800 text-sm mb-2">Kapasitas Maksimal Blok 4</h4>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Rentang Blok 4 adalah 1.001 s/d 2.500 m³. Karena volume 0-1.000 m³ sudah tertampung di Blok 1, 2, dan 3 (50 + 450 + 500 = 1.000), maka kapasitas bersih Blok 4 adalah <strong>1.500 m³</strong> (2.500 - 1.000).
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <span class="text-xs font-bold text-blue-700 uppercase">Pasal 7 ayat 3</span>
+            <h4 class="font-bold text-slate-800 text-sm">Formula Bobot Air Tanah (BAT)</h4>
+            <p class="text-slate-600 leading-relaxed font-mono">
+              BAT = 60% S (Sumber Daya Alam) + 40% P (Peruntukan & Pengelolaan)
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <span class="text-xs font-bold text-blue-700 uppercase">Pasal 11 & Lampiran II</span>
+            <h4 class="font-bold text-slate-800 text-sm">Besaran Harga Air Baku (HAB)</h4>
+            <p class="text-slate-600 leading-relaxed font-mono">
+              BPH = Rp 1.479/m³ &bull; BPL = Rp 1.600/m³ &bull; <strong>HAB = Rp 3.079 / m³</strong>
             </p>
           </div>
         </div>
 
-        <!-- Visual Formula Box -->
-        <div class="bg-slate-900 text-white p-6 rounded-xl">
-          <h4 class="font-bold text-blue-300 text-sm uppercase tracking-wider mb-4">Rumus Pembagian Volume per Blok di Aplikasi</h4>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs font-mono">
-            <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
-              <span class="text-blue-400 font-bold block mb-1">Volume (0-50):</span>
-              <code>= MIN(Volume, 50)</code>
+        <!-- Klasifikasi Kelompok Pengguna (Pasal 5) -->
+        <div class="border border-slate-200 rounded-xl overflow-hidden">
+          <div class="bg-slate-100 px-4 py-2.5 font-bold text-slate-800 text-xs uppercase tracking-wider">
+            Klasifikasi Kelompok Pengguna (Pasal 5 ayat 1)
+          </div>
+          <div class="divide-y divide-slate-100 text-xs">
+            <div class="p-3 grid grid-cols-1 sm:grid-cols-4 gap-2">
+              <span class="font-bold text-blue-900">Kelompok 1</span>
+              <span class="sm:col-span-3 text-slate-700">Produk berupa air (Industri Air Minum dalam Kemasan / AMDK, Pabrik Es Kristal, Depot Air Minum).</span>
             </div>
-            <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
-              <span class="text-blue-400 font-bold block mb-1">Volume (51-500):</span>
-              <code>= MAX(0, MIN(Volume, 500) - 50)</code>
+            <div class="p-3 grid grid-cols-1 sm:grid-cols-4 gap-2">
+              <span class="font-bold text-blue-900">Kelompok 2</span>
+              <span class="sm:col-span-3 text-slate-700">Produk bukan air, kegiatan usaha dengan <strong>tingkat risiko tinggi</strong> (Carwash risiko tinggi, industri kimia, manufaktur tekstil, hotel bintang 3, 4, 5).</span>
             </div>
-            <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
-              <span class="text-blue-400 font-bold block mb-1">Volume (501-1000):</span>
-              <code>= MAX(0, MIN(Volume, 1000) - 500)</code>
+            <div class="p-3 grid grid-cols-1 sm:grid-cols-4 gap-2">
+              <span class="font-bold text-blue-900">Kelompok 3</span>
+              <span class="sm:col-span-3 text-slate-700">Produk bukan air, kegiatan usaha dengan <strong>tingkat risiko menengah</strong> (Carwash risiko menengah, hotel bintang 1-2, pabrik makanan olahan, restoran, kantor).</span>
             </div>
-            <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
-              <span class="text-blue-400 font-bold block mb-1">Volume (1001-2500):</span>
-              <code>= MAX(0, MIN(Volume, 2500) - 1000)</code>
+            <div class="p-3 grid grid-cols-1 sm:grid-cols-4 gap-2">
+              <span class="font-bold text-blue-900">Kelompok 4</span>
+              <span class="sm:col-span-3 text-slate-700">Produk bukan air, kegiatan usaha dengan <strong>tingkat risiko rendah</strong> (Carwash risiko rendah, agro industri kecil, usaha mikro/kecil, ruko).</span>
             </div>
-            <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
-              <span class="text-blue-400 font-bold block mb-1">Volume (>2500):</span>
-              <code>= MAX(0, Volume - 2500)</code>
-            </div>
-            <div class="bg-emerald-950 p-3 rounded-lg border border-emerald-800">
-              <span class="text-emerald-400 font-bold block mb-1">Pajak Terutang (Rp):</span>
-              <code>= Total NPA Progresif × % Tarif</code>
+            <div class="p-3 grid grid-cols-1 sm:grid-cols-4 gap-2">
+              <span class="font-bold text-blue-900">Kelompok 5</span>
+              <span class="sm:col-span-3 text-slate-700">
+                1. Kegiatan sosial, pendidikan, kesehatan dasar, atau lembaga pemerintahan (produk bukan air).<br>
+                2. BUMN / BUMD / BUMDes penyelenggara Sistem Penyediaan Air Minum (PDAM / SPAM) atau pemanfaatan panas bumi langsung (produk berupa air).
+              </span>
             </div>
           </div>
         </div>
@@ -392,47 +443,217 @@
 
   <!-- FOOTER -->
   <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4">
-      Aplikasi Simulasi & Kalkulator Pajak Air Tanah (PAT) Progresif Golongan A1 - D5 &bull; Standar Peraturan Daerah & UU HKPD
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>Simulasi Nilai Perolehan Air & Pajak Air Tanah (PAT) Progresif Golongan A1 - D5</span>
+      <span class="font-medium text-slate-600">Peraturan Gubernur Sulawesi Barat Nomor 3 Tahun 2025</span>
     </div>
   </footer>
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Constant HDA
     const HDA = 3079;
 
-    // 20 Golongan Data (A1 to D5)
+    // Master 20 Golongan Data with User Customization
     const MASTER_DATA = [
       { no: 1, gol: 'A1', nama: 'Industri Air Minum dalam Kemasan (AMDK)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 1, tarif: 10.0, vol: 1200, bobot: [13.2, 15.0, 17.7, 21.752, 27.824] },
-      { no: 2, gol: 'A2', nama: 'Industri Tekstil (risiko tinggi)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 2, tarif: 10.0, vol: 3000, bobot: [12.4, 13.8, 15.9, 19.052, 23.776] },
-      { no: 3, gol: 'A3', nama: 'Industri Tekstil (risiko menengah)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 3, tarif: 10.0, vol: 1500, bobot: [11.6, 12.6, 14.1, 16.352, 19.724] },
-      { no: 4, gol: 'A4', nama: 'Pabrik Makanan Olahan (risiko rendah)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 4, tarif: 10.0, vol: 450, bobot: [10.8, 11.4, 12.3, 13.652, 15.676] },
-      { no: 5, gol: 'A5', nama: 'BUMD SPAM / PDAM', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 5, tarif: 2.0, vol: 5000, bobot: [10.0, 10.2, 10.5, 10.952, 11.624] },
+      { no: 2, gol: 'A2', nama: 'Carwash (Risiko Tinggi)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 2, tarif: 10.0, vol: 3000, bobot: [12.4, 13.8, 15.9, 19.052, 23.776] },
+      { no: 3, gol: 'A3', nama: 'Carwash (Risiko Menengah)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 3, tarif: 10.0, vol: 1500, bobot: [11.6, 12.6, 14.1, 16.352, 19.724] },
+      { no: 4, gol: 'A4', nama: 'Pabrik Makanan Olahan (Risiko Rendah)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 4, tarif: 10.0, vol: 450, bobot: [10.8, 11.4, 12.3, 13.652, 15.676] },
+      { no: 5, gol: 'A5', nama: 'BUMD SPAM / PDAM Penyelenggara Air Minum', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 5, tarif: 2.0, vol: 5000, bobot: [10.0, 10.2, 10.5, 10.952, 11.624] },
 
-      { no: 6, gol: 'B1', nama: 'Industri Air Minum dalam Kemasan / Es Kristal', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 1, tarif: 10.0, vol: 95, bobot: [9.0, 10.8, 13.5, 17.552, 23.624] },
-      { no: 7, gol: 'B2', nama: 'Hotel Bintang 3, 4, dan 5 (risiko tinggi)', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 2, tarif: 10.0, vol: 2500, bobot: [8.2, 9.6, 11.7, 14.852, 19.576] },
-      { no: 8, gol: 'B3', nama: 'Pabrik Kimia (risiko menengah)', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 3, tarif: 10.0, vol: 800, bobot: [7.4, 8.4, 9.9, 12.152, 15.524] },
-      { no: 9, gol: 'B4', nama: 'Hotel Bintang 1 dan 2 (risiko rendah)', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 4, tarif: 10.0, vol: 200, bobot: [6.6, 7.2, 8.1, 9.452, 11.476] },
-      { no: 10, gol: 'B5', nama: 'BUMD SPAM / PDAM', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 5, tarif: 2.0, vol: 4500, bobot: [5.8, 6.0, 6.3, 6.752, 7.424] },
+      { no: 6, gol: 'B1', nama: 'Industri Air Minum dalam Kemasan / Pabrik Es', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 1, tarif: 10.0, vol: 95, bobot: [9.0, 10.8, 13.5, 17.552, 23.624] },
+      { no: 7, gol: 'B2', nama: 'Hotel Bintang 3, 4, 5 (Risiko Tinggi)', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 2, tarif: 10.0, vol: 2500, bobot: [8.2, 9.6, 11.7, 14.852, 19.576] },
+      { no: 8, gol: 'B3', nama: 'Pabrik Kimia / Manufaktur (Risiko Menengah)', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 3, tarif: 10.0, vol: 800, bobot: [7.4, 8.4, 9.9, 12.152, 15.524] },
+      { no: 9, gol: 'B4', nama: 'Hotel Bintang 1 dan 2 (Risiko Rendah)', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 4, tarif: 10.0, vol: 200, bobot: [6.6, 7.2, 8.1, 9.452, 11.476] },
+      { no: 10, gol: 'B5', nama: 'BUMD SPAM / PDAM Penyelenggara Air Minum', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 5, tarif: 2.0, vol: 4500, bobot: [5.8, 6.0, 6.3, 6.752, 7.424] },
 
-      { no: 11, gol: 'C1', nama: 'Industri Bahan Baku Es / Pengolahan Air', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 1, tarif: 10.0, vol: 600, bobot: [6.0, 7.8, 10.5, 14.552, 20.624] },
-      { no: 12, gol: 'C2', nama: 'Pabrik Makanan Olahan / Kimia (risiko tinggi)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 2, tarif: 10.0, vol: 1800, bobot: [5.2, 6.6, 8.7, 11.852, 16.576] },
-      { no: 13, gol: 'C3', nama: 'Pabrik Makanan Olahan (risiko menengah)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 3, tarif: 10.0, vol: 350, bobot: [4.4, 5.4, 6.9, 9.152, 12.524] },
-      { no: 14, gol: 'C4', nama: 'Industri Tekstil / Kimia (risiko rendah)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 4, tarif: 10.0, vol: 120, bobot: [3.6, 4.2, 5.1, 6.452, 8.476] },
-      { no: 15, gol: 'C5', nama: 'BUMD SPAM / PDAM (Kebutuhan Dasar)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 5, tarif: 2.0, vol: 3500, bobot: [2.8, 3.0, 3.3, 3.752, 4.424] },
+      { no: 11, gol: 'C1', nama: 'Industri Air Minum / Pengolahan Air Baku', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 1, tarif: 10.0, vol: 600, bobot: [6.0, 7.8, 10.5, 14.552, 20.624] },
+      { no: 12, gol: 'C2', nama: 'Pabrik Makanan Olahan / Kimia (Risiko Tinggi)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 2, tarif: 10.0, vol: 1800, bobot: [5.2, 6.6, 8.7, 11.852, 16.576] },
+      { no: 13, gol: 'C3', nama: 'Pabrik Makanan Olahan (Risiko Menengah)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 3, tarif: 10.0, vol: 350, bobot: [4.4, 5.4, 6.9, 9.152, 12.524] },
+      { no: 14, gol: 'C4', nama: 'Carwash (Risiko Rendah)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 4, tarif: 10.0, vol: 120, bobot: [3.6, 4.2, 5.1, 6.452, 8.476] },
+      { no: 15, gol: 'C5', nama: 'BUMD SPAM / Layanan Publik Sosial-Pemerintah', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 5, tarif: 2.0, vol: 3500, bobot: [2.8, 3.0, 3.3, 3.752, 4.424] },
 
-      { no: 16, gol: 'D1', nama: 'Industri Pengolahan Air Tanah Khusus', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 1, tarif: 10.0, vol: 400, bobot: [4.2, 6.0, 8.7, 12.752, 18.824] },
-      { no: 17, gol: 'D2', nama: 'Agro Industri (risiko tinggi)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 2, tarif: 10.0, vol: 2200, bobot: [3.4, 4.8, 6.9, 10.052, 14.776] },
-      { no: 18, gol: 'D3', nama: 'Hotel Bintang / Agro Industri (risiko menengah)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 3, tarif: 10.0, vol: 750, bobot: [2.6, 3.6, 5.1, 7.352, 10.724] },
-      { no: 19, gol: 'D4', nama: 'Agro Industri (risiko rendah)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 4, tarif: 10.0, vol: 90, bobot: [1.8, 2.4, 3.3, 4.652, 6.676] },
-      { no: 20, gol: 'D5', nama: 'BUMD SPAM / PDAM (Kebutuhan Dasar)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 5, tarif: 2.0, vol: 3000, bobot: [1.0, 1.2, 1.5, 1.952, 2.624] },
+      { no: 16, gol: 'D1', nama: 'Industri Minuman Olahan', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 1, tarif: 10.0, vol: 400, bobot: [4.2, 6.0, 8.7, 12.752, 18.824] },
+      { no: 17, gol: 'D2', nama: 'Agro Industri / Perkebunan (Risiko Tinggi)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 2, tarif: 10.0, vol: 2200, bobot: [3.4, 4.8, 6.9, 10.052, 14.776] },
+      { no: 18, gol: 'D3', nama: 'Hotel Bintang / Agro Industri (Risiko Menengah)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 3, tarif: 10.0, vol: 750, bobot: [2.6, 3.6, 5.1, 7.352, 10.724] },
+      { no: 19, gol: 'D4', nama: 'Agro Industri (Risiko Rendah)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 4, tarif: 10.0, vol: 90, bobot: [1.8, 2.4, 3.3, 4.652, 6.676] },
+      { no: 20, gol: 'D5', nama: 'BUMD SPAM / Fasilitas Sosial & Kesehatan', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 5, tarif: 2.0, vol: 3000, bobot: [1.0, 1.2, 1.5, 1.952, 2.624] },
     ];
 
-    // Current working rows in table
+    // Lampiran III Pergub Sulbar Raw Data
+    const LAMPIRAN_III = [
+      {
+        kriteriaCode: 'I',
+        title: 'I. AIR TANAH, KUALITAS BAIK, ADA SUMBER AIR ALTERNATIF (Peringkat 4, Bobot S=16, 60%S = 9,6)',
+        sdaFormula: '16 x 60% = 9,6',
+        groups: [
+          { kel: 'Kelompok 1', rows: [
+            { vol: '0 - 50', pFormula: '9,00 x 40% = 3,60', bat: 13.20, npa: 40643 },
+            { vol: '51 - 500', pFormula: '13,50 x 40% = 5,40', bat: 15.00, npa: 46185 },
+            { vol: '501 - 1.000', pFormula: '20,25 x 40% = 8,10', bat: 17.70, npa: 54498 },
+            { vol: '1.001 - 2.500', pFormula: '30,38 x 40% = 12,15', bat: 21.75, npa: 66974 },
+            { vol: '> 2.500', pFormula: '45,56 x 40% = 18,22', bat: 27.82, npa: 85670 }
+          ]},
+          { kel: 'Kelompok 2', rows: [
+            { vol: '0 - 50', pFormula: '7,00 x 40% = 2,80', bat: 12.40, npa: 38180 },
+            { vol: '51 - 500', pFormula: '10,50 x 40% = 4,20', bat: 13.80, npa: 42490 },
+            { vol: '501 - 1.000', pFormula: '15,75 x 40% = 6,30', bat: 15.90, npa: 48956 },
+            { vol: '1.001 - 2.500', pFormula: '23,63 x 40% = 9,45', bat: 19.05, npa: 58661 },
+            { vol: '> 2.500', pFormula: '35,44 x 40% = 14,18', bat: 23.78, npa: 73206 }
+          ]},
+          { kel: 'Kelompok 3', rows: [
+            { vol: '0 - 50', pFormula: '5,00 x 40% = 2,00', bat: 11.60, npa: 35716 },
+            { vol: '51 - 500', pFormula: '7,50 x 40% = 3,00', bat: 12.60, npa: 38795 },
+            { vol: '501 - 1.000', pFormula: '11,25 x 40% = 4,50', bat: 14.10, npa: 43414 },
+            { vol: '1.001 - 2.500', pFormula: '16,88 x 40% = 6,75', bat: 16.35, npa: 50348 },
+            { vol: '> 2.500', pFormula: '25,31 x 40% = 10,12', bat: 19.72, npa: 60730 }
+          ]},
+          { kel: 'Kelompok 4', rows: [
+            { vol: '0 - 50', pFormula: '3,00 x 40% = 1,20', bat: 10.80, npa: 33253 },
+            { vol: '51 - 500', pFormula: '4,50 x 40% = 1,80', bat: 11.40, npa: 35101 },
+            { vol: '501 - 1.000', pFormula: '6,75 x 40% = 2,70', bat: 12.30, npa: 37872 },
+            { vol: '1.001 - 2.500', pFormula: '10,13 x 40% = 4,05', bat: 13.65, npa: 42035 },
+            { vol: '> 2.500', pFormula: '15,19 x 40% = 6,08', bat: 15.68, npa: 48266 }
+          ]},
+          { kel: 'Kelompok 5', rows: [
+            { vol: '0 - 50', pFormula: '1,00 x 40% = 0,40', bat: 10.00, npa: 30790 },
+            { vol: '51 - 500', pFormula: '1,50 x 40% = 0,60', bat: 10.20, npa: 31406 },
+            { vol: '501 - 1.000', pFormula: '2,25 x 40% = 0,90', bat: 10.50, npa: 32330 },
+            { vol: '1.001 - 2.500', pFormula: '3,38 x 40% = 1,35', bat: 10.95, npa: 33721 },
+            { vol: '> 2.500', pFormula: '5,06 x 40% = 2,02', bat: 11.62, npa: 35790 }
+          ]}
+        ]
+      },
+      {
+        kriteriaCode: 'II',
+        title: 'II. AIR TANAH, KUALITAS BAIK, TIDAK ADA SUMBER AIR ALTERNATIF (Peringkat 3, Bobot S=9, 60%S = 5,4)',
+        sdaFormula: '9 x 60% = 5,4',
+        groups: [
+          { kel: 'Kelompok 1', rows: [
+            { vol: '0 - 50', pFormula: '9,00 x 40% = 3,60', bat: 9.00, npa: 27711 },
+            { vol: '51 - 500', pFormula: '13,50 x 40% = 5,40', bat: 10.80, npa: 33253 },
+            { vol: '501 - 1.000', pFormula: '20,25 x 40% = 8,10', bat: 13.50, npa: 41567 },
+            { vol: '1.001 - 2.500', pFormula: '30,38 x 40% = 12,15', bat: 17.55, npa: 54043 },
+            { vol: '> 2.500', pFormula: '45,56 x 40% = 18,22', bat: 23.62, npa: 72738 }
+          ]},
+          { kel: 'Kelompok 2', rows: [
+            { vol: '0 - 50', pFormula: '7,00 x 40% = 2,80', bat: 8.20, npa: 25248 },
+            { vol: '51 - 500', pFormula: '10,50 x 40% = 4,20', bat: 9.60, npa: 29558 },
+            { vol: '501 - 1.000', pFormula: '15,75 x 40% = 6,30', bat: 11.70, npa: 36024 },
+            { vol: '1.001 - 2.500', pFormula: '23,63 x 40% = 9,45', bat: 14.85, npa: 45729 },
+            { vol: '> 2.500', pFormula: '35,44 x 40% = 14,18', bat: 19.58, npa: 60275 }
+          ]},
+          { kel: 'Kelompok 3', rows: [
+            { vol: '0 - 50', pFormula: '5,00 x 40% = 2,00', bat: 7.40, npa: 22785 },
+            { vol: '51 - 500', pFormula: '7,50 x 40% = 3,00', bat: 8.40, npa: 25864 },
+            { vol: '501 - 1.000', pFormula: '11,25 x 40% = 4,50', bat: 9.90, npa: 30482 },
+            { vol: '1.001 - 2.500', pFormula: '16,88 x 40% = 6,75', bat: 12.15, npa: 37416 },
+            { vol: '> 2.500', pFormula: '25,31 x 40% = 10,12', bat: 15.52, npa: 47798 }
+          ]},
+          { kel: 'Kelompok 4', rows: [
+            { vol: '0 - 50', pFormula: '3,00 x 40% = 1,20', bat: 6.60, npa: 20321 },
+            { vol: '51 - 500', pFormula: '4,50 x 40% = 1,80', bat: 7.20, npa: 22169 },
+            { vol: '501 - 1.000', pFormula: '6,75 x 40% = 2,70', bat: 8.10, npa: 24940 },
+            { vol: '1.001 - 2.500', pFormula: '10,13 x 40% = 4,05', bat: 9.45, npa: 29103 },
+            { vol: '> 2.500', pFormula: '15,19 x 40% = 6,08', bat: 11.48, npa: 35335 }
+          ]},
+          { kel: 'Kelompok 5', rows: [
+            { vol: '0 - 50', pFormula: '1,00 x 40% = 0,40', bat: 5.80, npa: 17858 },
+            { vol: '51 - 500', pFormula: '1,50 x 40% = 0,60', bat: 6.00, npa: 18474 },
+            { vol: '501 - 1.000', pFormula: '2,25 x 40% = 0,90', bat: 6.30, npa: 19398 },
+            { vol: '1.001 - 2.500', pFormula: '3,38 x 40% = 1,35', bat: 6.75, npa: 20789 },
+            { vol: '> 2.500', pFormula: '5,06 x 40% = 2,02', bat: 7.42, npa: 22858 }
+          ]}
+        ]
+      },
+      {
+        kriteriaCode: 'III',
+        title: 'III. AIR TANAH, KUALITAS TIDAK BAIK, ADA SUMBER AIR ALTERNATIF (Peringkat 2, Bobot S=4, 60%S = 2,4)',
+        sdaFormula: '4 x 60% = 2,4',
+        groups: [
+          { kel: 'Kelompok 1', rows: [
+            { vol: '0 - 50', pFormula: '9,00 x 40% = 3,60', bat: 6.00, npa: 18474 },
+            { vol: '51 - 500', pFormula: '13,50 x 40% = 5,40', bat: 7.80, npa: 24016 },
+            { vol: '501 - 1.000', pFormula: '20,25 x 40% = 8,10', bat: 10.50, npa: 32330 },
+            { vol: '1.001 - 2.500', pFormula: '30,38 x 40% = 12,15', bat: 14.55, npa: 44806 },
+            { vol: '> 2.500', pFormula: '45,56 x 40% = 18,22', bat: 20.62, npa: 63501 }
+          ]},
+          { kel: 'Kelompok 2', rows: [
+            { vol: '0 - 50', pFormula: '7,00 x 40% = 2,80', bat: 5.20, npa: 16011 },
+            { vol: '51 - 500', pFormula: '10,50 x 40% = 4,20', bat: 6.60, npa: 20321 },
+            { vol: '501 - 1.000', pFormula: '15,75 x 40% = 6,30', bat: 8.70, npa: 26787 },
+            { vol: '1.001 - 2.500', pFormula: '23,63 x 40% = 9,45', bat: 11.85, npa: 36492 },
+            { vol: '> 2.500', pFormula: '35,44 x 40% = 14,18', bat: 16.58, npa: 51038 }
+          ]},
+          { kel: 'Kelompok 3', rows: [
+            { vol: '0 - 50', pFormula: '5,00 x 40% = 2,00', bat: 4.40, npa: 13548 },
+            { vol: '51 - 500', pFormula: '7,50 x 40% = 3,00', bat: 5.40, npa: 16627 },
+            { vol: '501 - 1.000', pFormula: '11,25 x 40% = 4,50', bat: 6.90, npa: 21245 },
+            { vol: '1.001 - 2.500', pFormula: '16,88 x 40% = 6,75', bat: 9.15, npa: 28179 },
+            { vol: '> 2.500', pFormula: '25,31 x 40% = 10,12', bat: 12.52, npa: 38561 }
+          ]},
+          { kel: 'Kelompok 4', rows: [
+            { vol: '0 - 50', pFormula: '3,00 x 40% = 1,20', bat: 3.60, npa: 11084 },
+            { vol: '51 - 500', pFormula: '4,50 x 40% = 1,80', bat: 4.20, npa: 12932 },
+            { vol: '501 - 1.000', pFormula: '6,75 x 40% = 2,70', bat: 5.10, npa: 15703 },
+            { vol: '1.001 - 2.500', pFormula: '10,13 x 40% = 4,05', bat: 6.45, npa: 19866 },
+            { vol: '> 2.500', pFormula: '15,19 x 40% = 6,08', bat: 8.48, npa: 26098 }
+          ]},
+          { kel: 'Kelompok 5', rows: [
+            { vol: '0 - 50', pFormula: '1,00 x 40% = 0,40', bat: 2.80, npa: 8621 },
+            { vol: '51 - 500', pFormula: '1,50 x 40% = 0,60', bat: 3.00, npa: 9237 },
+            { vol: '501 - 1.000', pFormula: '2,25 x 40% = 0,90', bat: 3.30, npa: 10161 },
+            { vol: '1.001 - 2.500', pFormula: '3,38 x 40% = 1,35', bat: 3.75, npa: 11552 },
+            { vol: '> 2.500', pFormula: '4,42 x 40% = 2,02', bat: 4.42, npa: 13621 }
+          ]}
+        ]
+      },
+      {
+        kriteriaCode: 'IV',
+        title: 'IV. AIR TANAH, KUALITAS TIDAK BAIK, TIDAK ADA SUMBER AIR ALTERNATIF (Peringkat 1, Bobot S=1, 60%S = 0,6)',
+        sdaFormula: '1 x 60% = 0,6',
+        groups: [
+          { kel: 'Kelompok 1', rows: [
+            { vol: '0 - 50', pFormula: '9,00 x 40% = 3,60', bat: 4.20, npa: 12932 },
+            { vol: '51 - 500', pFormula: '13,50 x 40% = 5,40', bat: 6.00, npa: 18474 },
+            { vol: '501 - 1.000', pFormula: '20,25 x 40% = 8,10', bat: 8.70, npa: 26787 },
+            { vol: '1.001 - 2.500', pFormula: '30,38 x 40% = 12,15', bat: 12.75, npa: 39263 },
+            { vol: '> 2.500', pFormula: '45,56 x 40% = 18,22', bat: 18.82, npa: 57959 }
+          ]},
+          { kel: 'Kelompok 2', rows: [
+            { vol: '0 - 50', pFormula: '7,00 x 40% = 2,80', bat: 3.40, npa: 10469 },
+            { vol: '51 - 500', pFormula: '10,50 x 40% = 4,20', bat: 4.80, npa: 14779 },
+            { vol: '501 - 1.000', pFormula: '15,75 x 40% = 6,30', bat: 6.90, npa: 21245 },
+            { vol: '1.001 - 2.500', pFormula: '23,63 x 40% = 9,45', bat: 10.05, npa: 30950 },
+            { vol: '> 2.500', pFormula: '35,44 x 40% = 14,18', bat: 14.78, npa: 45495 }
+          ]},
+          { kel: 'Kelompok 3', rows: [
+            { vol: '0 - 50', pFormula: '5,00 x 40% = 2,00', bat: 2.60, npa: 8005 },
+            { vol: '51 - 500', pFormula: '7,50 x 40% = 3,00', bat: 3.60, npa: 11084 },
+            { vol: '501 - 1.000', pFormula: '11,25 x 40% = 4,50', bat: 5.10, npa: 15703 },
+            { vol: '1.001 - 2.500', pFormula: '16,88 x 40% = 6,75', bat: 7.35, npa: 22637 },
+            { vol: '> 2.500', pFormula: '25,31 x 40% = 10,12', bat: 10.72, npa: 33019 }
+          ]},
+          { kel: 'Kelompok 4', rows: [
+            { vol: '0 - 50', pFormula: '3,00 x 40% = 1,20', bat: 1.80, npa: 5542 },
+            { vol: '51 - 500', pFormula: '4,50 x 40% = 1,80', bat: 2.40, npa: 7390 },
+            { vol: '501 - 1.000', pFormula: '6,75 x 40% = 2,70', bat: 3.30, npa: 10161 },
+            { vol: '1.001 - 2.500', pFormula: '10,13 x 40% = 4,05', bat: 4.65, npa: 14324 },
+            { vol: '> 2.500', pFormula: '15,19 x 40% = 6,08', bat: 6.68, npa: 20555 }
+          ]},
+          { kel: 'Kelompok 5', rows: [
+            { vol: '0 - 50', pFormula: '1,00 x 40% = 0,40', bat: 1.00, npa: 3079 },
+            { vol: '51 - 500', pFormula: '1,50 x 40% = 0,60', bat: 1.20, npa: 3695 },
+            { vol: '501 - 1.000', pFormula: '2,25 x 40% = 0,90', bat: 1.50, npa: 4619 },
+            { vol: '1.001 - 2.500', pFormula: '3,38 x 40% = 1,35', bat: 1.95, npa: 6010 },
+            { vol: '> 2.500', pFormula: '5,06 x 40% = 2,02', bat: 2.62, npa: 8079 }
+          ]}
+        ]
+      }
+    ];
+
     let tableRows = JSON.parse(JSON.stringify(MASTER_DATA));
 
-    // Calculate volume blocks
     function calculateBlocks(vol) {
       const v = Math.max(0, parseFloat(vol) || 0);
       const b1 = Math.min(v, 50);
@@ -443,7 +664,6 @@
       return [b1, b2, b3, b4, b5];
     }
 
-    // Number formatters
     function formatRp(num) {
       return 'Rp ' + Math.round(num).toLocaleString('id-ID');
     }
@@ -452,7 +672,6 @@
       return Number(num).toLocaleString('id-ID', { minimumFractionDigits: dec, maximumFractionDigits: dec });
     }
 
-    // Tab Navigation
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -468,7 +687,6 @@
       }
     }
 
-    // Quick Calculator Logic
     function runCalculator() {
       const kriteria = document.getElementById('calc-kriteria').value;
       const kel = parseInt(document.getElementById('calc-kelompok').value);
@@ -489,7 +707,8 @@
       for (let i = 0; i < 5; i++) {
         const vBlock = blocks[i];
         const bobotVal = item.bobot[i];
-        const npaBlock = vBlock * bobotVal * HDA;
+        const npaTarifPerM3 = bobotVal * HDA;
+        const npaBlock = vBlock * npaTarifPerM3;
         totalNPA += npaBlock;
         totalVol += vBlock;
 
@@ -497,8 +716,8 @@
           <tr class="${vBlock > 0 ? 'bg-blue-50/20' : 'text-slate-400'}">
             <td class="px-3 py-1.5 text-center font-semibold text-slate-700">${labels[i]}</td>
             <td class="px-3 py-1.5 text-right font-bold text-slate-900">${formatNumber(vBlock)}</td>
-            <td class="px-3 py-1.5 text-right font-mono">${formatNumber(bobotVal, 3)}</td>
-            <td class="px-3 py-1.5 text-right font-mono text-slate-500">3.079</td>
+            <td class="px-3 py-1.5 text-right font-mono">${formatNumber(bobotVal, 2)}</td>
+            <td class="px-3 py-1.5 text-right font-mono text-slate-700 font-semibold">${formatRp(npaTarifPerM3)}</td>
             <td class="px-3 py-1.5 text-right font-bold text-slate-900">${formatRp(npaBlock)}</td>
           </tr>
         `;
@@ -521,7 +740,6 @@
       runCalculator();
     }
 
-    // Render Main Table
     function renderTable() {
       const tbody = document.getElementById('master-table-body');
       let html = '';
@@ -555,7 +773,7 @@
               <input type="number" step="0.5" min="0" max="100" value="${row.tarif}" onchange="updateRowTarif(${idx}, this.value)" class="w-16 text-center text-xs font-bold text-amber-900 bg-amber-50 border border-amber-300 rounded px-1.5 py-1 focus:ring-1 focus:ring-amber-500 focus:outline-none">
             </td>
             <td class="px-2 py-1 text-right bg-amber-50/40 border-r border-slate-200">
-              <input type="number" min="0" value="${row.vol}" onchange="updateRowVolume(${idx}, this.value)" class="w-20 text-right text-xs font-extrabold text-blue-900 bg-amber-50 border border-amber-300 rounded px-2 py-1 focus:ring-1 focus:ring-blue-500 focus:outline-none">
+              <input type="number" min="0" value="${row.vol}" onchange="updateRowVolume(${idx}, this.value)" class="w-24 text-right text-xs font-extrabold text-blue-900 bg-amber-50 border border-amber-300 rounded px-2 py-1 focus:ring-1 focus:ring-blue-500 focus:outline-none">
             </td>
             <td class="px-3 py-2 text-right border-r border-slate-100 text-slate-700">${formatNumber(blocks[0])}</td>
             <td class="px-3 py-2 text-right border-r border-slate-100 text-slate-700">${formatNumber(blocks[1])}</td>
@@ -575,7 +793,6 @@
 
       tbody.innerHTML = html;
 
-      // Footer totals
       document.getElementById('master-table-footer').innerHTML = `
         <td colspan="6" class="px-4 py-3 text-left font-bold text-slate-800 border-r border-slate-300">TOTAL KESELURUHAN</td>
         <td class="px-3 py-3 text-right text-blue-900 border-r border-slate-300">${formatNumber(grandTotalVol)}</td>
@@ -619,7 +836,6 @@
       renderTable();
     }
 
-    // Render Matrix Reference Tab
     function renderMatrixTab() {
       const tbody = document.getElementById('matrix-table-body');
       let html = '';
@@ -629,20 +845,56 @@
             <td class="px-4 py-2.5 text-center font-bold text-blue-900 bg-blue-50/50 border-r border-slate-200">${row.gol}</td>
             <td class="px-4 py-2.5 text-slate-700 border-r border-slate-100">${row.kriteriaText}</td>
             <td class="px-3 py-2.5 text-center font-bold text-slate-800 border-r border-slate-100">${row.kel}</td>
-            <td class="px-4 py-2.5 text-right font-mono border-r border-slate-100">${formatNumber(row.bobot[0], 3)}</td>
-            <td class="px-4 py-2.5 text-right font-mono border-r border-slate-100">${formatNumber(row.bobot[1], 3)}</td>
-            <td class="px-4 py-2.5 text-right font-mono border-r border-slate-100">${formatNumber(row.bobot[2], 3)}</td>
-            <td class="px-4 py-2.5 text-right font-mono border-r border-slate-100">${formatNumber(row.bobot[3], 3)}</td>
-            <td class="px-4 py-2.5 text-right font-mono">${formatNumber(row.bobot[4], 3)}</td>
+            <td class="px-4 py-2.5 text-right font-mono border-r border-slate-100">${formatNumber(row.bobot[0], 2)}</td>
+            <td class="px-4 py-2.5 text-right font-mono border-r border-slate-100">${formatNumber(row.bobot[1], 2)}</td>
+            <td class="px-4 py-2.5 text-right font-mono border-r border-slate-100">${formatNumber(row.bobot[2], 2)}</td>
+            <td class="px-4 py-2.5 text-right font-mono border-r border-slate-100">${formatNumber(row.bobot[3], 2)}</td>
+            <td class="px-4 py-2.5 text-right font-mono">${formatNumber(row.bobot[4], 2)}</td>
           </tr>
         `;
       });
       tbody.innerHTML = html;
     }
 
-    // Export CSV
+    function renderLampiranTab() {
+      const tbody = document.getElementById('lampiran-table-body');
+      const filterVal = document.getElementById('select-lampiran-filter').value;
+      let html = '';
+
+      const filteredSections = filterVal === 'ALL' 
+        ? LAMPIRAN_III 
+        : LAMPIRAN_III.filter(s => s.kriteriaCode === filterVal);
+
+      filteredSections.forEach(sec => {
+        html += `
+          <tr class="bg-blue-900 text-white font-bold">
+            <td colspan="8" class="px-4 py-2 text-xs tracking-wide">${sec.title}</td>
+          </tr>
+        `;
+
+        sec.groups.forEach((grp, gIdx) => {
+          grp.rows.forEach((r, rIdx) => {
+            html += `
+              <tr class="hover:bg-slate-50 transition ${rIdx === 0 ? 'border-t-2 border-slate-200' : ''}">
+                <td class="px-3 py-2 text-center text-slate-400 font-semibold border-r border-slate-100">${rIdx === 0 ? (gIdx + 1) : ''}</td>
+                <td class="px-4 py-2 font-bold text-slate-800 border-r border-slate-100">${rIdx === 0 ? grp.kel : ''}</td>
+                <td class="px-4 py-2 text-center font-semibold text-slate-700 border-r border-slate-100">${r.vol}</td>
+                <td class="px-4 py-2 text-center text-slate-600 font-mono border-r border-slate-100">${sec.sdaFormula}</td>
+                <td class="px-4 py-2 text-center text-slate-600 font-mono border-r border-slate-100">${r.pFormula}</td>
+                <td class="px-4 py-2 text-right font-bold text-blue-950 font-mono border-r border-slate-100">${formatNumber(r.bat, 2)}</td>
+                <td class="px-4 py-2 text-right font-mono text-slate-500 border-r border-slate-100">3.079</td>
+                <td class="px-4 py-2 text-right font-extrabold text-emerald-800 bg-emerald-50/40">${formatRp(r.npa)}</td>
+              </tr>
+            `;
+          });
+        });
+      });
+
+      tbody.innerHTML = html;
+    }
+
     function exportCSV() {
-      let csv = 'No,Golongan,Nama Wajib Pajak,Kriteria SDA,Kelompok,% Tarif,Volume (m3),Vol (0-50),Vol (51-500),Vol (501-1000),Vol (1001-2500),Vol (>2500),NPA (0-50),NPA (51-500),NPA (501-1000),NPA (1001-2500),NPA (>2500),Total NPA,Pajak Terutang\n';
+      let csv = 'No,Golongan,Nama Wajib Pajak,Kriteria SDA,Kelompok,% Tarif,Volume (m3),Volume (0-50),Volume (51-500),Volume (501-1000),Volume (1001-2500),Volume (>2500),NPA (0-50),NPA (51-500),NPA (501-1000),NPA (1001-2500),NPA (>2500),Total NPA Progresif,Pajak Terutang\n';
       tableRows.forEach(row => {
         const blocks = calculateBlocks(row.vol);
         const npas = blocks.map((b, i) => b * row.bobot[i] * HDA);
@@ -655,17 +907,17 @@
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.setAttribute('download', 'Simulasi_Pajak_Air_Tanah_A1_D5.csv');
+      link.setAttribute('download', 'Simulasi_PAT_Pergub_Sulbar_3_2025.csv');
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
 
-    // Init
     window.onload = function() {
       runCalculator();
       renderTable();
       renderMatrixTab();
+      renderLampiranTab();
     };
   </script>
 </body>
