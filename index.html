@@ -477,46 +477,59 @@
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         
         <!-- Table Toolbar -->
-        <div class="p-5 border-b border-slate-200 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-          <div>
-            <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
-              <i class="fa-solid fa-table-list text-blue-600"></i>
-              Daftar Rekapitulasi Wajib Pajak & Simulasi NPA Progresif
-            </h3>
-            <p class="text-xs text-slate-500 mt-0.5">
-              Gunakan filter wilayah di bawah untuk menyaring atau mengunduh laporan per kabupaten.
-            </p>
+        <div class="p-5 border-b border-slate-200 space-y-4">
+          <!-- Baris 1: Judul Tabel & Tombol Aksi Excel (Selurus & Berdampingan Rapi) -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+                <i class="fa-solid fa-table-list text-blue-600"></i>
+                Daftar Rekapitulasi Wajib Pajak & Simulasi NPA Progresif
+              </h3>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Kelola data wajib pajak, gunakan filter wilayah, atau impor dan ekspor data spreadsheet.
+              </p>
+            </div>
+
+            <!-- Tombol Import & Export Selurus Berdampingan -->
+            <div class="flex items-center gap-2 self-start sm:self-auto no-print">
+              <button onclick="document.getElementById('excel-file-input').click()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm hover:shadow transition flex items-center gap-1.5">
+                <i class="fa-solid fa-file-arrow-up"></i> Import Excel
+              </button>
+              <button onclick="downloadExcel()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm hover:shadow transition flex items-center gap-1.5">
+                <i class="fa-solid fa-file-excel"></i> Export Excel
+              </button>
+            </div>
           </div>
 
-          <!-- Controls: Filter Kabupaten, Search & Download Excel (Tanpa Tombol Kosongkan Tabel) -->
-          <div class="flex flex-wrap items-center gap-2.5 no-print">
-            <!-- Filter Kabupaten -->
-            <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-300 text-xs">
-              <label class="text-[11px] font-bold text-slate-500 px-2 uppercase"><i class="fa-solid fa-filter"></i> Wilayah:</label>
-              <select id="filter-kabupaten" onchange="applyFilters()" class="font-bold bg-white text-slate-800 border-none rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-sm text-xs">
-                <option value="SEMUA">Semua Kabupaten (Sulbar)</option>
-                <option value="Polewali Mandar">Kab. Polewali Mandar</option>
-                <option value="Majene">Kab. Majene</option>
-                <option value="Mamuju">Kab. Mamuju</option>
-                <option value="Mamuju Tengah">Kab. Mamuju Tengah</option>
-                <option value="Mamasa">Kab. Mamasa</option>
-                <option value="Pasangkayu">Kab. Pasangkayu</option>
-              </select>
+          <!-- Baris 2: Filter Wilayah & Pencarian Cepat (Rapi & Leluasa) -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 no-print">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <!-- Filter Kabupaten -->
+              <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-300 text-xs">
+                <label class="text-[11px] font-bold text-slate-600 px-2 uppercase flex items-center gap-1">
+                  <i class="fa-solid fa-filter text-slate-400"></i> Wilayah:
+                </label>
+                <select id="filter-kabupaten" onchange="applyFilters()" class="font-bold bg-white text-slate-800 border-none rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-sm text-xs">
+                  <option value="SEMUA">Semua Kabupaten (Sulbar)</option>
+                  <option value="Polewali Mandar">Kab. Polewali Mandar</option>
+                  <option value="Majene">Kab. Majene</option>
+                  <option value="Mamuju">Kab. Mamuju</option>
+                  <option value="Mamuju Tengah">Kab. Mamuju Tengah</option>
+                  <option value="Mamasa">Kab. Mamasa</option>
+                  <option value="Pasangkayu">Kab. Pasangkayu</option>
+                </select>
+              </div>
+
+              <!-- Search -->
+              <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                <input type="text" id="filter-search" oninput="applyFilters()" placeholder="Cari nama WP / bulan..." class="text-xs bg-slate-50 border border-slate-300 rounded-xl pl-8 pr-3 py-1.5 w-52 sm:w-64 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+              </div>
             </div>
 
-            <!-- Search -->
-            <div class="relative">
-              <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
-              <input type="text" id="filter-search" oninput="applyFilters()" placeholder="Cari nama WP / bulan..." class="text-xs bg-slate-50 border border-slate-300 rounded-xl pl-8 pr-3 py-1.5 w-44 sm:w-52 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="text-[11px] text-slate-400 font-medium hidden md:block">
+              <i class="fa-solid fa-circle-check text-emerald-500 mr-1"></i> Data otomatis tersimpan di browser
             </div>
-
-            <!-- Import & Export Buttons -->
-            <button onclick="document.getElementById('excel-file-input').click()" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow transition flex items-center gap-1.5">
-              <i class="fa-solid fa-file-arrow-up"></i> Import Excel
-            </button>
-            <button onclick="downloadExcel()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow transition flex items-center gap-1.5">
-              <i class="fa-solid fa-file-excel"></i> Export Excel
-            </button>
           </div>
         </div>
 
