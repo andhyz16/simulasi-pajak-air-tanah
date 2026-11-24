@@ -89,9 +89,6 @@
         <button onclick="switchTab('tab-sipat')" id="btn-tab-sipat" class="tab-btn px-4 py-2 font-bold text-xs sm:text-sm rounded-lg bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-2 transition whitespace-nowrap">
           <i class="fa-solid fa-calculator text-blue-600"></i> Simulasi Volume & Database WP
         </button>
-        <button onclick="switchTab('tab-simulasi20')" id="btn-tab-simulasi20" class="tab-btn px-4 py-2 font-semibold text-xs sm:text-sm rounded-lg text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition whitespace-nowrap">
-          <i class="fa-solid fa-sliders text-slate-500"></i> Tabel Simulasi 20 Golongan (A1–D5)
-        </button>
         <button onclick="switchTab('tab-lampiran')" id="btn-tab-lampiran" class="tab-btn px-4 py-2 font-semibold text-xs sm:text-sm rounded-lg text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition whitespace-nowrap">
           <i class="fa-solid fa-file-invoice text-slate-500"></i> Lampiran III Resmi (Tabel NPA)
         </button>
@@ -114,7 +111,7 @@
     <div id="tab-sipat" class="tab-content space-y-6">
 
       <!-- ========================================================= -->
-      <!-- BAGIAN 1: KALKULATOR SIMULASI VOLUME PROGRESIF (YANG DIMINTA) -->
+      <!-- BAGIAN 1: KALKULATOR SIMULASI VOLUME PROGRESIF (5 BLOK) -->
       <!-- ========================================================= -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 px-6 py-4 text-white flex flex-wrap items-center justify-between gap-3">
@@ -311,7 +308,7 @@
       </div>
 
       <!-- ========================================================= -->
-      <!-- BAGIAN 3: FORM INPUT WAJIB PAJAK (DINAMIS & REAKTIF) -->
+      <!-- BAGIAN 3: FORM INPUT WAJIB PAJAK (DINAMIS & BERSIH) -->
       <!-- ========================================================= -->
       <div id="section-form-wp" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden no-print">
         <div class="bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-950 px-6 py-4 text-white flex flex-wrap items-center justify-between gap-3">
@@ -321,12 +318,12 @@
             </div>
             <div>
               <h2 id="form-title" class="font-bold text-base sm:text-lg">Input Data Wajib Pajak Baru</h2>
-              <p class="text-xs text-blue-200">Isi nama wajib pajak secara manual, pilih kriteria & kelompok untuk disimpan ke database</p>
+              <p class="text-xs text-blue-200">Isi nama wajib pajak secara manual, pilih kriteria & kelompok untuk disimpan ke rekapitulasi</p>
             </div>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-xs bg-blue-400/20 border border-blue-400/40 px-2.5 py-1 rounded-md font-semibold text-blue-200">
-              Formulir Terintegrasi
+              Formulir Bersih
             </span>
           </div>
         </div>
@@ -445,12 +442,6 @@
                 Reset Form
               </button>
             </div>
-
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="loadSampleData()" class="px-3.5 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 font-bold text-xs transition flex items-center gap-1.5">
-                <i class="fa-solid fa-cloud-arrow-down"></i> Muat Data Contoh Riil Sulbar
-              </button>
-            </div>
           </div>
         </form>
       </div>
@@ -540,17 +531,14 @@
           </table>
         </div>
 
-        <div id="empty-state" class="hidden p-12 text-center">
+        <div id="empty-state" class="p-12 text-center">
           <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 mx-auto flex items-center justify-center text-2xl mb-3">
             <i class="fa-solid fa-folder-open"></i>
           </div>
           <p class="font-bold text-slate-700 text-base">Belum Ada Data Wajib Pajak</p>
-          <p class="text-xs text-slate-500 max-w-sm mx-auto mt-1 mb-4">
-            Tambahkan wajib pajak baru melalui formulir di atas atau muat data contoh riil Sulawesi Barat untuk simulasi instan.
+          <p class="text-xs text-slate-500 max-w-sm mx-auto mt-1">
+            Silakan masukkan data Wajib Pajak baru melalui formulir di atas untuk memulai simulasi & rekapitulasi.
           </p>
-          <button onclick="loadSampleData()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow transition">
-            Muat Data Contoh Riil Sulbar
-          </button>
         </div>
 
       </div>
@@ -558,62 +546,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- TAB 2: TABEL SIMULASI LENGKAP 20 GOLONGAN A1 S/D D5 (YANG LAMA) -->
-    <!-- ============================================================== -->
-    <div id="tab-simulasi20" class="tab-content hidden space-y-6">
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h3 class="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-2">
-              <i class="fa-solid fa-list-check text-blue-600"></i>
-              Simulasi Volume Lengkap 20 Golongan (A1 s/d D5)
-            </h3>
-            <p class="text-xs text-slate-500 mt-0.5">
-              Nilai <strong>% Tarif (Manual)</strong> dan <strong>Volume (m³)</strong> dapat diubah langsung pada kotak berwarna kuning di bawah untuk melihat dampak pajak tiap golongan.
-            </p>
-          </div>
-          <div class="flex items-center gap-2">
-            <button onclick="resetTable20Defaults()" title="Kembalikan nilai volume & tarif ke default" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-300 transition flex items-center gap-1.5">
-              <i class="fa-solid fa-arrow-rotate-left"></i> Reset Default
-            </button>
-          </div>
-        </div>
-
-        <div class="table-scroll overflow-x-auto">
-          <table class="w-full text-left text-xs whitespace-nowrap">
-            <thead class="bg-slate-900 text-white font-bold uppercase tracking-wider sticky top-0 z-10">
-              <tr>
-                <th class="px-3 py-3 text-center border-r border-slate-800">No</th>
-                <th class="px-3 py-3 text-center border-r border-slate-800 bg-blue-950">Gol.</th>
-                <th class="px-4 py-3 border-r border-slate-800 min-w-[240px]">Kategori Usaha / Peruntukan</th>
-                <th class="px-4 py-3 border-r border-slate-800 min-w-[260px]">Kriteria Sumber Daya Alam</th>
-                <th class="px-3 py-3 text-center border-r border-slate-800">Kel.</th>
-                <th class="px-3 py-3 text-center border-r border-slate-800 bg-amber-950/60 min-w-[90px]">% Tarif</th>
-                <th class="px-3 py-3 text-right border-r border-slate-800 bg-amber-950/60 min-w-[110px]">Volume (m³)</th>
-                <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">0 - 50 m³</th>
-                <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">51 - 500 m³</th>
-                <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">501 - 1000 m³</th>
-                <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">1001 - 2500 m³</th>
-                <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">> 2500 m³</th>
-                <th class="px-4 py-3 text-right border-r border-slate-800 bg-amber-900">Total NPA (Rp)</th>
-                <th class="px-4 py-3 text-right bg-emerald-900">Pajak Terutang (Rp)</th>
-              </tr>
-            </thead>
-            <tbody id="table20-body" class="divide-y divide-slate-200 font-medium">
-              <!-- Rendered via JS -->
-            </tbody>
-            <tfoot class="bg-slate-100 font-extrabold text-slate-900 border-t-2 border-slate-300">
-              <tr id="table20-footer">
-                <!-- Rendered via JS -->
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ============================================================== -->
-    <!-- TAB 3: LAMPIRAN III RESMI PERGUB SULBAR 3/2025 -->
+    <!-- TAB 2: LAMPIRAN III RESMI PERGUB SULBAR 3/2025 -->
     <!-- ============================================================== -->
     <div id="tab-lampiran" class="tab-content hidden space-y-6">
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-5">
@@ -662,7 +595,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- TAB 4: MATRIKS BOBOT BAT 20 GOLONGAN -->
+    <!-- TAB 3: MATRIKS BOBOT BAT 20 GOLONGAN -->
     <!-- ============================================================== -->
     <div id="tab-matriks" class="tab-content hidden space-y-6">
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4">
@@ -702,7 +635,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- TAB 5: DASAR HUKUM PERGUB SULBAR NO. 3/2025 -->
+    <!-- TAB 4: DASAR HUKUM PERGUB SULBAR NO. 3/2025 -->
     <!-- ============================================================== -->
     <div id="tab-dasarhukum" class="tab-content hidden space-y-6">
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-6">
@@ -848,62 +781,7 @@
       5: 'Kelompok 5: BUMD SPAM / PDAM / Sosial'
     };
 
-    // 20 Golongan Template Data for Tab 2
-    const DATA_20_GOLONGAN = [
-      { no: 1, gol: 'A1', nama: 'Industri Air Minum dalam Kemasan (AMDK)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 1, tarif: 10.0, vol: 1200 },
-      { no: 2, gol: 'A2', nama: 'Carwash (Risiko Tinggi)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 2, tarif: 10.0, vol: 3000 },
-      { no: 3, gol: 'A3', nama: 'Carwash (Risiko Menengah)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 3, tarif: 10.0, vol: 1500 },
-      { no: 4, gol: 'A4', nama: 'Pabrik Makanan Olahan (Risiko Rendah)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 4, tarif: 10.0, vol: 450 },
-      { no: 5, gol: 'A5', nama: 'BUMD SPAM / PDAM Penyelenggara Air Minum', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 5, tarif: 2.0, vol: 5000 },
-
-      { no: 6, gol: 'B1', nama: 'Industri Air Minum dalam Kemasan / Pabrik Es', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 1, tarif: 10.0, vol: 95 },
-      { no: 7, gol: 'B2', nama: 'Hotel Bintang 3, 4, 5 (Risiko Tinggi)', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 2, tarif: 10.0, vol: 2500 },
-      { no: 8, gol: 'B3', nama: 'Pabrik Kimia / Manufaktur (Risiko Menengah)', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 3, tarif: 10.0, vol: 800 },
-      { no: 9, gol: 'B4', nama: 'Hotel Bintang 1 dan 2 (Risiko Rendah)', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 4, tarif: 10.0, vol: 200 },
-      { no: 10, gol: 'B5', nama: 'BUMD SPAM / PDAM Penyelenggara Air Minum', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 5, tarif: 2.0, vol: 4500 },
-
-      { no: 11, gol: 'C1', nama: 'Industri Air Minum / Pengolahan Air Baku', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 1, tarif: 10.0, vol: 600 },
-      { no: 12, gol: 'C2', nama: 'Pabrik Makanan Olahan / Kimia (Risiko Tinggi)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 2, tarif: 10.0, vol: 1800 },
-      { no: 13, gol: 'C3', nama: 'Pabrik Makanan Olahan (Risiko Menengah)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 3, tarif: 10.0, vol: 350 },
-      { no: 14, gol: 'C4', nama: 'Carwash (Risiko Rendah)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 4, tarif: 10.0, vol: 120 },
-      { no: 15, gol: 'C5', nama: 'BUMD SPAM / Layanan Publik Sosial-Pemerintah', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 5, tarif: 2.0, vol: 3500 },
-
-      { no: 16, gol: 'D1', nama: 'Industri Minuman Olahan', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 1, tarif: 10.0, vol: 400 },
-      { no: 17, gol: 'D2', nama: 'Agro Industri / Perkebunan (Risiko Tinggi)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 2, tarif: 10.0, vol: 2200 },
-      { no: 18, gol: 'D3', nama: 'Hotel Bintang / Agro Industri (Risiko Menengah)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 3, tarif: 10.0, vol: 750 },
-      { no: 19, gol: 'D4', nama: 'Agro Industri (Risiko Rendah)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 4, tarif: 10.0, vol: 90 },
-      { no: 20, gol: 'D5', nama: 'BUMD SPAM / Fasilitas Sosial & Kesehatan', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 5, tarif: 2.0, vol: 3000 },
-    ];
-
-    let rows20Golongan = JSON.parse(JSON.stringify(DATA_20_GOLONGAN));
-
-    // Default Sample Data across Sulbar Regencies
-    const SAMPLE_WP_DATA = [
-      { id: '1', kab: 'Polewali Mandar', nama: 'PT. Artavia (Pabrik / Carwash Besar)', kriteria: 'A', kel: 2, vol: 25779.26, tarif: 10 },
-      { id: '2', kab: 'Polewali Mandar', nama: 'PT. Sumber Graha Sejahtera', kriteria: 'A', kel: 2, vol: 4600.00, tarif: 10 },
-      { id: '3', kab: 'Polewali Mandar', nama: 'PDAM Wai Tipalayo Polewali', kriteria: 'A', kel: 5, vol: 15000.00, tarif: 2 },
-      { id: '4', kab: 'Polewali Mandar', nama: 'Depot Air Minum Afiat', kriteria: 'A', kel: 1, vol: 150.00, tarif: 10 },
-      { id: '5', kab: 'Polewali Mandar', nama: 'Alvin Homestay', kriteria: 'B', kel: 4, vol: 45.00, tarif: 10 },
-
-      { id: '6', kab: 'Majene', nama: 'Resto Cilacap Majene', kriteria: 'B', kel: 3, vol: 1300.00, tarif: 10 },
-      { id: '7', kab: 'Majene', nama: 'Hotel Villa Bogor Majene', kriteria: 'B', kel: 2, vol: 850.00, tarif: 10 },
-      { id: '8', kab: 'Majene', nama: 'Warung Uje Mulyo', kriteria: 'B', kel: 4, vol: 35.00, tarif: 10 },
-      { id: '9', kab: 'Majene', nama: 'PDAM Tirta Mandar Majene', kriteria: 'B', kel: 5, vol: 9200.00, tarif: 2 },
-
-      { id: '10', kab: 'Mamuju', nama: 'LIWANZA HILLS Mamuju', kriteria: 'B', kel: 2, vol: 17840.00, tarif: 10 },
-      { id: '11', kab: 'Mamuju', nama: 'Grand Maleo Hotel & Convention', kriteria: 'B', kel: 2, vol: 6200.00, tarif: 10 },
-      { id: '12', kab: 'Mamuju', nama: 'Pabrik Es Bahari Mamuju', kriteria: 'B', kel: 1, vol: 2100.00, tarif: 10 },
-      { id: '13', kab: 'Mamuju', nama: 'Arena Car Wash Mamuju', kriteria: 'B', kel: 3, vol: 450.00, tarif: 10 },
-
-      { id: '14', kab: 'Mamuju Tengah', nama: 'CV. Firdaus (AM2T - Air Kemasan)', kriteria: 'A', kel: 1, vol: 1850.00, tarif: 10 },
-      { id: '15', kab: 'Mamuju Tengah', nama: 'PT. Trinity Agro Mandiri Sawit', kriteria: 'A', kel: 2, vol: 4200.00, tarif: 10 },
-
-      { id: '16', kab: 'Mamasa', nama: 'Hotel Naraya Mamasa', kriteria: 'B', kel: 3, vol: 380.00, tarif: 10 },
-
-      { id: '17', kab: 'Pasangkayu', nama: 'PT. Pasangkayu Agro Lestari', kriteria: 'A', kel: 2, vol: 5400.00, tarif: 10 }
-    ];
-
-    // Local Storage State
+    // Database State - Selalu Bersih Tanpa Data Contoh
     let databaseWP = [];
 
     // Progressive Block Calculation (0-50, 51-500, 501-1000, 1001-2500, >2500)
@@ -1014,24 +892,33 @@
     }
 
     // ========================================================
-    // 2. ENGINE DATABASE WAJIB PAJAK SE-SULBAR
+    // 2. ENGINE DATABASE WAJIB PAJAK SE-SULBAR (BERSIH)
     // ========================================================
     function initDatabase() {
-      const saved = localStorage.getItem('SIPAT_DB_2026');
+      // Gunakan storage bersih khusus agar tidak tercampur data lama
+      const isClean = localStorage.getItem('SIPAT_CLEAN_V4');
+      if (!isClean) {
+        localStorage.removeItem('SIPAT_DB_2026');
+        localStorage.setItem('SIPAT_CLEAN_V4', 'true');
+        databaseWP = [];
+        saveDatabase();
+        return;
+      }
+
+      const saved = localStorage.getItem('SIPAT_DB_BERSIH');
       if (saved) {
         try {
           databaseWP = JSON.parse(saved);
         } catch (e) {
-          databaseWP = JSON.parse(JSON.stringify(SAMPLE_WP_DATA));
+          databaseWP = [];
         }
       } else {
-        databaseWP = JSON.parse(JSON.stringify(SAMPLE_WP_DATA));
-        saveDatabase();
+        databaseWP = [];
       }
     }
 
     function saveDatabase() {
-      localStorage.setItem('SIPAT_DB_2026', JSON.stringify(databaseWP));
+      localStorage.setItem('SIPAT_DB_BERSIH', JSON.stringify(databaseWP));
     }
 
     function handleKriteriaChange() {
@@ -1167,16 +1054,6 @@
       showToast('Seluruh data tabel telah dikosongkan.');
     }
 
-    function loadSampleData() {
-      if (databaseWP.length > 0) {
-        if (!confirm('Muat kembali data contoh riil se-Sulawesi Barat (Polman, Majene, Mamuju, Mateng, Mamasa, Pasangkayu)?')) return;
-      }
-      databaseWP = JSON.parse(JSON.stringify(SAMPLE_WP_DATA));
-      saveDatabase();
-      renderSIPATTable();
-      showToast('Data riil 6 Kabupaten se-Sulbar berhasil dimuat!');
-    }
-
     function applyFilters() {
       renderSIPATTable();
     }
@@ -1305,91 +1182,14 @@
     }
 
     // ========================================================
-    // 3. TAB 2: TABEL SIMULASI 20 GOLONGAN (A1 S/D D5)
-    // ========================================================
-    function renderTable20() {
-      const tbody = document.getElementById('table20-body');
-      let html = '';
-
-      let grandVol = 0, grandB1 = 0, grandB2 = 0, grandB3 = 0, grandB4 = 0, grandB5 = 0;
-      let grandNPA = 0, grandTax = 0;
-
-      rows20Golongan.forEach((r, idx) => {
-        const bobot = BAT_COEFFICIENTS[r.gol];
-        const blocks = calculateBlocks(r.vol);
-        const npas = blocks.map((b, i) => b * bobot[i] * HAB);
-        const totalNpa = npas.reduce((a, b) => a + b, 0);
-        const tax = totalNpa * (r.tarif / 100);
-
-        grandVol += r.vol;
-        grandB1 += blocks[0]; grandB2 += blocks[1]; grandB3 += blocks[2]; grandB4 += blocks[3]; grandB5 += blocks[4];
-        grandNPA += totalNpa;
-        grandTax += tax;
-
-        html += `
-          <tr class="hover:bg-blue-50/40 transition">
-            <td class="px-3 py-2 text-center text-slate-400 font-semibold border-r border-slate-100">${r.no}</td>
-            <td class="px-3 py-2 text-center font-extrabold text-blue-900 bg-blue-50/40 border-r border-slate-200">${r.gol}</td>
-            <td class="px-4 py-2 font-semibold text-slate-800 border-r border-slate-100">${r.nama}</td>
-            <td class="px-4 py-2 text-slate-600 border-r border-slate-100">${r.kriteriaText}</td>
-            <td class="px-3 py-2 text-center font-bold text-slate-700 border-r border-slate-100">${r.kel}</td>
-            <td class="px-2 py-1 text-center bg-amber-50/40 border-r border-slate-200">
-              <input type="number" step="0.5" min="0" max="100" value="${r.tarif}" onchange="updateRow20Tarif(${idx}, this.value)" class="w-16 text-center text-xs font-bold text-amber-900 bg-amber-50 border border-amber-300 rounded px-1.5 py-1 focus:ring-1 focus:ring-amber-500 focus:outline-none">
-            </td>
-            <td class="px-2 py-1 text-right bg-amber-50/40 border-r border-slate-200">
-              <input type="number" min="0" value="${r.vol}" onchange="updateRow20Volume(${idx}, this.value)" class="w-24 text-right text-xs font-extrabold text-blue-900 bg-amber-50 border border-amber-300 rounded px-2 py-1 focus:ring-1 focus:ring-blue-500 focus:outline-none">
-            </td>
-            <td class="px-3 py-2 text-right border-r border-slate-100 text-slate-700 font-mono">${formatNumber(blocks[0], 2)}</td>
-            <td class="px-3 py-2 text-right border-r border-slate-100 text-slate-700 font-mono">${formatNumber(blocks[1], 2)}</td>
-            <td class="px-3 py-2 text-right border-r border-slate-100 text-slate-700 font-mono">${formatNumber(blocks[2], 2)}</td>
-            <td class="px-3 py-2 text-right border-r border-slate-100 text-slate-700 font-mono">${formatNumber(blocks[3], 2)}</td>
-            <td class="px-3 py-2 text-right border-r border-slate-100 text-slate-700 font-mono">${formatNumber(blocks[4], 2)}</td>
-            <td class="px-4 py-2 text-right font-bold text-slate-900 bg-emerald-50/30 border-r border-slate-200">${formatRp(totalNpa)}</td>
-            <td class="px-4 py-2 text-right font-extrabold text-emerald-700 bg-emerald-50/50">${formatRp(tax)}</td>
-          </tr>
-        `;
-      });
-
-      tbody.innerHTML = html;
-
-      document.getElementById('table20-footer').innerHTML = `
-        <td colspan="6" class="px-4 py-3 text-left font-bold text-slate-800 border-r border-slate-300">TOTAL KESELURUHAN (20 GOLONGAN)</td>
-        <td class="px-3 py-3 text-right text-blue-900 border-r border-slate-300 font-extrabold">${formatNumber(grandVol, 2)}</td>
-        <td class="px-3 py-3 text-right border-r border-slate-300 font-mono">${formatNumber(grandB1, 2)}</td>
-        <td class="px-3 py-3 text-right border-r border-slate-300 font-mono">${formatNumber(grandB2, 2)}</td>
-        <td class="px-3 py-3 text-right border-r border-slate-300 font-mono">${formatNumber(grandB3, 2)}</td>
-        <td class="px-3 py-3 text-right border-r border-slate-300 font-mono">${formatNumber(grandB4, 2)}</td>
-        <td class="px-3 py-3 text-right border-r border-slate-300 font-mono">${formatNumber(grandB5, 2)}</td>
-        <td class="px-4 py-3 text-right text-emerald-950 border-r border-slate-300 font-extrabold">${formatRp(grandNPA)}</td>
-        <td class="px-4 py-3 text-right text-emerald-800 bg-emerald-100/60 font-extrabold">${formatRp(grandTax)}</td>
-      `;
-    }
-
-    function updateRow20Tarif(idx, val) {
-      rows20Golongan[idx].tarif = parseFloat(val) || 0;
-      renderTable20();
-    }
-
-    function updateRow20Volume(idx, val) {
-      rows20Golongan[idx].vol = parseFloat(val) || 0;
-      renderTable20();
-    }
-
-    function resetTable20Defaults() {
-      rows20Golongan = JSON.parse(JSON.stringify(DATA_20_GOLONGAN));
-      renderTable20();
-      showToast('Nilai 20 Golongan telah dikembalikan ke default.');
-    }
-
-    // ========================================================
-    // 4. EXCEL EXPORT VIA SHEETJS
+    // 3. EXCEL EXPORT VIA SHEETJS
     // ========================================================
     function downloadExcel() {
       const selectedKab = document.getElementById('filter-kabupaten').value;
       const filtered = databaseWP.filter(wp => (selectedKab === 'SEMUA') || (wp.kab === selectedKab));
 
       if (filtered.length === 0) {
-        alert('Tidak ada data Wajib Pajak untuk diunduh.');
+        alert('Tidak ada data Wajib Pajak untuk diunduh. Silakan tambahkan data terlebih dahulu.');
         return;
       }
 
@@ -1532,7 +1332,6 @@
         activeBtn.classList.add('bg-blue-50', 'text-blue-700', 'border', 'border-blue-200');
       }
 
-      if (tabId === 'tab-simulasi20') renderTable20();
       if (tabId === 'tab-lampiran') renderLampiranTab();
       if (tabId === 'tab-matriks') renderMatrixTab();
     }
