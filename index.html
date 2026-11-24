@@ -64,7 +64,7 @@
               <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Pergub Sulbar No. 3/2025</span>
             </div>
             <p class="text-xs text-slate-300 mt-0.5">
-              Aplikasi Simulasi & Rekapitulasi Nilai Perolehan Air Tanah (NPA) Progresif 5 Blok Kabupaten se-Sulawesi Barat
+              Simulasi Volume, Nilai Perolehan Air Tanah (NPA) Progresif 5 Blok & Rekapitulasi se-Sulawesi Barat
             </p>
           </div>
         </div>
@@ -87,16 +87,19 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex gap-2 overflow-x-auto py-2">
         <button onclick="switchTab('tab-sipat')" id="btn-tab-sipat" class="tab-btn px-4 py-2 font-bold text-xs sm:text-sm rounded-lg bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-2 transition whitespace-nowrap">
-          <i class="fa-solid fa-calculator text-blue-600"></i> Simulator & Database Wajib Pajak
+          <i class="fa-solid fa-calculator text-blue-600"></i> Simulasi Volume & Database WP
+        </button>
+        <button onclick="switchTab('tab-simulasi20')" id="btn-tab-simulasi20" class="tab-btn px-4 py-2 font-semibold text-xs sm:text-sm rounded-lg text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition whitespace-nowrap">
+          <i class="fa-solid fa-sliders text-slate-500"></i> Tabel Simulasi 20 Golongan (A1–D5)
         </button>
         <button onclick="switchTab('tab-lampiran')" id="btn-tab-lampiran" class="tab-btn px-4 py-2 font-semibold text-xs sm:text-sm rounded-lg text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition whitespace-nowrap">
-          <i class="fa-solid fa-file-invoice text-slate-500"></i> Lampiran III Resmi (Tabel Tarif NPA)
+          <i class="fa-solid fa-file-invoice text-slate-500"></i> Lampiran III Resmi (Tabel NPA)
         </button>
         <button onclick="switchTab('tab-matriks')" id="btn-tab-matriks" class="tab-btn px-4 py-2 font-semibold text-xs sm:text-sm rounded-lg text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition whitespace-nowrap">
           <i class="fa-solid fa-table-cells text-slate-500"></i> Matriks Bobot BAT (A1–D5)
         </button>
         <button onclick="switchTab('tab-dasarhukum')" id="btn-tab-dasarhukum" class="tab-btn px-4 py-2 font-semibold text-xs sm:text-sm rounded-lg text-slate-600 hover:bg-slate-100 flex items-center gap-2 transition whitespace-nowrap">
-          <i class="fa-solid fa-scale-balanced text-slate-500"></i> Dasar Hukum & Ketentuan Pergub
+          <i class="fa-solid fa-scale-balanced text-slate-500"></i> Dasar Hukum Pergub Sulbar
         </button>
       </div>
     </div>
@@ -105,12 +108,166 @@
   <!-- MAIN WRAPPER -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
 
-    <!-- ========================================== -->
-    <!-- TAB 1: SIPAT SIMULATOR & DATABASE WAJIB PAJAK -->
-    <!-- ========================================== -->
+    <!-- ============================================================== -->
+    <!-- TAB 1: SIMULASI VOLUME INTERAKTIF & DATABASE WAJIB PAJAK -->
+    <!-- ============================================================== -->
     <div id="tab-sipat" class="tab-content space-y-6">
 
-      <!-- TOP KPI CARDS -->
+      <!-- ========================================================= -->
+      <!-- BAGIAN 1: KALKULATOR SIMULASI VOLUME PROGRESIF (YANG DIMINTA) -->
+      <!-- ========================================================= -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 px-6 py-4 text-white flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-blue-500/30 flex items-center justify-center text-blue-300">
+              <i class="fa-solid fa-sliders"></i>
+            </div>
+            <div>
+              <h2 class="font-bold text-base sm:text-lg">Kalkulator Simulasi Volume & Rincian Blok NPA</h2>
+              <p class="text-xs text-blue-200">Ubah volume air atau pilih tombol kubikasi cepat untuk melihat pembagian blok progresif secara instan</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-md font-semibold">
+              Standar HAB: Rp 3.079 / m³
+            </span>
+          </div>
+        </div>
+
+        <div class="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Sisi Kiri: Input Parameter Simulasi (Col 1-5) -->
+          <div class="lg:col-span-5 space-y-4 bg-slate-50/80 p-5 rounded-2xl border border-slate-200">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Kriteria Sumber Daya Alam (SDA)
+              </label>
+              <select id="calc-kriteria" onchange="runVolumeCalculator()" class="w-full text-xs sm:text-sm font-semibold bg-white border border-slate-300 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
+                <option value="A">Kriteria A - Kualitas Baik, Ada Alternatif (60% S = 9,6)</option>
+                <option value="B" selected>Kriteria B - Kualitas Baik, Tidak Ada Alternatif (60% S = 5,4)</option>
+                <option value="C">Kriteria C - Kualitas Tidak Baik, Ada Alternatif (60% S = 2,4)</option>
+                <option value="D">Kriteria D - Kualitas Tidak Baik, Tidak Ada Alternatif (60% S = 0,6)</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+              <div class="col-span-2">
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Kelompok Pengguna
+                </label>
+                <select id="calc-kelompok" onchange="handleCalcKelompokChange()" class="w-full text-xs sm:text-sm font-semibold bg-white border border-slate-300 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
+                  <option value="1">1 - Produk Berupa Air (AMDK/Es)</option>
+                  <option value="2">2 - Risiko Tinggi (Carwash Besar/Hotel 3-5)</option>
+                  <option value="3" selected>3 - Risiko Menengah (Resto/Hotel 1-2)</option>
+                  <option value="4">4 - Risiko Rendah (Usaha Kecil/Ruko)</option>
+                  <option value="5">5 - BUMD SPAM / PDAM / Sosial</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 text-center">
+                  Golongan
+                </label>
+                <div id="calc-golongan-badge" class="w-full py-2 bg-gradient-to-r from-blue-700 to-indigo-800 text-white font-extrabold text-base text-center rounded-xl shadow-inner border border-blue-500">
+                  B3
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  % Tarif Pajak (Manual)
+                </label>
+                <div class="relative">
+                  <input type="number" id="calc-tarif" step="0.5" min="0" max="100" value="10" oninput="runVolumeCalculator()" class="w-full text-xs sm:text-sm font-bold bg-white border border-slate-300 rounded-xl px-3 py-2.5 pr-7 text-right focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+                  <span class="absolute right-2.5 top-2.5 text-xs font-bold text-slate-400">%</span>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Volume Air (m³)
+                </label>
+                <input type="number" id="calc-volume" step="any" min="0" value="95" oninput="runVolumeCalculator()" class="w-full text-xs sm:text-sm font-extrabold text-blue-900 bg-amber-50 border border-amber-300 rounded-xl px-3 py-2.5 text-right focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm">
+              </div>
+            </div>
+
+            <!-- Pre-set Buttons for testing volume -->
+            <div class="pt-1">
+              <span class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+                <i class="fa-solid fa-wand-magic-sparkles text-amber-500 mr-1"></i> Uji Cepat Volume (Klik Angka):
+              </span>
+              <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                <button type="button" onclick="setCalcVolume(50)" class="px-2.5 py-1.5 bg-white hover:bg-blue-50 border border-slate-300 hover:border-blue-400 rounded-lg font-bold text-slate-700 hover:text-blue-700 transition shadow-sm">50 m³</button>
+                <button type="button" onclick="setCalcVolume(95)" class="px-2.5 py-1.5 bg-white hover:bg-blue-50 border border-slate-300 hover:border-blue-400 rounded-lg font-bold text-slate-700 hover:text-blue-700 transition shadow-sm">95 m³</button>
+                <button type="button" onclick="setCalcVolume(500)" class="px-2.5 py-1.5 bg-white hover:bg-blue-50 border border-slate-300 hover:border-blue-400 rounded-lg font-bold text-slate-700 hover:text-blue-700 transition shadow-sm">500 m³</button>
+                <button type="button" onclick="setCalcVolume(1200)" class="px-2.5 py-1.5 bg-white hover:bg-blue-50 border border-slate-300 hover:border-blue-400 rounded-lg font-bold text-slate-700 hover:text-blue-700 transition shadow-sm">1.200 m³</button>
+                <button type="button" onclick="setCalcVolume(3000)" class="px-2.5 py-1.5 bg-white hover:bg-blue-50 border border-slate-300 hover:border-blue-400 rounded-lg font-bold text-slate-700 hover:text-blue-700 transition shadow-sm">3.000 m³</button>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-200">
+              <button type="button" onclick="applyCalcToForm()" class="w-full py-2.5 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-300 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 shadow-sm">
+                <i class="fa-solid fa-arrow-down"></i> Salin Nilai Ini ke Formulir Wajib Pajak di Bawah
+              </button>
+            </div>
+          </div>
+
+          <!-- Sisi Kanan: Tabel Rincian 5 Blok Progresif & Kartu Pajak Terutang (Col 6-12) -->
+          <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
+            
+            <div class="overflow-x-auto border border-slate-200 rounded-2xl shadow-sm bg-white">
+              <table class="w-full text-xs text-left">
+                <thead class="bg-slate-900 text-white font-bold uppercase tracking-wider">
+                  <tr>
+                    <th class="px-3.5 py-2.5 text-center border-r border-slate-800">Blok Volume</th>
+                    <th class="px-3.5 py-2.5 text-right border-r border-slate-800">Volume (m³)</th>
+                    <th class="px-3.5 py-2.5 text-right border-r border-slate-800">BAT (Bobot)</th>
+                    <th class="px-3.5 py-2.5 text-right border-r border-slate-800">Tarif NPA (Rp/m³)</th>
+                    <th class="px-3.5 py-2.5 text-right bg-blue-950">NPA Blok (Rp)</th>
+                  </tr>
+                </thead>
+                <tbody id="calc-breakdown-body" class="divide-y divide-slate-100 font-medium">
+                  <!-- Rendered via JS -->
+                </tbody>
+                <tfoot class="bg-blue-50/70 font-extrabold border-t-2 border-slate-300 text-slate-900">
+                  <tr>
+                    <td class="px-3.5 py-2.5 text-center text-blue-900">TOTAL</td>
+                    <td id="calc-total-vol" class="px-3.5 py-2.5 text-right text-blue-900 font-extrabold">95 m³</td>
+                    <td class="px-3.5 py-2.5 text-center text-slate-400 font-normal">-</td>
+                    <td class="px-3.5 py-2.5 text-center text-slate-500 font-medium">HAB = 3.079</td>
+                    <td id="calc-total-npa" class="px-3.5 py-2.5 text-right text-blue-950 font-extrabold">Rp 0</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <!-- Big Final Tax Summary Card (Green) -->
+            <div class="bg-gradient-to-br from-emerald-600 via-teal-700 to-slate-900 text-white rounded-2xl p-4 sm:p-5 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <p class="text-xs font-bold text-emerald-200 uppercase tracking-wider flex items-center gap-1.5">
+                  <i class="fa-solid fa-receipt"></i> PAJAK AIR TANAH TERUTANG (PROGRESIF)
+                </p>
+                <div class="flex items-baseline gap-2.5 mt-1">
+                  <span id="calc-tax-output" class="text-2xl sm:text-3xl font-extrabold tracking-tight">Rp 0</span>
+                  <span id="calc-tax-formula" class="text-xs text-emerald-200 font-semibold">(Total NPA × 10.0%)</span>
+                </div>
+              </div>
+              <div class="text-right sm:border-l sm:border-emerald-400/30 sm:pl-6 self-stretch sm:self-auto flex sm:flex-col justify-between sm:justify-center items-center sm:items-end">
+                <span class="text-xs text-emerald-200 font-medium">NPA Rata-Rata / m³:</span>
+                <span id="calc-avg-npa" class="text-base sm:text-lg font-bold text-white">Rp 0 / m³</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ========================================================= -->
+      <!-- BAGIAN 2: STATISTIK RINGKAS DATABASE WP -->
+      <!-- ========================================================= -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3.5">
           <div class="w-11 h-11 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-lg">
@@ -147,27 +304,29 @@
             <i class="fa-solid fa-receipt"></i>
           </div>
           <div>
-            <p class="text-[11px] font-bold text-emerald-100 uppercase tracking-wider">Estimasi Pajak Terutang</p>
+            <p class="text-[11px] font-bold text-emerald-100 uppercase tracking-wider">Total Pajak Terutang</p>
             <p id="kpi-total-pajak" class="text-lg sm:text-xl font-extrabold text-white">Rp 0</p>
           </div>
         </div>
       </div>
 
-      <!-- FORM INPUT WAJIB PAJAK (DINAMIS & REAKTIF) -->
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden no-print">
+      <!-- ========================================================= -->
+      <!-- BAGIAN 3: FORM INPUT WAJIB PAJAK (DINAMIS & REAKTIF) -->
+      <!-- ========================================================= -->
+      <div id="section-form-wp" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden no-print">
         <div class="bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-950 px-6 py-4 text-white flex flex-wrap items-center justify-between gap-3">
           <div class="flex items-center gap-2.5">
             <div class="w-8 h-8 rounded-lg bg-blue-500/30 flex items-center justify-center text-blue-300">
-              <i class="fa-solid fa-user-pen"></i>
+              <i class="fa-solid fa-user-plus"></i>
             </div>
             <div>
               <h2 id="form-title" class="font-bold text-base sm:text-lg">Input Data Wajib Pajak Baru</h2>
-              <p class="text-xs text-blue-200">Isi identitas usaha, pilih kriteria & kelompok untuk membentuk golongan otomatis</p>
+              <p class="text-xs text-blue-200">Isi nama wajib pajak secara manual, pilih kriteria & kelompok untuk disimpan ke database</p>
             </div>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-xs bg-blue-400/20 border border-blue-400/40 px-2.5 py-1 rounded-md font-semibold text-blue-200">
-              HAB: Rp 3.079 / m³
+              Formulir Terintegrasi
             </span>
           </div>
         </div>
@@ -197,7 +356,7 @@
               <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                 Nama Wajib Pajak / Usaha <span class="text-rose-500">*</span>
               </label>
-              <input type="text" id="input-nama-wp" required placeholder="Contoh: Artavia / Grand Maleo Hotel / CV. Berkah" class="w-full text-xs sm:text-sm font-medium bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
+              <input type="text" id="input-nama-wp" required placeholder="Contoh: Artavia / Grand Maleo Hotel / Resto Cilacap / CV. Berkah" class="w-full text-xs sm:text-sm font-medium bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
             </div>
 
             <!-- 3. Volume Pemakaian (m3) -->
@@ -261,7 +420,7 @@
           <!-- Preview Ringkas Hasil Perhitungan -->
           <div id="form-preview-box" class="mt-4 p-3.5 bg-blue-50/70 border border-blue-200 rounded-xl flex flex-wrap items-center justify-between gap-3 text-xs">
             <div class="flex items-center gap-2">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-chart-pie mr-1"></i> Estimasi Hitungan Cepat:</span>
+              <span class="font-bold text-blue-900"><i class="fa-solid fa-chart-pie mr-1"></i> Estimasi Hitungan Form:</span>
               <span class="text-slate-600">Total NPA:</span>
               <span id="preview-npa" class="font-extrabold text-slate-900">Rp 0</span>
               <span class="text-slate-400">|</span>
@@ -296,7 +455,9 @@
         </form>
       </div>
 
-      <!-- TABEL REKAPITULASI DATA WAJIB PAJAK -->
+      <!-- ========================================================= -->
+      <!-- BAGIAN 4: TABEL REKAPITULASI DATA WAJIB PAJAK SE-SULBAR -->
+      <!-- ========================================================= -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         
         <!-- Table Toolbar -->
@@ -307,7 +468,7 @@
               Daftar Rekapitulasi Wajib Pajak & Simulasi NPA Progresif
             </h3>
             <p class="text-xs text-slate-500 mt-0.5">
-              Gunakan filter kabupaten di samping untuk melihat atau mengunduh data per wilayah.
+              Gunakan filter wilayah di bawah untuk menyaring atau mengunduh laporan per kabupaten.
             </p>
           </div>
 
@@ -396,9 +557,64 @@
 
     </div>
 
-    <!-- ========================================== -->
-    <!-- TAB 2: LAMPIRAN III RESMI PERGUB SULBAR 3/2025 -->
-    <!-- ========================================== -->
+    <!-- ============================================================== -->
+    <!-- TAB 2: TABEL SIMULASI LENGKAP 20 GOLONGAN A1 S/D D5 (YANG LAMA) -->
+    <!-- ============================================================== -->
+    <div id="tab-simulasi20" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h3 class="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-blue-600"></i>
+              Simulasi Volume Lengkap 20 Golongan (A1 s/d D5)
+            </h3>
+            <p class="text-xs text-slate-500 mt-0.5">
+              Nilai <strong>% Tarif (Manual)</strong> dan <strong>Volume (m³)</strong> dapat diubah langsung pada kotak berwarna kuning di bawah untuk melihat dampak pajak tiap golongan.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="resetTable20Defaults()" title="Kembalikan nilai volume & tarif ke default" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-300 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-arrow-rotate-left"></i> Reset Default
+            </button>
+          </div>
+        </div>
+
+        <div class="table-scroll overflow-x-auto">
+          <table class="w-full text-left text-xs whitespace-nowrap">
+            <thead class="bg-slate-900 text-white font-bold uppercase tracking-wider sticky top-0 z-10">
+              <tr>
+                <th class="px-3 py-3 text-center border-r border-slate-800">No</th>
+                <th class="px-3 py-3 text-center border-r border-slate-800 bg-blue-950">Gol.</th>
+                <th class="px-4 py-3 border-r border-slate-800 min-w-[240px]">Kategori Usaha / Peruntukan</th>
+                <th class="px-4 py-3 border-r border-slate-800 min-w-[260px]">Kriteria Sumber Daya Alam</th>
+                <th class="px-3 py-3 text-center border-r border-slate-800">Kel.</th>
+                <th class="px-3 py-3 text-center border-r border-slate-800 bg-amber-950/60 min-w-[90px]">% Tarif</th>
+                <th class="px-3 py-3 text-right border-r border-slate-800 bg-amber-950/60 min-w-[110px]">Volume (m³)</th>
+                <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">0 - 50 m³</th>
+                <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">51 - 500 m³</th>
+                <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">501 - 1000 m³</th>
+                <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">1001 - 2500 m³</th>
+                <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900">> 2500 m³</th>
+                <th class="px-4 py-3 text-right border-r border-slate-800 bg-amber-900">Total NPA (Rp)</th>
+                <th class="px-4 py-3 text-right bg-emerald-900">Pajak Terutang (Rp)</th>
+              </tr>
+            </thead>
+            <tbody id="table20-body" class="divide-y divide-slate-200 font-medium">
+              <!-- Rendered via JS -->
+            </tbody>
+            <tfoot class="bg-slate-100 font-extrabold text-slate-900 border-t-2 border-slate-300">
+              <tr id="table20-footer">
+                <!-- Rendered via JS -->
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- TAB 3: LAMPIRAN III RESMI PERGUB SULBAR 3/2025 -->
+    <!-- ============================================================== -->
     <div id="tab-lampiran" class="tab-content hidden space-y-6">
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-4">
@@ -445,9 +661,9 @@
       </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- TAB 3: MATRIKS BOBOT BAT 20 GOLONGAN -->
-    <!-- ========================================== -->
+    <!-- ============================================================== -->
+    <!-- TAB 4: MATRIKS BOBOT BAT 20 GOLONGAN -->
+    <!-- ============================================================== -->
     <div id="tab-matriks" class="tab-content hidden space-y-6">
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4">
         <div>
@@ -485,9 +701,9 @@
       </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- TAB 4: DASAR HUKUM PERGUB SULBAR NO. 3/2025 -->
-    <!-- ========================================== -->
+    <!-- ============================================================== -->
+    <!-- TAB 5: DASAR HUKUM PERGUB SULBAR NO. 3/2025 -->
+    <!-- ============================================================== -->
     <div id="tab-dasarhukum" class="tab-content hidden space-y-6">
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-6">
         <div>
@@ -632,6 +848,35 @@
       5: 'Kelompok 5: BUMD SPAM / PDAM / Sosial'
     };
 
+    // 20 Golongan Template Data for Tab 2
+    const DATA_20_GOLONGAN = [
+      { no: 1, gol: 'A1', nama: 'Industri Air Minum dalam Kemasan (AMDK)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 1, tarif: 10.0, vol: 1200 },
+      { no: 2, gol: 'A2', nama: 'Carwash (Risiko Tinggi)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 2, tarif: 10.0, vol: 3000 },
+      { no: 3, gol: 'A3', nama: 'Carwash (Risiko Menengah)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 3, tarif: 10.0, vol: 1500 },
+      { no: 4, gol: 'A4', nama: 'Pabrik Makanan Olahan (Risiko Rendah)', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 4, tarif: 10.0, vol: 450 },
+      { no: 5, gol: 'A5', nama: 'BUMD SPAM / PDAM Penyelenggara Air Minum', kriteriaText: 'Air tanah kualitas baik, ada sumber air alternatif', kriteria: 'A', kel: 5, tarif: 2.0, vol: 5000 },
+
+      { no: 6, gol: 'B1', nama: 'Industri Air Minum dalam Kemasan / Pabrik Es', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 1, tarif: 10.0, vol: 95 },
+      { no: 7, gol: 'B2', nama: 'Hotel Bintang 3, 4, 5 (Risiko Tinggi)', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 2, tarif: 10.0, vol: 2500 },
+      { no: 8, gol: 'B3', nama: 'Pabrik Kimia / Manufaktur (Risiko Menengah)', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 3, tarif: 10.0, vol: 800 },
+      { no: 9, gol: 'B4', nama: 'Hotel Bintang 1 dan 2 (Risiko Rendah)', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 4, tarif: 10.0, vol: 200 },
+      { no: 10, gol: 'B5', nama: 'BUMD SPAM / PDAM Penyelenggara Air Minum', kriteriaText: 'Air tanah kualitas baik, tidak ada sumber air alternatif', kriteria: 'B', kel: 5, tarif: 2.0, vol: 4500 },
+
+      { no: 11, gol: 'C1', nama: 'Industri Air Minum / Pengolahan Air Baku', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 1, tarif: 10.0, vol: 600 },
+      { no: 12, gol: 'C2', nama: 'Pabrik Makanan Olahan / Kimia (Risiko Tinggi)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 2, tarif: 10.0, vol: 1800 },
+      { no: 13, gol: 'C3', nama: 'Pabrik Makanan Olahan (Risiko Menengah)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 3, tarif: 10.0, vol: 350 },
+      { no: 14, gol: 'C4', nama: 'Carwash (Risiko Rendah)', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 4, tarif: 10.0, vol: 120 },
+      { no: 15, gol: 'C5', nama: 'BUMD SPAM / Layanan Publik Sosial-Pemerintah', kriteriaText: 'Air tanah kualitas tidak baik, ada sumber air alternatif', kriteria: 'C', kel: 5, tarif: 2.0, vol: 3500 },
+
+      { no: 16, gol: 'D1', nama: 'Industri Minuman Olahan', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 1, tarif: 10.0, vol: 400 },
+      { no: 17, gol: 'D2', nama: 'Agro Industri / Perkebunan (Risiko Tinggi)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 2, tarif: 10.0, vol: 2200 },
+      { no: 18, gol: 'D3', nama: 'Hotel Bintang / Agro Industri (Risiko Menengah)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 3, tarif: 10.0, vol: 750 },
+      { no: 19, gol: 'D4', nama: 'Agro Industri (Risiko Rendah)', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 4, tarif: 10.0, vol: 90 },
+      { no: 20, gol: 'D5', nama: 'BUMD SPAM / Fasilitas Sosial & Kesehatan', kriteriaText: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', kriteria: 'D', kel: 5, tarif: 2.0, vol: 3000 },
+    ];
+
+    let rows20Golongan = JSON.parse(JSON.stringify(DATA_20_GOLONGAN));
+
     // Default Sample Data across Sulbar Regencies
     const SAMPLE_WP_DATA = [
       { id: '1', kab: 'Polewali Mandar', nama: 'PT. Artavia (Pabrik / Carwash Besar)', kriteria: 'A', kel: 2, vol: 25779.26, tarif: 10 },
@@ -681,7 +926,96 @@
       return Number(val || 0).toLocaleString('id-ID', { minimumFractionDigits: dec, maximumFractionDigits: dec });
     }
 
-    // Initialize or Load from LocalStorage
+    // ========================================================
+    // 1. ENGINE KALKULATOR SIMULASI VOLUME (BAGIAN ATAS)
+    // ========================================================
+    function handleCalcKelompokChange() {
+      const kel = parseInt(document.getElementById('calc-kelompok').value);
+      const tarifInput = document.getElementById('calc-tarif');
+      if (kel === 5 && tarifInput.value == '10') {
+        tarifInput.value = '2';
+      } else if (kel !== 5 && tarifInput.value == '2') {
+        tarifInput.value = '10';
+      }
+      runVolumeCalculator();
+    }
+
+    function setCalcVolume(volVal) {
+      document.getElementById('calc-volume').value = volVal;
+      runVolumeCalculator();
+    }
+
+    function runVolumeCalculator() {
+      const kriteria = document.getElementById('calc-kriteria').value;
+      const kel = parseInt(document.getElementById('calc-kelompok').value);
+      const tarif = parseFloat(document.getElementById('calc-tarif').value) || 0;
+      const vol = parseFloat(document.getElementById('calc-volume').value) || 0;
+
+      const gol = kriteria + kel;
+      document.getElementById('calc-golongan-badge').textContent = gol;
+
+      const bobotList = BAT_COEFFICIENTS[gol] || BAT_COEFFICIENTS['B3'];
+      const blocks = calculateBlocks(vol);
+
+      const labels = [
+        'Blok 1 (0 – 50 m³)',
+        'Blok 2 (51 – 500 m³)',
+        'Blok 3 (501 – 1.000 m³)',
+        'Blok 4 (1.001 – 2.500 m³)',
+        'Blok 5 (> 2.500 m³)'
+      ];
+
+      let tbodyHtml = '';
+      let totalNPA = 0;
+      let totalVol = 0;
+
+      for (let i = 0; i < 5; i++) {
+        const vBlock = blocks[i];
+        const bobotVal = bobotList[i];
+        const npaTarifPerM3 = Math.round(bobotVal * HAB);
+        const npaBlock = vBlock * npaTarifPerM3;
+        totalNPA += npaBlock;
+        totalVol += vBlock;
+
+        tbodyHtml += `
+          <tr class="${vBlock > 0 ? 'bg-blue-50/30' : 'text-slate-400'}">
+            <td class="px-3.5 py-2 text-center font-bold text-slate-700">${labels[i]}</td>
+            <td class="px-3.5 py-2 text-right font-extrabold text-slate-900">${formatNumber(vBlock, 2)}</td>
+            <td class="px-3.5 py-2 text-right font-mono text-slate-700">${formatNumber(bobotVal, 2)}</td>
+            <td class="px-3.5 py-2 text-right font-mono text-slate-700 font-semibold">${formatRp(npaTarifPerM3)}</td>
+            <td class="px-3.5 py-2 text-right font-extrabold text-blue-950">${formatRp(npaBlock)}</td>
+          </tr>
+        `;
+      }
+
+      document.getElementById('calc-breakdown-body').innerHTML = tbodyHtml;
+      document.getElementById('calc-total-vol').textContent = formatNumber(totalVol, 2) + ' m³';
+      document.getElementById('calc-total-npa').textContent = formatRp(totalNPA);
+
+      const tax = totalNPA * (tarif / 100);
+      document.getElementById('calc-tax-output').textContent = formatRp(tax);
+      document.getElementById('calc-tax-formula').textContent = `(Total NPA × ${tarif.toFixed(1)}%)`;
+
+      const avgNpa = vol > 0 ? totalNPA / vol : 0;
+      document.getElementById('calc-avg-npa').textContent = 'Rp ' + formatNumber(avgNpa, 2) + ' / m³';
+    }
+
+    function applyCalcToForm() {
+      document.getElementById('input-kriteria').value = document.getElementById('calc-kriteria').value;
+      document.getElementById('input-kelompok').value = document.getElementById('calc-kelompok').value;
+      document.getElementById('input-volume').value = document.getElementById('calc-volume').value;
+      document.getElementById('input-tarif').value = document.getElementById('calc-tarif').value;
+      updateGolonganBadge();
+      previewCalculation();
+
+      // Scroll to form smoothly
+      document.getElementById('section-form-wp').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showToast('Nilai kriteria, kelompok, volume, dan tarif telah disalin ke formulir Wajib Pajak.');
+    }
+
+    // ========================================================
+    // 2. ENGINE DATABASE WAJIB PAJAK SE-SULBAR
+    // ========================================================
     function initDatabase() {
       const saved = localStorage.getItem('SIPAT_DB_2026');
       if (saved) {
@@ -700,7 +1034,6 @@
       localStorage.setItem('SIPAT_DB_2026', JSON.stringify(databaseWP));
     }
 
-    // Form Event Handlers
     function handleKriteriaChange() {
       updateGolonganBadge();
       previewCalculation();
@@ -708,7 +1041,6 @@
 
     function handleKelompokChange() {
       const kel = parseInt(document.getElementById('input-kelompok').value);
-      // Auto recommend 2% tax rate if Kelompok 5 (SPAM / PDAM / Sosial)
       const tarifInput = document.getElementById('input-tarif');
       if (kel === 5 && tarifInput.value == '10') {
         tarifInput.value = '2';
@@ -759,13 +1091,11 @@
       }
 
       if (editId) {
-        // Edit Existing Row
         const index = databaseWP.findIndex(wp => wp.id === editId);
         if (index !== -1) {
           databaseWP[index] = { id: editId, kab, nama, kriteria, kel, vol, tarif };
         }
       } else {
-        // Add New Row
         const newId = Date.now().toString();
         databaseWP.unshift({ id: newId, kab, nama, kriteria, kel, vol, tarif });
       }
@@ -775,7 +1105,6 @@
       cancelEdit();
       resetForm();
 
-      // Show temporary notification / alert
       showToast(editId ? 'Data Wajib Pajak berhasil diperbarui!' : 'Wajib Pajak berhasil ditambahkan ke daftar!');
     }
 
@@ -794,15 +1123,13 @@
       updateGolonganBadge();
       previewCalculation();
 
-      // UI changes for Edit Mode
       document.getElementById('form-title').textContent = 'Edit Data Wajib Pajak';
       document.getElementById('btn-submit-text').textContent = 'Simpan Perubahan';
       document.getElementById('btn-submit-form').classList.replace('bg-blue-600', 'bg-amber-600');
       document.getElementById('btn-submit-form').classList.replace('hover:bg-blue-700', 'hover:bg-amber-700');
       document.getElementById('btn-cancel-edit').classList.remove('hidden');
 
-      // Scroll to form smoothly
-      document.getElementById('wp-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('section-form-wp').scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     function cancelEdit() {
@@ -850,12 +1177,10 @@
       showToast('Data riil 6 Kabupaten se-Sulbar berhasil dimuat!');
     }
 
-    // Apply Filter & Search
     function applyFilters() {
       renderSIPATTable();
     }
 
-    // Render Master SIPAT Table
     function renderSIPATTable() {
       const selectedKab = document.getElementById('filter-kabupaten').value;
       const searchWord = document.getElementById('filter-search').value.toLowerCase().trim();
@@ -950,7 +1275,7 @@
 
       tbody.innerHTML = html;
 
-      // Render Grand Total Footer
+      // Grand Total Footer
       document.getElementById('sipat-table-footer').innerHTML = `
         <tr>
           <td colspan="4" class="px-4 py-3 text-left font-extrabold text-slate-900 border-r border-slate-300">
@@ -979,7 +1304,86 @@
       document.getElementById('kpi-total-pajak').textContent = formatRp(totalPajak);
     }
 
-    // Export to Excel (.xlsx) using SheetJS
+    // ========================================================
+    // 3. TAB 2: TABEL SIMULASI 20 GOLONGAN (A1 S/D D5)
+    // ========================================================
+    function renderTable20() {
+      const tbody = document.getElementById('table20-body');
+      let html = '';
+
+      let grandVol = 0, grandB1 = 0, grandB2 = 0, grandB3 = 0, grandB4 = 0, grandB5 = 0;
+      let grandNPA = 0, grandTax = 0;
+
+      rows20Golongan.forEach((r, idx) => {
+        const bobot = BAT_COEFFICIENTS[r.gol];
+        const blocks = calculateBlocks(r.vol);
+        const npas = blocks.map((b, i) => b * bobot[i] * HAB);
+        const totalNpa = npas.reduce((a, b) => a + b, 0);
+        const tax = totalNpa * (r.tarif / 100);
+
+        grandVol += r.vol;
+        grandB1 += blocks[0]; grandB2 += blocks[1]; grandB3 += blocks[2]; grandB4 += blocks[3]; grandB5 += blocks[4];
+        grandNPA += totalNpa;
+        grandTax += tax;
+
+        html += `
+          <tr class="hover:bg-blue-50/40 transition">
+            <td class="px-3 py-2 text-center text-slate-400 font-semibold border-r border-slate-100">${r.no}</td>
+            <td class="px-3 py-2 text-center font-extrabold text-blue-900 bg-blue-50/40 border-r border-slate-200">${r.gol}</td>
+            <td class="px-4 py-2 font-semibold text-slate-800 border-r border-slate-100">${r.nama}</td>
+            <td class="px-4 py-2 text-slate-600 border-r border-slate-100">${r.kriteriaText}</td>
+            <td class="px-3 py-2 text-center font-bold text-slate-700 border-r border-slate-100">${r.kel}</td>
+            <td class="px-2 py-1 text-center bg-amber-50/40 border-r border-slate-200">
+              <input type="number" step="0.5" min="0" max="100" value="${r.tarif}" onchange="updateRow20Tarif(${idx}, this.value)" class="w-16 text-center text-xs font-bold text-amber-900 bg-amber-50 border border-amber-300 rounded px-1.5 py-1 focus:ring-1 focus:ring-amber-500 focus:outline-none">
+            </td>
+            <td class="px-2 py-1 text-right bg-amber-50/40 border-r border-slate-200">
+              <input type="number" min="0" value="${r.vol}" onchange="updateRow20Volume(${idx}, this.value)" class="w-24 text-right text-xs font-extrabold text-blue-900 bg-amber-50 border border-amber-300 rounded px-2 py-1 focus:ring-1 focus:ring-blue-500 focus:outline-none">
+            </td>
+            <td class="px-3 py-2 text-right border-r border-slate-100 text-slate-700 font-mono">${formatNumber(blocks[0], 2)}</td>
+            <td class="px-3 py-2 text-right border-r border-slate-100 text-slate-700 font-mono">${formatNumber(blocks[1], 2)}</td>
+            <td class="px-3 py-2 text-right border-r border-slate-100 text-slate-700 font-mono">${formatNumber(blocks[2], 2)}</td>
+            <td class="px-3 py-2 text-right border-r border-slate-100 text-slate-700 font-mono">${formatNumber(blocks[3], 2)}</td>
+            <td class="px-3 py-2 text-right border-r border-slate-100 text-slate-700 font-mono">${formatNumber(blocks[4], 2)}</td>
+            <td class="px-4 py-2 text-right font-bold text-slate-900 bg-emerald-50/30 border-r border-slate-200">${formatRp(totalNpa)}</td>
+            <td class="px-4 py-2 text-right font-extrabold text-emerald-700 bg-emerald-50/50">${formatRp(tax)}</td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+
+      document.getElementById('table20-footer').innerHTML = `
+        <td colspan="6" class="px-4 py-3 text-left font-bold text-slate-800 border-r border-slate-300">TOTAL KESELURUHAN (20 GOLONGAN)</td>
+        <td class="px-3 py-3 text-right text-blue-900 border-r border-slate-300 font-extrabold">${formatNumber(grandVol, 2)}</td>
+        <td class="px-3 py-3 text-right border-r border-slate-300 font-mono">${formatNumber(grandB1, 2)}</td>
+        <td class="px-3 py-3 text-right border-r border-slate-300 font-mono">${formatNumber(grandB2, 2)}</td>
+        <td class="px-3 py-3 text-right border-r border-slate-300 font-mono">${formatNumber(grandB3, 2)}</td>
+        <td class="px-3 py-3 text-right border-r border-slate-300 font-mono">${formatNumber(grandB4, 2)}</td>
+        <td class="px-3 py-3 text-right border-r border-slate-300 font-mono">${formatNumber(grandB5, 2)}</td>
+        <td class="px-4 py-3 text-right text-emerald-950 border-r border-slate-300 font-extrabold">${formatRp(grandNPA)}</td>
+        <td class="px-4 py-3 text-right text-emerald-800 bg-emerald-100/60 font-extrabold">${formatRp(grandTax)}</td>
+      `;
+    }
+
+    function updateRow20Tarif(idx, val) {
+      rows20Golongan[idx].tarif = parseFloat(val) || 0;
+      renderTable20();
+    }
+
+    function updateRow20Volume(idx, val) {
+      rows20Golongan[idx].vol = parseFloat(val) || 0;
+      renderTable20();
+    }
+
+    function resetTable20Defaults() {
+      rows20Golongan = JSON.parse(JSON.stringify(DATA_20_GOLONGAN));
+      renderTable20();
+      showToast('Nilai 20 Golongan telah dikembalikan ke default.');
+    }
+
+    // ========================================================
+    // 4. EXCEL EXPORT VIA SHEETJS
+    // ========================================================
     function downloadExcel() {
       const selectedKab = document.getElementById('filter-kabupaten').value;
       const filtered = databaseWP.filter(wp => (selectedKab === 'SEMUA') || (wp.kab === selectedKab));
@@ -989,17 +1393,13 @@
         return;
       }
 
-      // Build Excel Data Rows
       const rows = [];
-      
-      // Title Headers
       rows.push(['SIPAT - SIMULASI & REKAPITULASI NILAI PEROLEHAN AIR TANAH (NPA) DAN PAJAK AIR TANAH']);
       rows.push(['Provinsi Sulawesi Barat - Peraturan Gubernur Nomor 3 Tahun 2025']);
       rows.push([`Wilayah: ${selectedKab === 'SEMUA' ? 'Seluruh Kabupaten se-Sulawesi Barat' : 'Kabupaten ' + selectedKab}`]);
       rows.push([`Tanggal Unduh: ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}`]);
-      rows.push([]); // blank
+      rows.push([]);
 
-      // Column Headers
       rows.push([
         'No',
         'Kabupaten',
@@ -1053,7 +1453,6 @@
         ]);
       });
 
-      // Total Row
       rows.push([
         'TOTAL',
         '',
@@ -1073,8 +1472,6 @@
       ]);
 
       const ws = XLSX.utils.aoa_to_sheet(rows);
-
-      // Set column widths
       ws['!cols'] = [
         { wch: 5 },  // No
         { wch: 22 }, // Kab
@@ -1097,7 +1494,6 @@
       const sheetName = selectedKab === 'SEMUA' ? 'SIPAT Se-Sulbar' : selectedKab.substring(0, 31);
       XLSX.utils.book_append_sheet(wb, ws, sheetName);
 
-      // Write file
       const fileName = `SIPAT_Pajak_Air_Tanah_${selectedKab.replace(/\s+/g, '_')}_2026.xlsx`;
       XLSX.writeFile(wb, fileName);
       showToast(`File ${fileName} berhasil diunduh!`);
@@ -1136,6 +1532,7 @@
         activeBtn.classList.add('bg-blue-50', 'text-blue-700', 'border', 'border-blue-200');
       }
 
+      if (tabId === 'tab-simulasi20') renderTable20();
       if (tabId === 'tab-lampiran') renderLampiranTab();
       if (tabId === 'tab-matriks') renderMatrixTab();
     }
@@ -1236,6 +1633,7 @@
     // Window Load
     window.onload = function() {
       initDatabase();
+      runVolumeCalculator();
       updateGolonganBadge();
       previewCalculation();
       renderSIPATTable();
