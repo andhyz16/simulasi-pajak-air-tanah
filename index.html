@@ -71,6 +71,10 @@
 
         <!-- Global Action Buttons -->
         <div class="flex items-center gap-2.5 self-start md:self-auto no-print">
+          <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" onchange="handleExcelImport(event)" class="hidden">
+          <button onclick="document.getElementById('excel-file-input').click()" title="Impor Data dari Excel (.xlsx)" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-md hover:shadow-lg transition flex items-center gap-2">
+            <i class="fa-solid fa-file-arrow-up text-sm"></i> Import Excel (.xlsx)
+          </button>
           <button onclick="downloadExcel()" title="Download Laporan Excel (.xlsx)" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md hover:shadow-lg transition flex items-center gap-2">
             <i class="fa-solid fa-file-excel text-sm"></i> Download Excel (.xlsx)
           </button>
@@ -506,7 +510,10 @@
               <input type="text" id="filter-search" oninput="applyFilters()" placeholder="Cari nama WP / bulan..." class="text-xs bg-slate-50 border border-slate-300 rounded-xl pl-8 pr-3 py-1.5 w-44 sm:w-52 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
-            <!-- Download Button -->
+            <!-- Import & Export Buttons -->
+            <button onclick="document.getElementById('excel-file-input').click()" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow transition flex items-center gap-1.5">
+              <i class="fa-solid fa-file-arrow-up"></i> Import Excel
+            </button>
             <button onclick="downloadExcel()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow transition flex items-center gap-1.5">
               <i class="fa-solid fa-file-excel"></i> Export Excel
             </button>
@@ -553,9 +560,12 @@
             <i class="fa-solid fa-folder-open"></i>
           </div>
           <p class="font-bold text-slate-700 text-base">Belum Ada Data Wajib Pajak</p>
-          <p class="text-xs text-slate-500 max-w-sm mx-auto mt-1">
-            Silakan masukkan data Wajib Pajak baru melalui formulir di atas untuk memulai simulasi & rekapitulasi.
+          <p class="text-xs text-slate-500 max-w-sm mx-auto mt-1 mb-3">
+            Silakan masukkan data Wajib Pajak baru melalui formulir di atas, atau impor kembali file Excel yang telah Anda unduh sebelumnya.
           </p>
+          <button onclick="document.getElementById('excel-file-input').click()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow transition inline-flex items-center gap-2">
+            <i class="fa-solid fa-file-arrow-up"></i> Impor File Excel (.xlsx)
+          </button>
         </div>
 
       </div>
@@ -1320,6 +1330,160 @@
       const fileName = `SIPAT_Pajak_Air_Tanah_${selectedKab.replace(/\s+/g, '_')}_2026.xlsx`;
       XLSX.writeFile(wb, fileName);
       showToast(`File ${fileName} berhasil diunduh!`);
+    }
+
+    // ========================================================
+    // 4. IMPORT FILE EXCEL (.xlsx / .xls / .csv)
+    // ========================================================
+    function handleExcelImport(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+
+          if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
+            alert('File Excel kosong atau lembar kerja tidak ditemukan.');
+            return;
+          }
+
+          // Gunakan lembar kerja pertama
+          const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+          const sheetData = XLSX.utils.sheet_to_json(firstSheet, { header: 1, defval: '' });
+
+          if (!sheetData || sheetData.length === 0) {
+            alert('File Excel tidak memuat data.');
+            return;
+          }
+
+          // Cari baris header yang memuat kolom utama
+          let headerRowIndex = -1;
+          for (let i = 0; i < Math.min(sheetData.length, 20); i++) {
+            const rowStr = sheetData[i].map(c => String(c).toLowerCase().trim()).join(' ');
+            if (rowStr.includes('wajib pajak') || (rowStr.includes('kabupaten') && rowStr.includes('volume'))) {
+              headerRowIndex = i;
+              break;
+            }
+          }
+
+          if (headerRowIndex === -1) {
+            alert('Format file Excel tidak sesuai. Pastikan file memiliki baris judul kolom: Kabupaten, Nama Wajib Pajak, dan Volume.');
+            return;
+          }
+
+          const headerRow = sheetData[headerRowIndex].map(c => String(c).toLowerCase().trim());
+
+          // Petakan indeks kolom secara dinamis
+          const colKab = headerRow.findIndex(h => h.includes('kabupaten'));
+          const colBulan = headerRow.findIndex(h => h.includes('bulan'));
+          const colNama = headerRow.findIndex(h => h.includes('nama') || h.includes('wajib pajak') || h.includes('usaha'));
+          const colGol = headerRow.findIndex(h => h === 'gol' || h.includes('golongan'));
+          const colKrit = headerRow.findIndex(h => h.includes('kriteria'));
+          const colKel = headerRow.findIndex(h => h.includes('kelompok'));
+          const colTarif = headerRow.findIndex(h => h.includes('tarif'));
+          const colVol = headerRow.findIndex(h => h.includes('total volume') || h.includes('volume (m³)') || h.includes('volume'));
+
+          const importedList = [];
+
+          for (let r = headerRowIndex + 1; r < sheetData.length; r++) {
+            const row = sheetData[r];
+            if (!row || row.length === 0) continue;
+
+            const firstCol = String(row[0] || '').trim().toUpperCase();
+            if (firstCol.startsWith('TOTAL')) continue; // Lewati baris total
+
+            const nama = colNama !== -1 ? String(row[colNama] || '').trim() : '';
+            if (!nama || nama.toUpperCase().startsWith('TOTAL')) continue;
+
+            const kab = colKab !== -1 && row[colKab] ? String(row[colKab]).trim() : 'Polewali Mandar';
+            const bulan = colBulan !== -1 && row[colBulan] ? String(row[colBulan]).trim() : 'Januari';
+
+            // Ekstraksi Golongan, Kriteria, dan Kelompok
+            let gol = colGol !== -1 ? String(row[colGol] || '').trim().toUpperCase() : '';
+            let kriteria = 'B';
+            let kel = 3;
+
+            if (gol && gol.length >= 2 && ['A', 'B', 'C', 'D'].includes(gol[0])) {
+              kriteria = gol[0];
+              const kNum = parseInt(gol[1]);
+              if (kNum >= 1 && kNum <= 5) kel = kNum;
+            } else {
+              if (colKrit !== -1) {
+                const kStr = String(row[colKrit] || '').toUpperCase();
+                if (kStr.includes('KRITERIA A') || (kStr.includes('BAIK') && kStr.includes('ADA SUMBER'))) kriteria = 'A';
+                else if (kStr.includes('KRITERIA B') || (kStr.includes('BAIK') && kStr.includes('TIDAK ADA'))) kriteria = 'B';
+                else if (kStr.includes('KRITERIA C') || (kStr.includes('TIDAK BAIK') && kStr.includes('ADA SUMBER'))) kriteria = 'C';
+                else if (kStr.includes('KRITERIA D') || (kStr.includes('TIDAK BAIK') && kStr.includes('TIDAK ADA'))) kriteria = 'D';
+              }
+              if (colKel !== -1) {
+                const kelStr = String(row[colKel] || '');
+                const m = kelStr.match(/\d/);
+                if (m) kel = parseInt(m[0]);
+              }
+            }
+
+            // Volume (m3)
+            let vol = 0;
+            if (colVol !== -1) {
+              const vRaw = typeof row[colVol] === 'number' ? row[colVol] : parseFloat(String(row[colVol]).replace(/[^0-9.,]/g, '').replace(',', '.'));
+              vol = isNaN(vRaw) ? 0 : vRaw;
+            }
+
+            // % Tarif
+            let tarif = 10;
+            if (colTarif !== -1) {
+              const tRaw = typeof row[colTarif] === 'number' ? row[colTarif] : parseFloat(String(row[colTarif]).replace(/[^0-9.,]/g, '').replace(',', '.'));
+              if (!isNaN(tRaw)) {
+                tarif = (tRaw <= 1 && tRaw > 0) ? (tRaw * 100) : tRaw;
+              }
+            }
+
+            importedList.push({
+              id: Date.now().toString() + '_' + Math.random().toString(36).substr(2, 6),
+              kab,
+              bulan,
+              nama,
+              kriteria,
+              kel,
+              vol,
+              tarif
+            });
+          }
+
+          if (importedList.length === 0) {
+            alert('Tidak ditemukan baris data Wajib Pajak yang valid di file Excel ini.');
+            return;
+          }
+
+          // Konfirmasi penggabungan jika database sudah memiliki data
+          if (databaseWP.length > 0) {
+            const confirmed = confirm(
+              `Ditemukan ${importedList.length} data Wajib Pajak dari file Excel.\n\n` +
+              `Klik 'OK' untuk MENGGABUNGKAN data baru ke daftar yang sudah ada.\n` +
+              `Klik 'Cancel / Batal' untuk membatalkan.`
+            );
+            if (!confirmed) return;
+            databaseWP = databaseWP.concat(importedList);
+          } else {
+            databaseWP = importedList;
+          }
+
+          saveDatabase();
+          renderSIPATTable();
+          showToast(`Berhasil memuat ${importedList.length} data Wajib Pajak dari Excel!`);
+
+        } catch (err) {
+          console.error(err);
+          alert('Gagal memproses file Excel: ' + err.message);
+        } finally {
+          event.target.value = '';
+        }
+      };
+
+      reader.readAsArrayBuffer(file);
     }
 
     // Toast Notification Banner
