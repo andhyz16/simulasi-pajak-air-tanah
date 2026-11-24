@@ -137,13 +137,13 @@
           <div class="lg:col-span-5 space-y-4 bg-slate-50/80 p-5 rounded-2xl border border-slate-200">
             <div>
               <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                Kriteria Sumber Daya Alam (SDA)
+                Kriteria Sumber Daya Alam
               </label>
               <select id="calc-kriteria" onchange="runVolumeCalculator()" class="w-full text-xs sm:text-sm font-semibold bg-white border border-slate-300 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
-                <option value="A">Kriteria A - Kualitas Baik, Ada Alternatif (60% S = 9,6)</option>
-                <option value="B" selected>Kriteria B - Kualitas Baik, Tidak Ada Alternatif (60% S = 5,4)</option>
-                <option value="C">Kriteria C - Kualitas Tidak Baik, Ada Alternatif (60% S = 2,4)</option>
-                <option value="D">Kriteria D - Kualitas Tidak Baik, Tidak Ada Alternatif (60% S = 0,6)</option>
+                <option value="A">Kriteria A - Kualitas Baik, Ada Sumber Alternatif</option>
+                <option value="B" selected>Kriteria B - Kualitas Baik, Tidak Ada Sumber Alternatif</option>
+                <option value="C">Kriteria C - Kualitas Tidak Baik, Ada Sumber Alternatif</option>
+                <option value="D">Kriteria D - Kualitas Tidak Baik, Tidak Ada Sumber Alternatif</option>
               </select>
             </div>
 
@@ -153,11 +153,11 @@
                   Kelompok Pengguna
                 </label>
                 <select id="calc-kelompok" onchange="handleCalcKelompokChange()" class="w-full text-xs sm:text-sm font-semibold bg-white border border-slate-300 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
-                  <option value="1">1 - Produk Berupa Air (AMDK/Es)</option>
-                  <option value="2">2 - Risiko Tinggi (Carwash Besar/Hotel 3-5)</option>
-                  <option value="3" selected>3 - Risiko Menengah (Resto/Hotel 1-2)</option>
-                  <option value="4">4 - Risiko Rendah (Usaha Kecil/Ruko)</option>
-                  <option value="5">5 - BUMD SPAM / PDAM / Sosial</option>
+                  <option value="1">Kelompok 1: Produk Berupa Air</option>
+                  <option value="2">Kelompok 2: Risiko Tinggi</option>
+                  <option value="3" selected>Kelompok 3: Risiko Menengah</option>
+                  <option value="4">Kelompok 4: Risiko Rendah</option>
+                  <option value="5">Kelompok 5: BUMD SPAM / PDAM / Sosial</option>
                 </select>
               </div>
 
@@ -308,7 +308,7 @@
       </div>
 
       <!-- ========================================================= -->
-      <!-- BAGIAN 3: FORM INPUT WAJIB PAJAK (DINAMIS & BERSIH) -->
+      <!-- BAGIAN 3: FORM INPUT WAJIB PAJAK (DILENGKAPI BULAN PENARIKAN) -->
       <!-- ========================================================= -->
       <div id="section-form-wp" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden no-print">
         <div class="bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-950 px-6 py-4 text-white flex flex-wrap items-center justify-between gap-3">
@@ -318,12 +318,12 @@
             </div>
             <div>
               <h2 id="form-title" class="font-bold text-base sm:text-lg">Input Data Wajib Pajak Baru</h2>
-              <p class="text-xs text-blue-200">Isi nama wajib pajak secara manual, pilih kriteria & kelompok untuk disimpan ke rekapitulasi</p>
+              <p class="text-xs text-blue-200">Isi kabupaten, bulan penarikan, nama usaha, kriteria & kelompok untuk disimpan ke rekapitulasi</p>
             </div>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-xs bg-blue-400/20 border border-blue-400/40 px-2.5 py-1 rounded-md font-semibold text-blue-200">
-              Formulir Bersih
+              Formulir Terpadu
             </span>
           </div>
         </div>
@@ -348,67 +348,88 @@
               </select>
             </div>
 
-            <!-- 2. Nama Wajib Pajak (Diisi Manual) -->
-            <div class="md:col-span-5">
+            <!-- 2. Bulan Penarikan (BARU DITAMBAHKAN) -->
+            <div class="md:col-span-3">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Bulan Penarikan <span class="text-rose-500">*</span>
+              </label>
+              <select id="input-bulan" required class="w-full text-xs sm:text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
+                <option value="Januari">Januari</option>
+                <option value="Februari">Februari</option>
+                <option value="Maret">Maret</option>
+                <option value="April">April</option>
+                <option value="Mei">Mei</option>
+                <option value="Juni">Juni</option>
+                <option value="Juli">Juli</option>
+                <option value="Agustus">Agustus</option>
+                <option value="September">September</option>
+                <option value="Oktober">Oktober</option>
+                <option value="November">November</option>
+                <option value="Desember">Desember</option>
+              </select>
+            </div>
+
+            <!-- 3. Nama Wajib Pajak (Diisi Manual) -->
+            <div class="md:col-span-6">
               <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                 Nama Wajib Pajak / Usaha <span class="text-rose-500">*</span>
               </label>
               <input type="text" id="input-nama-wp" required placeholder="Contoh: Artavia / Grand Maleo Hotel / Resto Cilacap / CV. Berkah" class="w-full text-xs sm:text-sm font-medium bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
             </div>
 
-            <!-- 3. Volume Pemakaian (m3) -->
-            <div class="md:col-span-2">
+            <!-- 4. Kriteria Sumber Daya Alam (Tanpa teks kurung) -->
+            <div class="md:col-span-5">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Kriteria Sumber Daya Alam <span class="text-rose-500">*</span>
+              </label>
+              <select id="input-kriteria" required onchange="handleKriteriaChange()" class="w-full text-xs sm:text-sm font-medium bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
+                <option value="A">Kriteria A - Kualitas Baik, Ada Sumber Alternatif</option>
+                <option value="B" selected>Kriteria B - Kualitas Baik, Tidak Ada Sumber Alternatif</option>
+                <option value="C">Kriteria C - Kualitas Tidak Baik, Ada Sumber Alternatif</option>
+                <option value="D">Kriteria D - Kualitas Tidak Baik, Tidak Ada Sumber Alternatif</option>
+              </select>
+            </div>
+
+            <!-- 5. Kelompok Pengguna (Tanpa teks kurung) -->
+            <div class="md:col-span-4">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Kelompok Pengguna <span class="text-rose-500">*</span>
+              </label>
+              <select id="input-kelompok" required onchange="handleKelompokChange()" class="w-full text-xs sm:text-sm font-medium bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
+                <option value="1">Kelompok 1: Produk Berupa Air</option>
+                <option value="2">Kelompok 2: Risiko Tinggi</option>
+                <option value="3" selected>Kelompok 3: Risiko Menengah</option>
+                <option value="4">Kelompok 4: Risiko Rendah</option>
+                <option value="5">Kelompok 5: BUMD SPAM / PDAM / Sosial</option>
+              </select>
+            </div>
+
+            <!-- 6. Golongan Otomatis Badge -->
+            <div class="md:col-span-3 flex flex-col justify-end">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 text-center">
+                Golongan Terbentuk
+              </label>
+              <div id="badge-golongan" class="w-full py-2 bg-gradient-to-r from-blue-700 to-indigo-800 text-white font-extrabold text-base text-center rounded-xl shadow-inner border border-blue-500">
+                B3
+              </div>
+            </div>
+
+            <!-- 7. Volume Pemakaian (m3) -->
+            <div class="md:col-span-6">
               <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                 Volume Air (m³) <span class="text-rose-500">*</span>
               </label>
               <input type="number" id="input-volume" step="any" min="0" required placeholder="0" oninput="previewCalculation()" class="w-full text-xs sm:text-sm font-bold text-blue-900 bg-amber-50/70 border border-amber-300 rounded-xl px-3 py-2.5 text-right focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 transition shadow-sm">
             </div>
 
-            <!-- 4. % Tarif Pajak -->
-            <div class="md:col-span-2">
+            <!-- 8. % Tarif Pajak -->
+            <div class="md:col-span-6">
               <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                 % Tarif Pajak <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
                 <input type="number" id="input-tarif" step="0.5" min="0" max="100" value="10" required oninput="previewCalculation()" class="w-full text-xs sm:text-sm font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 pr-7 text-right focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
                 <span class="absolute right-2.5 top-2.5 text-xs font-bold text-slate-400">%</span>
-              </div>
-            </div>
-
-            <!-- 5. Kriteria Sumber Daya Alam (Dropdown A-D) -->
-            <div class="md:col-span-6">
-              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                Kriteria Sumber Daya Alam (SDA) <span class="text-rose-500">*</span>
-              </label>
-              <select id="input-kriteria" required onchange="handleKriteriaChange()" class="w-full text-xs sm:text-sm font-medium bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
-                <option value="A">Kriteria A - Kualitas Baik, Ada Sumber Alternatif (60% S = 9,6)</option>
-                <option value="B" selected>Kriteria B - Kualitas Baik, Tidak Ada Sumber Alternatif (60% S = 5,4)</option>
-                <option value="C">Kriteria C - Kualitas Tidak Baik, Ada Sumber Alternatif (60% S = 2,4)</option>
-                <option value="D">Kriteria D - Kualitas Tidak Baik, Tidak Ada Sumber Alternatif (60% S = 0,6)</option>
-              </select>
-            </div>
-
-            <!-- 6. Kelompok Pengguna (Dropdown 1-5) -->
-            <div class="md:col-span-4">
-              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                Kelompok Pengguna Usaha <span class="text-rose-500">*</span>
-              </label>
-              <select id="input-kelompok" required onchange="handleKelompokChange()" class="w-full text-xs sm:text-sm font-medium bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
-                <option value="1">Kelompok 1: Produk Berupa Air (AMDK / Es / Depot)</option>
-                <option value="2">Kelompok 2: Risiko Tinggi (Carwash Besar / Kimia / Hotel 3-5)</option>
-                <option value="3" selected>Kelompok 3: Risiko Menengah (Restoran / Hotel 1-2 / Olahan)</option>
-                <option value="4">Kelompok 4: Risiko Rendah (Usaha Kecil / Agro / Ruko / Toko)</option>
-                <option value="5">Kelompok 5: BUMD SPAM / PDAM / Sosial-Pemerintah</option>
-              </select>
-            </div>
-
-            <!-- 7. Golongan Otomatis Badge -->
-            <div class="md:col-span-2 flex flex-col justify-end">
-              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 text-center">
-                Golongan Terbentuk
-              </label>
-              <div id="badge-golongan" class="w-full py-2 bg-gradient-to-r from-blue-700 to-indigo-800 text-white font-extrabold text-base text-center rounded-xl shadow-inner border border-blue-500">
-                B3
               </div>
             </div>
 
@@ -463,7 +484,7 @@
             </p>
           </div>
 
-          <!-- Controls: Filter Kabupaten & Search -->
+          <!-- Controls: Filter Kabupaten, Search & Download Excel (Tanpa Tombol Kosongkan Tabel) -->
           <div class="flex flex-wrap items-center gap-2.5 no-print">
             <!-- Filter Kabupaten -->
             <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-300 text-xs">
@@ -482,17 +503,12 @@
             <!-- Search -->
             <div class="relative">
               <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
-              <input type="text" id="filter-search" oninput="applyFilters()" placeholder="Cari nama WP..." class="text-xs bg-slate-50 border border-slate-300 rounded-xl pl-8 pr-3 py-1.5 w-44 sm:w-52 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <input type="text" id="filter-search" oninput="applyFilters()" placeholder="Cari nama WP / bulan..." class="text-xs bg-slate-50 border border-slate-300 rounded-xl pl-8 pr-3 py-1.5 w-44 sm:w-52 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <!-- Download Button -->
-            <button onclick="downloadExcel()" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow transition flex items-center gap-1.5">
+            <button onclick="downloadExcel()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow transition flex items-center gap-1.5">
               <i class="fa-solid fa-file-excel"></i> Export Excel
-            </button>
-
-            <!-- Reset All -->
-            <button onclick="clearAllData()" title="Kosongkan seluruh data tabel" class="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 text-xs font-bold transition">
-              <i class="fa-solid fa-trash-can"></i>
             </button>
           </div>
         </div>
@@ -504,9 +520,10 @@
               <tr>
                 <th class="px-3 py-3 text-center border-r border-slate-800">No</th>
                 <th class="px-3 py-3 border-r border-slate-800">Kabupaten</th>
-                <th class="px-4 py-3 border-r border-slate-800 min-w-[200px]">Nama Wajib Pajak</th>
-                <th class="px-4 py-3 border-r border-slate-800 min-w-[240px] bg-blue-950">
-                  Klasifikasi (Golongan, Kriteria & Kelompok)
+                <th class="px-3 py-3 border-r border-slate-800 bg-slate-800">Bulan Penarikan</th>
+                <th class="px-4 py-3 border-r border-slate-800 min-w-[180px]">Nama Wajib Pajak</th>
+                <th class="px-4 py-3 border-r border-slate-800 min-w-[220px] bg-blue-950">
+                  Klasifikasi (Golongan & Kelompok)
                 </th>
                 <th class="px-3 py-3 text-right border-r border-slate-800 bg-amber-950/60 min-w-[100px]">Volume (m³)</th>
                 <th class="px-3 py-3 text-right border-r border-slate-800 bg-blue-900/60">0 - 50 m³</th>
@@ -697,15 +714,15 @@
             </div>
             <div class="p-3 grid grid-cols-1 sm:grid-cols-4 gap-2">
               <span class="font-bold text-blue-900">Kelompok 2</span>
-              <span class="sm:col-span-3 text-slate-700">Produk bukan air, <strong>Risiko Tinggi</strong>: Carwash risiko tinggi, industri kimia, manufaktur tekstil, hotel bintang 3, 4, 5.</span>
+              <span class="sm:col-span-3 text-slate-700">Produk bukan air, Risiko Tinggi: Carwash risiko tinggi, industri kimia, manufaktur tekstil, hotel bintang 3, 4, 5.</span>
             </div>
             <div class="p-3 grid grid-cols-1 sm:grid-cols-4 gap-2">
               <span class="font-bold text-blue-900">Kelompok 3</span>
-              <span class="sm:col-span-3 text-slate-700">Produk bukan air, <strong>Risiko Menengah</strong>: Carwash risiko menengah, restoran/rumah makan, hotel bintang 1-2, pabrik makanan olahan, pertokoan besar.</span>
+              <span class="sm:col-span-3 text-slate-700">Produk bukan air, Risiko Menengah: Carwash risiko menengah, restoran/rumah makan, hotel bintang 1-2, pabrik makanan olahan, pertokoan besar.</span>
             </div>
             <div class="p-3 grid grid-cols-1 sm:grid-cols-4 gap-2">
               <span class="font-bold text-blue-900">Kelompok 4</span>
-              <span class="sm:col-span-3 text-slate-700">Produk bukan air, <strong>Risiko Rendah</strong>: Carwash risiko rendah, usaha mikro & kecil, agro industri kecil, ruko.</span>
+              <span class="sm:col-span-3 text-slate-700">Produk bukan air, Risiko Rendah: Carwash risiko rendah, usaha mikro & kecil, agro industri kecil, ruko.</span>
             </div>
             <div class="p-3 grid grid-cols-1 sm:grid-cols-4 gap-2">
               <span class="font-bold text-blue-900">Kelompok 5</span>
@@ -737,28 +754,28 @@
 
     // BAT Matrix & Formulas based on Pergub Sulbar No. 3/2025
     const BAT_COEFFICIENTS = {
-      // Kriteria A: SDA 60% = 9.60
+      // Kriteria A
       'A1': [13.20, 15.00, 17.70, 21.752, 27.824],
       'A2': [12.40, 13.80, 15.90, 19.052, 23.776],
       'A3': [11.60, 12.60, 14.10, 16.352, 19.724],
       'A4': [10.80, 11.40, 12.30, 13.652, 15.676],
       'A5': [10.00, 10.20, 10.50, 10.952, 11.624],
 
-      // Kriteria B: SDA 60% = 5.40
+      // Kriteria B
       'B1': [9.00, 10.80, 13.50, 17.552, 23.624],
       'B2': [8.20, 9.60, 11.70, 14.852, 19.576],
       'B3': [7.40, 8.40, 9.90, 12.152, 15.524],
       'B4': [6.60, 7.20, 8.10, 9.452, 11.476],
       'B5': [5.80, 6.00, 6.30, 6.752, 7.424],
 
-      // Kriteria C: SDA 60% = 2.40
+      // Kriteria C
       'C1': [6.00, 7.80, 10.50, 14.552, 20.624],
       'C2': [5.20, 6.60, 8.70, 11.852, 16.576],
       'C3': [4.40, 5.40, 6.90, 9.152, 12.524],
       'C4': [3.60, 4.20, 5.10, 6.452, 8.476],
       'C5': [2.80, 3.00, 3.30, 3.752, 4.424],
 
-      // Kriteria D: SDA 60% = 0.60
+      // Kriteria D
       'D1': [4.20, 6.00, 8.70, 12.752, 18.824],
       'D2': [3.40, 4.80, 6.90, 10.052, 14.776],
       'D3': [2.60, 3.60, 5.10, 7.352, 10.724],
@@ -766,22 +783,24 @@
       'D5': [1.00, 1.20, 1.50, 1.952, 2.624]
     };
 
+    // Deskripsi bersih tanpa tanda kurung
     const KRITERIA_INFO = {
-      'A': { text: 'Air tanah kualitas baik, ada sumber air alternatif', sda60: 9.60 },
-      'B': { text: 'Air tanah kualitas baik, tidak ada sumber air alternatif', sda60: 5.40 },
-      'C': { text: 'Air tanah kualitas tidak baik, ada sumber air alternatif', sda60: 2.40 },
-      'D': { text: 'Air tanah kualitas tidak baik, tidak ada sumber air alternatif', sda60: 0.60 }
+      'A': { text: 'Kualitas Baik, Ada Sumber Alternatif', sda60: 9.60 },
+      'B': { text: 'Kualitas Baik, Tidak Ada Sumber Alternatif', sda60: 5.40 },
+      'C': { text: 'Kualitas Tidak Baik, Ada Sumber Alternatif', sda60: 2.40 },
+      'D': { text: 'Kualitas Tidak Baik, Tidak Ada Sumber Alternatif', sda60: 0.60 }
     };
 
+    // Deskripsi bersih tanpa tanda kurung
     const KELOMPOK_INFO = {
-      1: 'Kelompok 1: Produk Berupa Air (AMDK / Es / Depot)',
-      2: 'Kelompok 2: Risiko Tinggi (Carwash Besar / Kimia / Hotel 3-5)',
-      3: 'Kelompok 3: Risiko Menengah (Restoran / Hotel 1-2 / Olahan)',
-      4: 'Kelompok 4: Risiko Rendah (Usaha Kecil / Agro / Ruko)',
+      1: 'Kelompok 1: Produk Berupa Air',
+      2: 'Kelompok 2: Risiko Tinggi',
+      3: 'Kelompok 3: Risiko Menengah',
+      4: 'Kelompok 4: Risiko Rendah',
       5: 'Kelompok 5: BUMD SPAM / PDAM / Sosial'
     };
 
-    // Database State - Selalu Bersih Tanpa Data Contoh
+    // Database State
     let databaseWP = [];
 
     // Progressive Block Calculation (0-50, 51-500, 501-1000, 1001-2500, >2500)
@@ -886,7 +905,6 @@
       updateGolonganBadge();
       previewCalculation();
 
-      // Scroll to form smoothly
       document.getElementById('section-form-wp').scrollIntoView({ behavior: 'smooth', block: 'center' });
       showToast('Nilai kriteria, kelompok, volume, dan tarif telah disalin ke formulir Wajib Pajak.');
     }
@@ -895,17 +913,17 @@
     // 2. ENGINE DATABASE WAJIB PAJAK SE-SULBAR (BERSIH)
     // ========================================================
     function initDatabase() {
-      // Gunakan storage bersih khusus agar tidak tercampur data lama
-      const isClean = localStorage.getItem('SIPAT_CLEAN_V4');
+      const isClean = localStorage.getItem('SIPAT_CLEAN_V5');
       if (!isClean) {
         localStorage.removeItem('SIPAT_DB_2026');
-        localStorage.setItem('SIPAT_CLEAN_V4', 'true');
+        localStorage.removeItem('SIPAT_DB_BERSIH');
+        localStorage.setItem('SIPAT_CLEAN_V5', 'true');
         databaseWP = [];
         saveDatabase();
         return;
       }
 
-      const saved = localStorage.getItem('SIPAT_DB_BERSIH');
+      const saved = localStorage.getItem('SIPAT_DB_BERSIH_V5');
       if (saved) {
         try {
           databaseWP = JSON.parse(saved);
@@ -918,7 +936,7 @@
     }
 
     function saveDatabase() {
-      localStorage.setItem('SIPAT_DB_BERSIH', JSON.stringify(databaseWP));
+      localStorage.setItem('SIPAT_DB_BERSIH_V5', JSON.stringify(databaseWP));
     }
 
     function handleKriteriaChange() {
@@ -966,6 +984,7 @@
       e.preventDefault();
       const editId = document.getElementById('edit-id').value;
       const kab = document.getElementById('input-kabupaten').value;
+      const bulan = document.getElementById('input-bulan').value;
       const nama = document.getElementById('input-nama-wp').value.trim();
       const kriteria = document.getElementById('input-kriteria').value;
       const kel = parseInt(document.getElementById('input-kelompok').value);
@@ -980,11 +999,11 @@
       if (editId) {
         const index = databaseWP.findIndex(wp => wp.id === editId);
         if (index !== -1) {
-          databaseWP[index] = { id: editId, kab, nama, kriteria, kel, vol, tarif };
+          databaseWP[index] = { id: editId, kab, bulan, nama, kriteria, kel, vol, tarif };
         }
       } else {
         const newId = Date.now().toString();
-        databaseWP.unshift({ id: newId, kab, nama, kriteria, kel, vol, tarif });
+        databaseWP.unshift({ id: newId, kab, bulan, nama, kriteria, kel, vol, tarif });
       }
 
       saveDatabase();
@@ -1001,6 +1020,7 @@
 
       document.getElementById('edit-id').value = item.id;
       document.getElementById('input-kabupaten').value = item.kab;
+      document.getElementById('input-bulan').value = item.bulan || 'Januari';
       document.getElementById('input-nama-wp').value = item.nama;
       document.getElementById('input-kriteria').value = item.kriteria;
       document.getElementById('input-kelompok').value = item.kel;
@@ -1030,6 +1050,7 @@
 
     function resetForm() {
       document.getElementById('input-nama-wp').value = '';
+      document.getElementById('input-bulan').value = 'Januari';
       document.getElementById('input-volume').value = '';
       document.getElementById('input-tarif').value = '10';
       document.getElementById('input-kriteria').value = 'B';
@@ -1039,19 +1060,11 @@
     }
 
     function deleteWP(id) {
-      if (!confirm('Apakah Anda yakin ingin menghapus Wajib Pajak ini dari simulasi?')) return;
+      if (!confirm('Apakah Anda yakin ingin menghapus Wajib Pajak ini dari rekapitulasi?')) return;
       databaseWP = databaseWP.filter(wp => wp.id !== id);
       saveDatabase();
       renderSIPATTable();
       showToast('Wajib Pajak telah dihapus.');
-    }
-
-    function clearAllData() {
-      if (!confirm('PERHATIAN: Apakah Anda yakin ingin mengosongkan seluruh data Wajib Pajak di tabel ini?')) return;
-      databaseWP = [];
-      saveDatabase();
-      renderSIPATTable();
-      showToast('Seluruh data tabel telah dikosongkan.');
     }
 
     function applyFilters() {
@@ -1066,6 +1079,7 @@
         const matchKab = (selectedKab === 'SEMUA') || (wp.kab === selectedKab);
         const matchSearch = (!searchWord) || 
           wp.nama.toLowerCase().includes(searchWord) || 
+          (wp.bulan && wp.bulan.toLowerCase().includes(searchWord)) ||
           wp.kab.toLowerCase().includes(searchWord) || 
           (wp.kriteria + wp.kel).toLowerCase().includes(searchWord);
         return matchKab && matchSearch;
@@ -1115,6 +1129,11 @@
                 <i class="fa-solid fa-location-dot text-slate-400"></i> ${wp.kab}
               </span>
             </td>
+            <td class="px-3 py-2.5 font-bold text-blue-900 border-r border-slate-100">
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 text-[11px] font-bold">
+                <i class="fa-regular fa-calendar-days text-blue-500"></i> ${wp.bulan || 'Januari'}
+              </span>
+            </td>
             <td class="px-4 py-2.5 font-bold text-slate-900 border-r border-slate-100">
               ${wp.nama}
             </td>
@@ -1155,7 +1174,7 @@
       // Grand Total Footer
       document.getElementById('sipat-table-footer').innerHTML = `
         <tr>
-          <td colspan="4" class="px-4 py-3 text-left font-extrabold text-slate-900 border-r border-slate-300">
+          <td colspan="5" class="px-4 py-3 text-left font-extrabold text-slate-900 border-r border-slate-300">
             TOTAL KESELURUHAN (${filtered.length} WAJIB PAJAK)
           </td>
           <td class="px-3 py-3 text-right text-blue-900 border-r border-slate-300 font-extrabold">${formatNumber(grandVol, 2)}</td>
@@ -1182,7 +1201,7 @@
     }
 
     // ========================================================
-    // 3. EXCEL EXPORT VIA SHEETJS
+    // 3. EXCEL EXPORT VIA SHEETJS (TERMASUK BULAN PENARIKAN)
     // ========================================================
     function downloadExcel() {
       const selectedKab = document.getElementById('filter-kabupaten').value;
@@ -1203,6 +1222,7 @@
       rows.push([
         'No',
         'Kabupaten',
+        'Bulan Penarikan',
         'Nama Wajib Pajak',
         'Golongan',
         'Kriteria Sumber Daya Alam',
@@ -1237,6 +1257,7 @@
         rows.push([
           i + 1,
           wp.kab,
+          wp.bulan || 'Januari',
           wp.nama,
           gol,
           KRITERIA_INFO[wp.kriteria].text,
@@ -1255,6 +1276,7 @@
 
       rows.push([
         'TOTAL',
+        '',
         '',
         `Total ${filtered.length} Wajib Pajak`,
         '',
@@ -1275,6 +1297,7 @@
       ws['!cols'] = [
         { wch: 5 },  // No
         { wch: 22 }, // Kab
+        { wch: 16 }, // Bulan
         { wch: 32 }, // Nama
         { wch: 10 }, // Gol
         { wch: 36 }, // Kriteria
