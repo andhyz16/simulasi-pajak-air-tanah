@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIPAT - Simulasi Pajak Air Tanah Sulawesi Barat (Pergub No. 3/2025)</title>
+  <title>SIMA UWAI Litaq - Simulasi Perhitungan Pajak Air Tanah</title>
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -58,13 +58,12 @@
             <i class="fa-solid fa-water"></i>
           </div>
           <div>
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-white">SIPAT</span>
-              <span class="text-xs sm:text-sm font-semibold text-blue-200">| Simulasi Pajak Air Tanah</span>
-              <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Pergub Sulbar No. 3/2025</span>
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-white">SIMA UWAI Litaq</span>
+              <span class="text-xs sm:text-sm font-semibold text-blue-200">(Simulasi Perhitungan Pajak Air Tanah)</span>
             </div>
             <p class="text-xs text-slate-300 mt-0.5">
-              Simulasi Volume, Nilai Perolehan Air Tanah (NPA) Progresif 5 Blok & Rekapitulasi se-Sulawesi Barat
+              Simulasi Volume, Nilai Perolehan Air Tanah (NPA)
             </p>
           </div>
         </div>
@@ -849,7 +848,7 @@
   <!-- FOOTER -->
   <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 mt-auto no-print">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <span><strong>SIPAT</strong> &copy; 2026 - Aplikasi Simulasi Pajak Air Tanah Provinsi Sulawesi Barat</span>
+      <span><strong>SIMA UWAI Litaq</strong> &copy; 2026 - Aplikasi Simulasi Perhitungan Pajak Air Tanah</span>
       <span class="font-medium text-slate-600">Peraturan Gubernur Sulawesi Barat Nomor 3 Tahun 2025</span>
     </div>
   </footer>
@@ -1333,7 +1332,7 @@
       }
 
       const rows = [];
-      rows.push(['SIPAT - SIMULASI & REKAPITULASI NILAI PEROLEHAN AIR TANAH (NPA) DAN PAJAK AIR TANAH']);
+      rows.push(['SIMA UWAI Litaq - SIMULASI PERHITUNGAN PAJAK AIR TANAH']);
       rows.push(['Provinsi Sulawesi Barat - Peraturan Gubernur Nomor 3 Tahun 2025']);
       rows.push([`Wilayah: ${selectedKab === 'SEMUA' ? 'Seluruh Kabupaten se-Sulawesi Barat' : 'Kabupaten ' + selectedKab}`]);
       rows.push([`Tanggal Unduh: ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}`]);
@@ -1438,10 +1437,10 @@
       ];
 
       const wb = XLSX.utils.book_new();
-      const sheetName = selectedKab === 'SEMUA' ? 'SIPAT Se-Sulbar' : selectedKab.substring(0, 31);
+      const sheetName = selectedKab === 'SEMUA' ? 'SIMA UWAI Litaq' : selectedKab.substring(0, 31);
       XLSX.utils.book_append_sheet(wb, ws, sheetName);
 
-      const fileName = `SIPAT_Pajak_Air_Tanah_${selectedKab.replace(/\s+/g, '_')}_2026.xlsx`;
+      const fileName = `SIMA_UWAI_Litaq_Pajak_Air_Tanah_${selectedKab.replace(/\s+/g, '_')}_2026.xlsx`;
       XLSX.writeFile(wb, fileName);
       showToast(`File ${fileName} berhasil diunduh!`);
     }
