@@ -187,7 +187,7 @@
                     % Tarif Pajak (Manual)
                   </label>
                   <div class="relative">
-                    <input type="number" id="calc-tarif" step="0.5" min="0" max="100" value="10" oninput="runVolumeCalculator()" class="w-full text-xs sm:text-sm font-bold bg-white border border-slate-300 rounded-xl px-3 py-2.5 pr-7 text-right focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+                    <input type="number" id="calc-tarif" step="0.5" min="0" max="100" value="" placeholder="0" oninput="runVolumeCalculator()" class="w-full text-xs sm:text-sm font-bold bg-white border border-slate-300 rounded-xl px-3 py-2.5 pr-7 text-right focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
                     <span class="absolute right-2.5 top-2.5 text-xs font-bold text-slate-400">%</span>
                   </div>
                 </div>
@@ -539,7 +539,7 @@
                 % Tarif Pajak <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
-                <input type="number" id="input-tarif" step="0.5" min="0" max="100" value="10" required oninput="previewCalculation()" class="w-full text-xs sm:text-sm font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 pr-7 text-right focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
+                <input type="number" id="input-tarif" step="0.5" min="0" max="100" value="" placeholder="0" required oninput="previewCalculation()" class="w-full text-xs sm:text-sm font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 pr-7 text-right focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
                 <span class="absolute right-2.5 top-2.5 text-xs font-bold text-slate-400">%</span>
               </div>
             </div>
@@ -979,13 +979,6 @@
     // 1. ENGINE KALKULATOR SIMULASI VOLUME (BAGIAN ATAS)
     // ========================================================
     function handleCalcKelompokChange() {
-      const kel = parseInt(document.getElementById('calc-kelompok').value);
-      const tarifInput = document.getElementById('calc-tarif');
-      if (kel === 5 && tarifInput.value == '10') {
-        tarifInput.value = '2';
-      } else if (kel !== 5 && tarifInput.value == '2') {
-        tarifInput.value = '10';
-      }
       runVolumeCalculator();
     }
 
@@ -1177,13 +1170,6 @@
     }
 
     function handleKelompokChange() {
-      const kel = parseInt(document.getElementById('input-kelompok').value);
-      const tarifInput = document.getElementById('input-tarif');
-      if (kel === 5 && tarifInput.value == '10') {
-        tarifInput.value = '2';
-      } else if (kel !== 5 && tarifInput.value == '2') {
-        tarifInput.value = '10';
-      }
       updateGolonganBadge();
       previewCalculation();
     }
