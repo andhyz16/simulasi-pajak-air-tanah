@@ -97,20 +97,64 @@
       </div>
     </div>
 
-    <!-- NAVIGATION TABS (RATA KANAN KIRI / FULL WIDTH GRID ATAU SCROLL DI HP) -->
+    <!-- NAVIGATION TABS (MENU GARIS TIGA DI TENGAH PADA HP, GRID 4 TAB PADA PC) -->
     <div class="bg-white border-b border-slate-200 shadow-sm no-print">
       <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 py-2 sm:py-2.5">
-        <div class="flex overflow-x-auto no-scrollbar lg:grid lg:grid-cols-4 gap-1.5 sm:gap-3 w-full">
-          <button onclick="switchTab('tab-sipat')" id="btn-tab-sipat" class="tab-btn shrink-0 lg:shrink px-3.5 py-2 sm:py-2.5 font-bold text-xs sm:text-sm rounded-xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center gap-1.5 sm:gap-2 transition shadow-sm text-center whitespace-nowrap">
+        
+        <!-- Pilihan MENU Garis Tiga di Tengah (Khusus Layar HP / Mobile) -->
+        <div class="lg:hidden flex flex-col items-center justify-center relative py-0.5">
+          <button type="button" id="mobile-menu-trigger" onclick="toggleMobileTabMenu(event)" class="flex items-center justify-center gap-2.5 px-4 py-2 rounded-xl bg-blue-50 text-blue-900 border border-blue-200 shadow-sm font-bold text-xs hover:bg-blue-100 transition active:scale-95 cursor-pointer">
+            <i class="fa-solid fa-bars text-blue-600 text-sm"></i>
+            <span class="text-slate-500 font-semibold text-[11px]">MENU:</span>
+            <span id="mobile-active-menu-title" class="text-blue-900 font-extrabold text-xs">Simulasi & Database WP</span>
+            <i id="mobile-menu-chevron" class="fa-solid fa-chevron-down text-blue-500 text-[10px] transition-transform duration-200"></i>
+          </button>
+
+          <!-- Dropdown Pilihan Menu HP -->
+          <div id="mobile-tab-dropdown" class="hidden absolute top-full mt-2 w-72 max-w-[92vw] bg-white rounded-2xl shadow-xl border border-slate-200 py-1.5 z-50 transition-all divide-y divide-slate-100">
+            <button type="button" onclick="selectMobileTab('tab-sipat')" data-tab="tab-sipat" class="mobile-tab-item w-full px-4 py-2.5 text-left text-xs font-bold flex items-center justify-between text-blue-700 bg-blue-50/70 transition">
+              <span class="flex items-center gap-2.5">
+                <i class="fa-solid fa-calculator text-blue-600 w-4 text-center"></i>
+                <span>Simulasi & Database WP</span>
+              </span>
+              <i class="mobile-check fa-solid fa-check text-blue-600 text-xs"></i>
+            </button>
+            <button type="button" onclick="selectMobileTab('tab-lampiran')" data-tab="tab-lampiran" class="mobile-tab-item w-full px-4 py-2.5 text-left text-xs font-bold flex items-center justify-between text-slate-700 hover:bg-slate-50 transition">
+              <span class="flex items-center gap-2.5">
+                <i class="fa-solid fa-file-invoice text-slate-500 w-4 text-center"></i>
+                <span>Lampiran III (NPA)</span>
+              </span>
+              <i class="mobile-check fa-solid fa-check text-transparent text-xs"></i>
+            </button>
+            <button type="button" onclick="selectMobileTab('tab-matriks')" data-tab="tab-matriks" class="mobile-tab-item w-full px-4 py-2.5 text-left text-xs font-bold flex items-center justify-between text-slate-700 hover:bg-slate-50 transition">
+              <span class="flex items-center gap-2.5">
+                <i class="fa-solid fa-table-cells text-slate-500 w-4 text-center"></i>
+                <span>Matriks Bobot BAT</span>
+              </span>
+              <i class="mobile-check fa-solid fa-check text-transparent text-xs"></i>
+            </button>
+            <button type="button" onclick="selectMobileTab('tab-dasarhukum')" data-tab="tab-dasarhukum" class="mobile-tab-item w-full px-4 py-2.5 text-left text-xs font-bold flex items-center justify-between text-slate-700 hover:bg-slate-50 transition">
+              <span class="flex items-center gap-2.5">
+                <i class="fa-solid fa-scale-balanced text-slate-500 w-4 text-center"></i>
+                <span>Dasar Hukum Pergub</span>
+              </span>
+              <i class="mobile-check fa-solid fa-check text-transparent text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Desktop Navigation Tabs (Tetap Grid 4 Kolom di PC / Layar Lebar) -->
+        <div class="hidden lg:grid lg:grid-cols-4 gap-3 w-full">
+          <button onclick="switchTab('tab-sipat')" id="btn-tab-sipat" class="tab-btn px-3.5 py-2.5 font-bold text-xs sm:text-sm rounded-xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center gap-2 transition shadow-sm text-center whitespace-nowrap">
             <i class="fa-solid fa-calculator text-blue-600"></i> <span>Simulasi & Database WP</span>
           </button>
-          <button onclick="switchTab('tab-lampiran')" id="btn-tab-lampiran" class="tab-btn shrink-0 lg:shrink px-3.5 py-2 sm:py-2.5 font-semibold text-xs sm:text-sm rounded-xl text-slate-600 hover:bg-slate-100 flex items-center justify-center gap-1.5 sm:gap-2 transition text-center whitespace-nowrap">
+          <button onclick="switchTab('tab-lampiran')" id="btn-tab-lampiran" class="tab-btn px-3.5 py-2.5 font-semibold text-xs sm:text-sm rounded-xl text-slate-600 hover:bg-slate-100 flex items-center justify-center gap-2 transition text-center whitespace-nowrap">
             <i class="fa-solid fa-file-invoice text-slate-500"></i> <span>Lampiran III (NPA)</span>
           </button>
-          <button onclick="switchTab('tab-matriks')" id="btn-tab-matriks" class="tab-btn shrink-0 lg:shrink px-3.5 py-2 sm:py-2.5 font-semibold text-xs sm:text-sm rounded-xl text-slate-600 hover:bg-slate-100 flex items-center justify-center gap-1.5 sm:gap-2 transition text-center whitespace-nowrap">
+          <button onclick="switchTab('tab-matriks')" id="btn-tab-matriks" class="tab-btn px-3.5 py-2.5 font-semibold text-xs sm:text-sm rounded-xl text-slate-600 hover:bg-slate-100 flex items-center justify-center gap-2 transition text-center whitespace-nowrap">
             <i class="fa-solid fa-table-cells text-slate-500"></i> <span>Matriks Bobot BAT</span>
           </button>
-          <button onclick="switchTab('tab-dasarhukum')" id="btn-tab-dasarhukum" class="tab-btn shrink-0 lg:shrink px-3.5 py-2 sm:py-2.5 font-semibold text-xs sm:text-sm rounded-xl text-slate-600 hover:bg-slate-100 flex items-center justify-center gap-1.5 sm:gap-2 transition text-center whitespace-nowrap">
+          <button onclick="switchTab('tab-dasarhukum')" id="btn-tab-dasarhukum" class="tab-btn px-3.5 py-2.5 font-semibold text-xs sm:text-sm rounded-xl text-slate-600 hover:bg-slate-100 flex items-center justify-center gap-2 transition text-center whitespace-nowrap">
             <i class="fa-solid fa-scale-balanced text-slate-500"></i> <span>Dasar Hukum Pergub</span>
           </button>
         </div>
@@ -1746,6 +1790,51 @@
       }, 3500);
     }
 
+    // Tab Info Dictionary for Mobile & Navigation
+    const TAB_INFO = {
+      'tab-sipat': { title: 'Simulasi & Database WP' },
+      'tab-lampiran': { title: 'Lampiran III (NPA)' },
+      'tab-matriks': { title: 'Matriks Bobot BAT' },
+      'tab-dasarhukum': { title: 'Dasar Hukum Pergub' }
+    };
+
+    // Mobile Hamburger Menu Handlers
+    function toggleMobileTabMenu(event) {
+      if (event) event.stopPropagation();
+      const dropdown = document.getElementById('mobile-tab-dropdown');
+      const chevron = document.getElementById('mobile-menu-chevron');
+      if (!dropdown) return;
+      const isOpen = !dropdown.classList.contains('hidden');
+      if (isOpen) {
+        dropdown.classList.add('hidden');
+        if (chevron) chevron.classList.remove('rotate-180');
+      } else {
+        dropdown.classList.remove('hidden');
+        if (chevron) chevron.classList.add('rotate-180');
+      }
+    }
+
+    function selectMobileTab(tabId) {
+      switchTab(tabId);
+      const dropdown = document.getElementById('mobile-tab-dropdown');
+      const chevron = document.getElementById('mobile-menu-chevron');
+      if (dropdown) dropdown.classList.add('hidden');
+      if (chevron) chevron.classList.remove('rotate-180');
+    }
+
+    // Close mobile dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      const dropdown = document.getElementById('mobile-tab-dropdown');
+      const trigger = document.getElementById('mobile-menu-trigger');
+      if (dropdown && !dropdown.classList.contains('hidden')) {
+        if (trigger && !trigger.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add('hidden');
+          const chevron = document.getElementById('mobile-menu-chevron');
+          if (chevron) chevron.classList.remove('rotate-180');
+        }
+      }
+    });
+
     // Tab Switching
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
@@ -1759,6 +1848,31 @@
       if (activeBtn) {
         activeBtn.classList.remove('text-slate-600');
         activeBtn.classList.add('bg-blue-50', 'text-blue-700', 'border', 'border-blue-200');
+      }
+
+      // Update Mobile Dropdown Title & Active Checkmark
+      if (TAB_INFO[tabId]) {
+        const titleEl = document.getElementById('mobile-active-menu-title');
+        if (titleEl) titleEl.textContent = TAB_INFO[tabId].title;
+
+        document.querySelectorAll('.mobile-tab-item').forEach(item => {
+          const check = item.querySelector('.mobile-check');
+          if (item.getAttribute('data-tab') === tabId) {
+            item.classList.add('text-blue-700', 'bg-blue-50/70');
+            item.classList.remove('text-slate-700');
+            if (check) {
+              check.classList.remove('text-transparent');
+              check.classList.add('text-blue-600');
+            }
+          } else {
+            item.classList.remove('text-blue-700', 'bg-blue-50/70');
+            item.classList.add('text-slate-700');
+            if (check) {
+              check.classList.add('text-transparent');
+              check.classList.remove('text-blue-600');
+            }
+          }
+        });
       }
 
       if (tabId === 'tab-lampiran') renderLampiranTab();
