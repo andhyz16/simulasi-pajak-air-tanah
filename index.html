@@ -243,16 +243,16 @@
                     <th class="px-3.5 py-2.5 text-right bg-blue-950">NPA (Rp)</th>
                   </tr>
                 </thead>
-                <tbody id="calc-breakdown-body" class="divide-y divide-slate-100 font-medium">
+                <tbody id="calc-breakdown-body" class="divide-y divide-slate-100 font-bold">
                   <!-- Rendered via JS -->
                 </tbody>
-                <tfoot class="bg-blue-50/70 font-extrabold border-t-2 border-slate-300 text-slate-900">
+                <tfoot class="bg-slate-100 font-extrabold border-t-2 border-slate-300 text-slate-900">
                   <tr>
-                    <td class="px-3.5 py-2.5 text-center text-blue-900">TOTAL</td>
-                    <td id="calc-total-vol" class="px-3.5 py-2.5 text-right text-blue-900 font-extrabold">95 m³</td>
-                    <td class="px-3.5 py-2.5 text-center text-slate-400 font-normal">-</td>
-                    <td class="px-3.5 py-2.5 text-center text-slate-500 font-medium">HAB = 3.079</td>
-                    <td id="calc-total-npa" class="px-3.5 py-2.5 text-right text-blue-950 font-extrabold">Rp 0</td>
+                    <td class="px-3.5 py-2.5 text-center font-extrabold text-slate-900 whitespace-nowrap">TOTAL</td>
+                    <td id="calc-total-vol" class="px-3.5 py-2.5 text-right font-extrabold text-slate-900 whitespace-nowrap">95 m³</td>
+                    <td class="px-3.5 py-2.5 text-center font-bold text-slate-900 whitespace-nowrap">-</td>
+                    <td class="px-3.5 py-2.5 text-right font-bold text-slate-900 whitespace-nowrap">HAB = 3.079</td>
+                    <td id="calc-total-npa" class="px-3.5 py-2.5 text-right font-extrabold text-slate-900 whitespace-nowrap">Rp 0</td>
                   </tr>
                 </tfoot>
               </table>
@@ -1032,12 +1032,12 @@
         totalVol += vBlock;
 
         tbodyHtml += `
-          <tr class="${vBlock > 0 ? 'bg-blue-50/30' : 'text-slate-400'}">
-            <td class="px-3.5 py-2 text-center font-bold text-slate-700">${labels[i]}</td>
-            <td class="px-3.5 py-2 text-right font-extrabold text-slate-900">${formatNumber(vBlock, 2)}</td>
-            <td class="px-3.5 py-2 text-right font-mono text-slate-700">${formatNumber(bobotVal, 2)}</td>
-            <td class="px-3.5 py-2 text-right font-mono text-slate-700 font-semibold">${formatRp(npaTarifPerM3)}</td>
-            <td class="px-3.5 py-2 text-right font-extrabold text-blue-950">${formatRp(npaBlock)}</td>
+          <tr class="${vBlock > 0 ? 'bg-blue-50/40' : 'bg-white'} hover:bg-slate-50 transition border-b border-slate-100">
+            <td class="px-3.5 py-2 text-center font-bold text-slate-900 whitespace-nowrap">${labels[i]}</td>
+            <td class="px-3.5 py-2 text-right font-bold text-slate-900 whitespace-nowrap">${formatNumber(vBlock, 2)}</td>
+            <td class="px-3.5 py-2 text-right font-bold text-slate-900 whitespace-nowrap">${formatNumber(bobotVal, 2)}</td>
+            <td class="px-3.5 py-2 text-right font-bold text-slate-900 whitespace-nowrap">${formatRp(npaTarifPerM3)}</td>
+            <td class="px-3.5 py-2 text-right font-extrabold text-slate-900 whitespace-nowrap">${formatRp(npaBlock)}</td>
           </tr>
         `;
       }
@@ -1090,11 +1090,11 @@
           if (cells.length === 5) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-              <td class="border border-slate-300 px-3 py-1.5 text-center font-semibold text-slate-800">${cells[0].textContent.trim()}</td>
+              <td class="border border-slate-300 px-3 py-1.5 text-center font-bold text-slate-900">${cells[0].textContent.trim()}</td>
               <td class="border border-slate-300 px-3 py-1.5 text-right font-bold text-slate-900">${cells[1].textContent.trim()}</td>
-              <td class="border border-slate-300 px-3 py-1.5 text-right font-mono text-slate-700">${cells[2].textContent.trim()}</td>
-              <td class="border border-slate-300 px-3 py-1.5 text-right font-mono text-slate-700">${cells[3].textContent.trim()}</td>
-              <td class="border border-slate-300 px-3 py-1.5 text-right font-bold text-slate-900">${cells[4].textContent.trim()}</td>
+              <td class="border border-slate-300 px-3 py-1.5 text-right font-bold text-slate-900">${cells[2].textContent.trim()}</td>
+              <td class="border border-slate-300 px-3 py-1.5 text-right font-bold text-slate-900">${cells[3].textContent.trim()}</td>
+              <td class="border border-slate-300 px-3 py-1.5 text-right font-extrabold text-slate-900">${cells[4].textContent.trim()}</td>
             `;
             printBody.appendChild(tr);
           }
