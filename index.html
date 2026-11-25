@@ -135,13 +135,8 @@
             </div>
             <div>
               <h2 class="font-bold text-base sm:text-lg">Kalkulator Simulasi Volume & Rincian NPA</h2>
-              <p class="text-xs text-blue-200">Ubah volume air atau pilih tombol kubikasi cepat untuk melihat pembagian progresif secara instan</p>
+              <p class="text-xs text-blue-200">Ubah volume air atau parameter untuk melihat rincian perhitungan secara instan</p>
             </div>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-md font-semibold">
-              Standar HAB: Rp 3.079 / m³
-            </span>
           </div>
         </div>
 
@@ -234,13 +229,13 @@
             
             <div class="overflow-x-auto border border-slate-200 rounded-2xl shadow-sm bg-white">
               <table class="w-full text-xs text-left">
-                <thead class="bg-slate-900 text-white font-bold uppercase tracking-wider">
-                  <tr>
-                    <th class="px-3.5 py-2.5 text-center border-r border-slate-800">Tingkat Volume</th>
-                    <th class="px-3.5 py-2.5 text-right border-r border-slate-800">Volume Pengambilan (m³)</th>
-                    <th class="px-3.5 py-2.5 text-right border-r border-slate-800">BAT (Bobot)</th>
-                    <th class="px-3.5 py-2.5 text-right border-r border-slate-800">Tarif NPA (Rp/m³)</th>
-                    <th class="px-3.5 py-2.5 text-right bg-blue-950">NPA (Rp)</th>
+                <thead class="bg-slate-900 text-white font-extrabold uppercase tracking-wider text-xs">
+                  <tr class="divide-x divide-slate-800">
+                    <th class="px-3 py-3 text-center align-middle whitespace-nowrap">Tingkat Volume<br><span class="text-[10px] text-blue-300 font-semibold normal-case">(Rentang)</span></th>
+                    <th class="px-3 py-3 text-center align-middle whitespace-nowrap">Volume Pengambilan<br><span class="text-[10px] text-blue-300 font-semibold normal-case">(m³)</span></th>
+                    <th class="px-3 py-3 text-center align-middle whitespace-nowrap">BAT<br><span class="text-[10px] text-blue-300 font-semibold normal-case">(Bobot)</span></th>
+                    <th class="px-3 py-3 text-center align-middle whitespace-nowrap">Tarif NPA<br><span class="text-[10px] text-blue-300 font-semibold normal-case">(Rp/m³)</span></th>
+                    <th class="px-3 py-3 text-center align-middle whitespace-nowrap">NPA<br><span class="text-[10px] text-blue-300 font-semibold normal-case">(Rp)</span></th>
                   </tr>
                 </thead>
                 <tbody id="calc-breakdown-body" class="divide-y divide-slate-100 font-bold">
@@ -323,12 +318,12 @@
           </h3>
           <table class="w-full text-xs border-collapse border border-slate-400">
             <thead>
-              <tr class="bg-slate-800 text-white font-bold">
-                <th class="border border-slate-400 px-3 py-2 text-center">Tingkat Volume</th>
-                <th class="border border-slate-400 px-3 py-2 text-right">Volume Pengambilan (m³)</th>
-                <th class="border border-slate-400 px-3 py-2 text-right">Bobot BAT</th>
-                <th class="border border-slate-400 px-3 py-2 text-right">Tarif NPA (Rp/m³)</th>
-                <th class="border border-slate-400 px-3 py-2 text-right">NPA (Rp)</th>
+              <tr class="bg-slate-800 text-white font-bold text-xs">
+                <th class="border border-slate-400 px-3 py-2 text-center align-middle whitespace-nowrap">Tingkat Volume<br><span class="text-[10px] font-normal">(Rentang)</span></th>
+                <th class="border border-slate-400 px-3 py-2 text-center align-middle whitespace-nowrap">Volume Pengambilan<br><span class="text-[10px] font-normal">(m³)</span></th>
+                <th class="border border-slate-400 px-3 py-2 text-center align-middle whitespace-nowrap">BAT<br><span class="text-[10px] font-normal">(Bobot)</span></th>
+                <th class="border border-slate-400 px-3 py-2 text-center align-middle whitespace-nowrap">Tarif NPA<br><span class="text-[10px] font-normal">(Rp/m³)</span></th>
+                <th class="border border-slate-400 px-3 py-2 text-center align-middle whitespace-nowrap">NPA<br><span class="text-[10px] font-normal">(Rp)</span></th>
               </tr>
             </thead>
             <tbody id="print-breakdown-body">
