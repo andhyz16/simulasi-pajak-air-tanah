@@ -196,7 +196,7 @@
                   <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                     Volume Pengambilan (m³)
                   </label>
-                  <input type="number" id="calc-volume" step="any" min="0" value="95" oninput="runVolumeCalculator()" class="w-full text-xs sm:text-sm font-extrabold text-blue-900 bg-amber-50 border border-amber-300 rounded-xl px-3 py-2.5 text-right focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm">
+                  <input type="number" id="calc-volume" step="any" min="0" value="" placeholder="0" oninput="runVolumeCalculator()" class="w-full text-xs sm:text-sm font-extrabold text-blue-900 bg-amber-50 border border-amber-300 rounded-xl px-3 py-2.5 text-right focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm">
                 </div>
               </div>
             </div>
@@ -244,7 +244,7 @@
                 <tfoot class="bg-slate-100 font-extrabold border-t-2 border-slate-300 text-slate-900">
                   <tr>
                     <td class="px-3.5 py-2.5 text-center font-extrabold text-slate-900 whitespace-nowrap">TOTAL</td>
-                    <td id="calc-total-vol" class="px-3.5 py-2.5 text-right font-extrabold text-slate-900 whitespace-nowrap">95 m³</td>
+                    <td id="calc-total-vol" class="px-3.5 py-2.5 text-right font-extrabold text-slate-900 whitespace-nowrap">0 m³</td>
                     <td class="px-3.5 py-2.5 text-center font-bold text-slate-900 whitespace-nowrap">-</td>
                     <td class="px-3.5 py-2.5 text-right font-bold text-slate-900 whitespace-nowrap">HAB = 3.079</td>
                     <td id="calc-total-npa" class="px-3.5 py-2.5 text-right font-extrabold text-slate-900 whitespace-nowrap">Rp 0</td>
@@ -1038,7 +1038,7 @@
       }
 
       document.getElementById('calc-breakdown-body').innerHTML = tbodyHtml;
-      document.getElementById('calc-total-vol').textContent = formatNumber(totalVol, 2) + ' m³';
+      document.getElementById('calc-total-vol').textContent = totalVol > 0 ? (formatNumber(totalVol, 2) + ' m³') : '0 m³';
       document.getElementById('calc-total-npa').textContent = formatRp(totalNPA);
 
       const tax = totalNPA * (tarif / 100);
