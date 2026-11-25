@@ -86,6 +86,24 @@
     </div>
   </header>
 
+  <!-- RUNNING TEXT DISCLAIMER (INFORMASI PENTING) -->
+  <div class="bg-red-600 text-white border-y border-red-700 shadow-md overflow-hidden flex items-stretch z-35 relative no-print select-none">
+    <div class="bg-red-800 text-white font-extrabold text-xs px-3.5 py-1.5 flex items-center gap-1.5 shrink-0 z-10 shadow-md uppercase tracking-wider">
+      <i class="fa-solid fa-triangle-exclamation text-amber-300 animate-pulse text-sm"></i>
+      <span class="hidden sm:inline">INFORMASI PENTING</span>
+      <span class="sm:hidden">PENTING</span>
+    </div>
+    <div class="overflow-hidden whitespace-nowrap flex items-center flex-1 py-1.5 bg-red-600">
+      <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();" class="text-xs sm:text-sm font-semibold text-white tracking-wide">
+        <span class="mx-3 font-bold text-amber-200">INFORMASI PENTING :</span> Hasil perhitungan ini hanya perkiraan berdasarkan input pengguna, tidak mengikat secara hukum, dan Dinas ESDM dibebaskan dari tuntutan atas perbedaan angka pada penetapan resmi.
+        <span class="mx-8 text-red-300 font-extrabold">&bull;&bull;&bull;</span>
+        <span class="mx-3 font-bold text-amber-200">INFORMASI PENTING :</span> Hasil perhitungan ini hanya perkiraan berdasarkan input pengguna, tidak mengikat secara hukum, dan Dinas ESDM dibebaskan dari tuntutan atas perbedaan angka pada penetapan resmi.
+        <span class="mx-8 text-red-300 font-extrabold">&bull;&bull;&bull;</span>
+        <span class="mx-3 font-bold text-amber-200">INFORMASI PENTING :</span> Hasil perhitungan ini hanya perkiraan berdasarkan input pengguna, tidak mengikat secara hukum, dan Dinas ESDM dibebaskan dari tuntutan atas perbedaan angka pada penetapan resmi.
+      </marquee>
+    </div>
+  </div>
+
   <!-- NAVIGATION TABS -->
   <div class="bg-white border-b border-slate-200 shadow-sm sticky top-[73px] z-30 no-print">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -338,7 +356,7 @@
           <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
             
             <!-- 1. Kabupaten -->
-            <div class="md:col-span-3">
+            <div class="md:col-span-4">
               <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                 Kabupaten <span class="text-rose-500">*</span>
               </label>
@@ -352,8 +370,8 @@
               </select>
             </div>
 
-            <!-- 2. Bulan Penarikan (BARU DITAMBAHKAN) -->
-            <div class="md:col-span-3">
+            <!-- 2. Bulan Penarikan -->
+            <div class="md:col-span-4">
               <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                 Bulan Penarikan <span class="text-rose-500">*</span>
               </label>
@@ -373,8 +391,19 @@
               </select>
             </div>
 
-            <!-- 3. Nama Wajib Pajak (Diisi Manual) -->
-            <div class="md:col-span-6">
+            <!-- 3. Status Perizinan (Dragdown WP Sudah Berizin / WP Belum Berizin) -->
+            <div class="md:col-span-4">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Status Perizinan <span class="text-rose-500">*</span>
+              </label>
+              <select id="input-izin" required class="w-full text-xs sm:text-sm font-semibold bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm">
+                <option value="WP Belum Berizin" selected>WP Belum Berizin</option>
+                <option value="WP Sudah Berizin">WP Sudah Berizin</option>
+              </select>
+            </div>
+
+            <!-- 4. Nama Wajib Pajak (Diisi Manual) -->
+            <div class="md:col-span-12">
               <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                 Nama Wajib Pajak / Usaha <span class="text-rose-500">*</span>
               </label>
@@ -541,6 +570,7 @@
                 <th class="px-3 py-3 text-center border-r border-slate-800">No</th>
                 <th class="px-3 py-3 border-r border-slate-800">Kabupaten</th>
                 <th class="px-3 py-3 border-r border-slate-800 bg-slate-800">Bulan Penarikan</th>
+                <th class="px-3 py-3 border-r border-slate-800 text-center min-w-[120px] bg-slate-800">Status Izin</th>
                 <th class="px-4 py-3 border-r border-slate-800 min-w-[180px]">Nama Wajib Pajak</th>
                 <th class="px-4 py-3 border-r border-slate-800 min-w-[220px] bg-blue-950">
                   Klasifikasi (Golongan & Kelompok)
@@ -1008,6 +1038,7 @@
       const editId = document.getElementById('edit-id').value;
       const kab = document.getElementById('input-kabupaten').value;
       const bulan = document.getElementById('input-bulan').value;
+      const izin = document.getElementById('input-izin').value;
       const nama = document.getElementById('input-nama-wp').value.trim();
       const kriteria = document.getElementById('input-kriteria').value;
       const kel = parseInt(document.getElementById('input-kelompok').value);
@@ -1022,11 +1053,11 @@
       if (editId) {
         const index = databaseWP.findIndex(wp => wp.id === editId);
         if (index !== -1) {
-          databaseWP[index] = { id: editId, kab, bulan, nama, kriteria, kel, vol, tarif };
+          databaseWP[index] = { id: editId, kab, bulan, izin, nama, kriteria, kel, vol, tarif };
         }
       } else {
         const newId = Date.now().toString();
-        databaseWP.unshift({ id: newId, kab, bulan, nama, kriteria, kel, vol, tarif });
+        databaseWP.unshift({ id: newId, kab, bulan, izin, nama, kriteria, kel, vol, tarif });
       }
 
       saveDatabase();
@@ -1044,6 +1075,7 @@
       document.getElementById('edit-id').value = item.id;
       document.getElementById('input-kabupaten').value = item.kab;
       document.getElementById('input-bulan').value = item.bulan || 'Januari';
+      document.getElementById('input-izin').value = item.izin || 'WP Belum Berizin';
       document.getElementById('input-nama-wp').value = item.nama;
       document.getElementById('input-kriteria').value = item.kriteria;
       document.getElementById('input-kelompok').value = item.kel;
@@ -1074,6 +1106,7 @@
     function resetForm() {
       document.getElementById('input-nama-wp').value = '';
       document.getElementById('input-bulan').value = 'Januari';
+      document.getElementById('input-izin').value = 'WP Belum Berizin';
       document.getElementById('input-volume').value = '';
       document.getElementById('input-tarif').value = '10';
       document.getElementById('input-kriteria').value = 'B';
@@ -1103,6 +1136,7 @@
         const matchSearch = (!searchWord) || 
           wp.nama.toLowerCase().includes(searchWord) || 
           (wp.bulan && wp.bulan.toLowerCase().includes(searchWord)) ||
+          (wp.izin && wp.izin.toLowerCase().includes(searchWord)) ||
           wp.kab.toLowerCase().includes(searchWord) || 
           (wp.kriteria + wp.kel).toLowerCase().includes(searchWord);
         return matchKab && matchSearch;
@@ -1143,6 +1177,10 @@
 
         const kriteriaDesc = KRITERIA_INFO[wp.kriteria].text;
         const kelompokDesc = KELOMPOK_INFO[wp.kel];
+        const isBerizin = (wp.izin === 'WP Sudah Berizin');
+        const izinBadge = isBerizin
+          ? `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold border border-emerald-300 shadow-sm"><i class="fa-solid fa-circle-check text-emerald-600"></i> Sudah Berizin</span>`
+          : `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-extrabold border border-amber-300 shadow-sm"><i class="fa-solid fa-clock text-amber-600"></i> Belum Berizin</span>`;
 
         html += `
           <tr class="hover:bg-blue-50/50 transition">
@@ -1156,6 +1194,9 @@
               <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 text-[11px] font-bold">
                 <i class="fa-regular fa-calendar-days text-blue-500"></i> ${wp.bulan || 'Januari'}
               </span>
+            </td>
+            <td class="px-3 py-2.5 text-center border-r border-slate-100">
+              ${izinBadge}
             </td>
             <td class="px-4 py-2.5 font-bold text-slate-900 border-r border-slate-100">
               ${wp.nama}
@@ -1197,7 +1238,7 @@
       // Grand Total Footer
       document.getElementById('sipat-table-footer').innerHTML = `
         <tr>
-          <td colspan="5" class="px-4 py-3 text-left font-extrabold text-slate-900 border-r border-slate-300">
+          <td colspan="6" class="px-4 py-3 text-left font-extrabold text-slate-900 border-r border-slate-300">
             TOTAL KESELURUHAN (${filtered.length} WAJIB PAJAK)
           </td>
           <td class="px-3 py-3 text-right text-blue-900 border-r border-slate-300 font-extrabold">${formatNumber(grandVol, 2)}</td>
@@ -1246,6 +1287,7 @@
         'No',
         'Kabupaten',
         'Bulan Penarikan',
+        'Status Perizinan',
         'Nama Wajib Pajak',
         'Golongan',
         'Kriteria Sumber Daya Alam',
@@ -1281,6 +1323,7 @@
           i + 1,
           wp.kab,
           wp.bulan || 'Januari',
+          wp.izin || 'WP Belum Berizin',
           wp.nama,
           gol,
           KRITERIA_INFO[wp.kriteria].text,
@@ -1299,6 +1342,7 @@
 
       rows.push([
         'TOTAL',
+        '',
         '',
         '',
         `Total ${filtered.length} Wajib Pajak`,
@@ -1321,6 +1365,7 @@
         { wch: 5 },  // No
         { wch: 22 }, // Kab
         { wch: 16 }, // Bulan
+        { wch: 18 }, // Status Izin
         { wch: 32 }, // Nama
         { wch: 10 }, // Gol
         { wch: 36 }, // Kriteria
@@ -1392,6 +1437,7 @@
           // Petakan indeks kolom secara dinamis
           const colKab = headerRow.findIndex(h => h.includes('kabupaten'));
           const colBulan = headerRow.findIndex(h => h.includes('bulan'));
+          const colIzin = headerRow.findIndex(h => h.includes('izin') || h.includes('status'));
           const colNama = headerRow.findIndex(h => h.includes('nama') || h.includes('wajib pajak') || h.includes('usaha'));
           const colGol = headerRow.findIndex(h => h === 'gol' || h.includes('golongan'));
           const colKrit = headerRow.findIndex(h => h.includes('kriteria'));
@@ -1413,6 +1459,13 @@
 
             const kab = colKab !== -1 && row[colKab] ? String(row[colKab]).trim() : 'Polewali Mandar';
             const bulan = colBulan !== -1 && row[colBulan] ? String(row[colBulan]).trim() : 'Januari';
+            let izin = 'WP Belum Berizin';
+            if (colIzin !== -1) {
+              const iStr = String(row[colIzin] || '').toLowerCase().trim();
+              if (iStr.includes('sudah') || (iStr.includes('berizin') && !iStr.includes('belum'))) {
+                izin = 'WP Sudah Berizin';
+              }
+            }
 
             // Ekstraksi Golongan, Kriteria, dan Kelompok
             let gol = colGol !== -1 ? String(row[colGol] || '').trim().toUpperCase() : '';
@@ -1458,6 +1511,7 @@
               id: Date.now().toString() + '_' + Math.random().toString(36).substr(2, 6),
               kab,
               bulan,
+              izin,
               nama,
               kriteria,
               kel,
