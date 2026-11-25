@@ -125,7 +125,7 @@
     <div id="tab-sipat" class="tab-content space-y-6">
 
       <!-- ========================================================= -->
-      <!-- BAGIAN 1: KALKULATOR SIMULASI VOLUME PROGRESIF (5 BLOK) -->
+      <!-- BAGIAN 1: KALKULATOR SIMULASI VOLUME PROGRESIF -->
       <!-- ========================================================= -->
       <div id="section-kalkulator" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden no-print">
         <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 px-6 py-4 text-white flex flex-wrap items-center justify-between gap-3">
@@ -134,8 +134,8 @@
               <i class="fa-solid fa-sliders"></i>
             </div>
             <div>
-              <h2 class="font-bold text-base sm:text-lg">Kalkulator Simulasi Volume & Rincian Blok NPA</h2>
-              <p class="text-xs text-blue-200">Ubah volume air atau pilih tombol kubikasi cepat untuk melihat pembagian blok progresif secara instan</p>
+              <h2 class="font-bold text-base sm:text-lg">Kalkulator Simulasi Volume & Rincian NPA</h2>
+              <p class="text-xs text-blue-200">Ubah volume air atau pilih tombol kubikasi cepat untuk melihat pembagian progresif secara instan</p>
             </div>
           </div>
           <div class="flex items-center gap-2.5">
@@ -235,11 +235,11 @@
               <table class="w-full text-xs text-left">
                 <thead class="bg-slate-900 text-white font-bold uppercase tracking-wider">
                   <tr>
-                    <th class="px-3.5 py-2.5 text-center border-r border-slate-800">Blok Volume</th>
+                    <th class="px-3.5 py-2.5 text-center border-r border-slate-800">Volume</th>
                     <th class="px-3.5 py-2.5 text-right border-r border-slate-800">Volume (m³)</th>
                     <th class="px-3.5 py-2.5 text-right border-r border-slate-800">BAT (Bobot)</th>
                     <th class="px-3.5 py-2.5 text-right border-r border-slate-800">Tarif NPA (Rp/m³)</th>
-                    <th class="px-3.5 py-2.5 text-right bg-blue-950">NPA Blok (Rp)</th>
+                    <th class="px-3.5 py-2.5 text-right bg-blue-950">NPA (Rp)</th>
                   </tr>
                 </thead>
                 <tbody id="calc-breakdown-body" class="divide-y divide-slate-100 font-medium">
@@ -321,19 +321,19 @@
           </div>
         </div>
 
-        <!-- Tabel Rincian 5 Blok Progresif -->
+        <!-- Tabel Rincian Perhitungan Progresif -->
         <div class="mb-4">
           <h3 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-2">
-            2. Rincian Perhitungan 5 Blok Volume Progresif (NPA)
+            2. Rincian Perhitungan Volume Progresif (NPA)
           </h3>
           <table class="w-full text-xs border-collapse border border-slate-400">
             <thead>
               <tr class="bg-slate-800 text-white font-bold">
-                <th class="border border-slate-400 px-3 py-2 text-center">Blok Volume</th>
+                <th class="border border-slate-400 px-3 py-2 text-center">Volume</th>
                 <th class="border border-slate-400 px-3 py-2 text-right">Volume (m³)</th>
                 <th class="border border-slate-400 px-3 py-2 text-right">Bobot BAT</th>
                 <th class="border border-slate-400 px-3 py-2 text-right">Tarif NPA (Rp/m³)</th>
-                <th class="border border-slate-400 px-3 py-2 text-right">NPA Blok (Rp)</th>
+                <th class="border border-slate-400 px-3 py-2 text-right">NPA (Rp)</th>
               </tr>
             </thead>
             <tbody id="print-breakdown-body">
@@ -568,7 +568,7 @@
               <span id="preview-tax" class="font-extrabold text-emerald-700">Rp 0</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-[11px] text-slate-500 italic">*Nilai dihitung progresif 5 blok sesuai Pergub Sulbar 3/2025</span>
+              <span class="text-[11px] text-slate-500 italic">*Nilai dihitung secara progresif sesuai Pergub Sulbar 3/2025</span>
             </div>
           </div>
 
@@ -1018,11 +1018,11 @@
       const blocks = calculateBlocks(vol);
 
       const labels = [
-        'Blok 1 (0 – 50 m³)',
-        'Blok 2 (51 – 500 m³)',
-        'Blok 3 (501 – 1.000 m³)',
-        'Blok 4 (1.001 – 2.500 m³)',
-        'Blok 5 (> 2.500 m³)'
+        '0 – 50 m³',
+        '51 – 500 m³',
+        '501 – 1.000 m³',
+        '1.001 – 2.500 m³',
+        '> 2.500 m³'
       ];
 
       let tbodyHtml = '';
